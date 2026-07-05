@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Personal Website Design - Handoff</title>
+  <title>Personal Website Implementation - Handoff</title>
   <style>
     :root {
       --bg: #101418;
@@ -150,13 +150,13 @@
   <div class="shell">
     <header class="status">
       <div>
-        <div class="badge">Design Captured</div>
-        <h1>Personal Website Design</h1>
-        <p>Defined an English-first personal site for Wenjun You that uses a minimal magazine style and source-backed case studies to attract hiring opportunities.</p>
+        <div class="badge">Implemented And Verified</div>
+        <h1>Personal Website Implementation</h1>
+        <p>Built the first Next.js version of Wenjun You's English-first personal website with a magazine-style hero, interactive Release Command Center, source-backed cases, and hiring conversion path.</p>
       </div>
       <div class="summary">
-        <p><strong>Main deliverable:</strong> <code>docs/plans/2026-07-05-personal-website-design.md</code></p>
-        <p><strong>Verification:</strong> Context and design files were written and checked in the working tree.</p>
+        <p><strong>Main deliverable:</strong> Next.js app at <code>app/</code>, content model at <code>content/cases.ts</code>, and tests at <code>tests/</code>.</p>
+        <p><strong>Verification:</strong> <code>npm test</code>, <code>npm run lint</code>, <code>npm run build</code>, screenshots, and browser sanity check passed.</p>
         <p><strong>Main risk:</strong> Lark Base Agent and Hermes + Lark CLI cases need screenshots, transcript, commands, or logs before final publication.</p>
       </div>
     </header>
@@ -165,10 +165,10 @@
       <h2>Task Architecture</h2>
       <div class="flow">
         <div class="node user"><strong>User Request</strong><p>Create a cool expert-style personal website that promotes ability and attracts opportunities.</p></div>
-        <div class="node"><strong>Main Agent Plan</strong><p>Run grill-with-docs: question one decision at a time, update glossary terms, inspect real sources, then capture a design.</p></div>
-        <div class="node work"><strong>Work Slices</strong><p>Sequential interview, resume extraction, GitHub repository inspection, getdesign.md reference scan. No subagents used because each answer depended on the previous decision.</p></div>
-        <div class="node"><strong>Evidence</strong><p>Resume PDF, GitHub profile and org repos, getdesign.md references, user-provided Douyin link, project glossary.</p></div>
-        <div class="node done"><strong>Deliverable / Risk</strong><p>Design plan and updated context are ready. Implementation should wait for missing case evidence or clearly label drafts.</p></div>
+        <div class="node"><strong>Main Agent Plan</strong><p>Use TDD at two confirmed seams: browser-level acceptance and content-model validation, then implement vertical slices until the PRD reading path is covered.</p></div>
+        <div class="node work"><strong>Work Slices</strong><p>Main agent implemented tests and app slices. One explorer subagent reviewed acceptance risks and confirmed privacy, evidence, and case-status checks.</p></div>
+        <div class="node"><strong>Evidence</strong><p>Passing unit/e2e tests, ESLint, production build, desktop/mobile screenshots, and Playwright browser sanity result.</p></div>
+        <div class="node done"><strong>Deliverable / Risk</strong><p>First version is locally runnable. Lark/Hermes case proof remains pending but is visibly labelled in the UI.</p></div>
       </div>
     </section>
 
@@ -178,10 +178,10 @@
         <table>
           <thead><tr><th>Requirement</th><th>Status</th><th>Evidence</th></tr></thead>
           <tbody>
-            <tr><td>Personal site for hiring opportunities</td><td>Covered</td><td><code>CONTEXT.md</code> and design plan positioning</td></tr>
-            <tr><td>Cool, expert-level visual identity</td><td>Covered</td><td>Editorial engineering blend: WIRED + Vercel + Claude</td></tr>
-            <tr><td>Use real sources</td><td>Covered</td><td>Resume extracted locally; GitHub and getdesign.md inspected</td></tr>
-            <tr><td>Use Lark/Hermes material</td><td>Partially covered</td><td>Accepted as case direction; needs artifacts for final proof</td></tr>
+            <tr><td>Personal site for hiring opportunities</td><td>Implemented</td><td>Home, resume, contact CTAs, and case pages are live locally</td></tr>
+            <tr><td>Interactive Release Command Center</td><td>Implemented</td><td>Playwright verifies Package Check, Risk Queue, and Handoff Evidence states</td></tr>
+            <tr><td>Evidence honesty and privacy</td><td>Implemented</td><td>Tests verify draft/pending labels and phone number absence</td></tr>
+            <tr><td>Full first-version reading path</td><td>Implemented</td><td>Capability Index, cases, notes, resume strip, contact, and resume route</td></tr>
           </tbody>
         </table>
       </div>
@@ -191,9 +191,11 @@
         <table>
           <thead><tr><th>File</th><th>Change</th></tr></thead>
           <tbody>
-            <tr><td><code>CONTEXT.md</code></td><td>Added domain terms for site positioning, evidence rules, cases, and visual language.</td></tr>
-            <tr><td><code>docs/plans/2026-07-05-personal-website-design.md</code></td><td>Captured the validated product, content, visual, and technical design.</td></tr>
-            <tr><td><code>handoff.html</code></td><td>Created this diagram-first task cockpit.</td></tr>
+            <tr><td><code>app/</code></td><td>Added Next.js App Router pages for home, resume, and case detail routes.</td></tr>
+            <tr><td><code>content/cases.ts</code></td><td>Added structured selected-case data with evidence status values.</td></tr>
+            <tr><td><code>tests/</code></td><td>Added Vitest content-model tests and Playwright browser acceptance tests.</td></tr>
+            <tr><td><code>package.json</code></td><td>Added Next.js, Playwright, Vitest, ESLint scripts and dependencies.</td></tr>
+            <tr><td><code>handoff.html</code></td><td>Updated handoff from design capture to implementation cockpit.</td></tr>
           </tbody>
         </table>
       </div>
@@ -213,10 +215,10 @@
       <div class="panel">
         <h2>Timeline</h2>
         <div class="timeline">
-          <div class="step"><span>Inspect</span><p>Checked repo state, existing context, resume PDF metadata/text, GitHub repos, and getdesign.md references.</p></div>
-          <div class="step"><span>Model</span><p>Updated <code>CONTEXT.md</code> as terms crystallized during the interview.</p></div>
-          <div class="step"><span>Design</span><p>Validated positioning, visual language, cases, structure, stack, and evidence rules.</p></div>
-          <div class="step"><span>Verify</span><p>Confirmed final files exist and will be checked with git status before handoff.</p></div>
+          <div class="step"><span>Red</span><p>Started with failing Playwright and Vitest tests for homepage behavior, case navigation, resume path, privacy, and metadata.</p></div>
+          <div class="step"><span>Green</span><p>Implemented the smallest Next.js pages, CSS, and content model needed to pass each vertical slice.</p></div>
+          <div class="step"><span>Verify</span><p>Ran <code>npm test</code>, <code>npm run lint</code>, <code>npm run build</code>, screenshot checks, and browser sanity check.</p></div>
+          <div class="step"><span>Preview</span><p>Dev server is running at <code>http://127.0.0.1:3000</code> for local inspection.</p></div>
         </div>
       </div>
 
@@ -232,13 +234,28 @@
             <tr><td>Language</td><td>English-first with Chinese support</td></tr>
             <tr><td>Stack</td><td>Next.js + Tailwind + MDX</td></tr>
             <tr><td>Conversion</td><td>Resume + email + GitHub, phone omitted from page copy</td></tr>
+            <tr><td>Test seams</td><td>Browser acceptance and content metadata validation</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel wide">
+        <h2>Verification</h2>
+        <table>
+          <thead><tr><th>Check</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td><code>npm test</code></td><td>Passed: 3 unit assertions and 3 Playwright acceptance tests</td></tr>
+            <tr><td><code>npm run lint</code></td><td>Passed: ESLint completed without findings</td></tr>
+            <tr><td><code>npm run build</code></td><td>Passed: home, resume, and 3 case routes prerendered</td></tr>
+            <tr><td>Browser sanity</td><td>Passed: nonblank page, no Next overlay, no console errors</td></tr>
+            <tr><td>Visual screenshots</td><td>Passed: desktop and mobile screenshots showed readable first viewport without obvious overlap</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="panel risk wide">
         <h2>Residual Risk</h2>
-        <p>The flagship case is strong, but the two Lark/Hermes cases need more proof before public launch. The Douyin URL could not be read in the current browser environment, so it should be supported by a transcript, screenshot, or key-step summary before being used as verified evidence.</p>
+        <p>The first version is functional, but the two Lark/Hermes cases still need proof artifacts before public launch. They are intentionally labelled as pending transcript or draft internal. npm audit reports 2 moderate dependency vulnerabilities; I did not run force fixes because that can introduce breaking dependency changes.</p>
       </div>
     </section>
   </div>
