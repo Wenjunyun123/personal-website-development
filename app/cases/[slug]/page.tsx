@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { CaseDetail } from "../../../components/case-detail";
 import { cases } from "../../../content/cases";
 
 type CasePageProps = {
@@ -32,43 +33,5 @@ export default async function CasePage({ params }: CasePageProps) {
     notFound();
   }
 
-  return (
-    <main className="page-shell">
-      <article className="case-page">
-        <p className="kicker">Project case / {caseStudy.role}</p>
-        <h1>{caseStudy.title}</h1>
-        <div className="case-meta">
-          <span className="badge">{caseStudy.evidenceStatus}</span>
-          {caseStudy.platforms.map((platform) => (
-            <span className="badge" key={platform}>
-              {platform}
-            </span>
-          ))}
-        </div>
-
-        <section className="case-spine" aria-label="Case study spine">
-          <article>
-            <h2>Problem</h2>
-            <p>{caseStudy.problem}</p>
-          </article>
-          <article>
-            <h2>Product decision</h2>
-            <p>{caseStudy.productDecision}</p>
-          </article>
-          <article>
-            <h2>Interface</h2>
-            <p>{caseStudy.interface}</p>
-          </article>
-          <article>
-            <h2>Technical build</h2>
-            <p>{caseStudy.technicalBuild}</p>
-          </article>
-          <article>
-            <h2>Outcome</h2>
-            <p>{caseStudy.outcome}</p>
-          </article>
-        </section>
-      </article>
-    </main>
-  );
+  return <CaseDetail caseStudy={caseStudy} />;
 }

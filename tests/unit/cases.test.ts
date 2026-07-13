@@ -6,9 +6,9 @@ const requiredSpine = ["problem", "productDecision", "interface", "technicalBuil
 describe("selected case set", () => {
   test("contains the three source-backed case records for the first version", () => {
     expect(cases.map((caseStudy) => caseStudy.slug)).toEqual([
-      "adobe-canva-release-command-center",
-      "lark-base-agent-operations",
-      "hermes-lark-cli-automation"
+      "lark-github-cli-delivery-loop",
+      "lark-base-team-agent-commerce-ops",
+      "adobe-canva-release-command-center"
     ]);
   });
 
@@ -25,12 +25,15 @@ describe("selected case set", () => {
     }
   });
 
-  test("labels unfinished Lark and Hermes evidence honestly", () => {
-    expect(cases.find((caseStudy) => caseStudy.slug === "lark-base-agent-operations")?.evidenceStatus).toBe(
-      "user-provided-pending-transcript"
+  test("labels practice evidence honestly", () => {
+    expect(cases.find((caseStudy) => caseStudy.slug === "lark-github-cli-delivery-loop")?.evidenceStatus).toBe(
+      "user-confirmed-practice"
     );
-    expect(cases.find((caseStudy) => caseStudy.slug === "hermes-lark-cli-automation")?.evidenceStatus).toBe(
+    expect(cases.find((caseStudy) => caseStudy.slug === "lark-base-team-agent-commerce-ops")?.evidenceStatus).toBe(
       "draft-internal"
+    );
+    expect(cases.find((caseStudy) => caseStudy.slug === "adobe-canva-release-command-center")?.evidenceStatus).toBe(
+      "resume-supported"
     );
   });
 });
