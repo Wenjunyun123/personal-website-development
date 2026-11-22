@@ -92,6 +92,35 @@ const terminalScript = [
   { text: "$ open wenjun-os.app", kind: "command" }
 ] as const;
 
+const deliverySignalPath = "M 60 580 C 170 580 150 380 250 380 C 360 380 430 580 620 580 C 770 580 790 250 900 250 C 1000 250 1050 220 1120 220";
+const deliverySignalNodes = [
+  { x: 60, y: 580, label: "BRIEF", anchor: "start", dx: 18, dy: 24 },
+  { x: 250, y: 380, label: "BUILD", anchor: "end", dx: -18, dy: -16 },
+  { x: 620, y: 580, label: "EVAL", anchor: "start", dx: 18, dy: 24 },
+  { x: 1120, y: 220, label: "HANDOFF", anchor: "end", dx: -18, dy: -16 }
+] as const;
+
+function DeliverySignal({ className = "", animated = false }: { className?: string; animated?: boolean }) {
+  return (
+    <svg
+      className={`${styles.deliverySignal} ${animated ? styles.deliverySignalAnimated : ""} ${className}`}
+      viewBox="0 0 1200 720"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+    >
+      <path className={styles.signalHalo} d={deliverySignalPath} />
+      <path className={styles.signalLine} d={deliverySignalPath} />
+      {deliverySignalNodes.map((node, index) => (
+        <g className={styles.signalNode} key={node.label} style={{ "--node-delay": `${index * 0.55}s` } as CSSProperties}>
+          <circle className={styles.signalNodeHalo} cx={node.x} cy={node.y} r="17" />
+          <circle className={styles.signalNodeDot} cx={node.x} cy={node.y} r="4.5" />
+          <text className={styles.signalNodeLabel} x={node.x + node.dx} y={node.y + node.dy} textAnchor={node.anchor}>{node.label}</text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 const iconDefinitions: ReadonlyArray<{ id: WindowId; label: string; labelZh: string; action: string }> = [
   { id: "about", label: "about.md", labelZh: "about.md", action: "Open Profile" },
   { id: "fde", label: "fde-delivery", labelZh: "FDE 交付", action: "Open Delivery Threads" },
@@ -106,14 +135,14 @@ const iconDefinitions: ReadonlyArray<{ id: WindowId; label: string; labelZh: str
 
 const initialIconPositions: Record<WindowId, Point> = {
   about: { x: 22, y: 52 },
-  fde: { x: 262, y: 52 },
-  experience: { x: 22, y: 158 },
-  "delivery-loop": { x: 22, y: 264 },
-  "team-agent": { x: 22, y: 370 },
-  "release-matrix": { x: 142, y: 52 },
-  skills: { x: 142, y: 158 },
+  fde: { x: 142, y: 52 },
+  experience: { x: 262, y: 52 },
+  "delivery-loop": { x: 22, y: 158 },
+  "team-agent": { x: 142, y: 158 },
+  "release-matrix": { x: 262, y: 158 },
+  skills: { x: 22, y: 264 },
   resume: { x: 142, y: 264 },
-  github: { x: 142, y: 370 }
+  github: { x: 262, y: 264 }
 };
 
 export function HomeOS({ onLaunchedChange, onIntroReadyChange }: HomeOSProps) {
@@ -286,6 +315,7 @@ export function HomeOS({ onLaunchedChange, onIntroReadyChange }: HomeOSProps) {
   if (!launched) {
     return (
       <section className={styles.intro} aria-label="Wenjun OS 启动终端">
+        <DeliverySignal className={styles.introSignal} animated />
         <div
           className={`${styles.introDevice} ${zooming ? styles.introDeviceLaunching : ""}`}
           role="button"
@@ -299,7 +329,7 @@ export function HomeOS({ onLaunchedChange, onIntroReadyChange }: HomeOSProps) {
             }
           }}
         >
-          <LaptopShell>
+          <ConsoleShell>
             <TerminalIntro
               lineIndex={lineIndex}
               characterIndex={characterIndex}
@@ -307,11 +337,18 @@ export function HomeOS({ onLaunchedChange, onIntroReadyChange }: HomeOSProps) {
               launching={launching}
               progress={launchProgress}
             />
-          </LaptopShell>
+          </ConsoleShell>
           <div className={`${styles.launchWash} ${zooming ? styles.launchWashActive : ""}`} aria-hidden="true" />
         </div>
         <button className={styles.launchCta} type="button" onClick={activateIntro} aria-live="polite">
-          {launching ? `loading wenjun-os · ${Math.round((launchProgress / 12) * 100)}%` : introReady ? "Press Enter to Launch" : "Click to skip typing"}
+          {launching ? (
+            `loading wenjun-os · ${Math.round((launchProgress / 12) * 100)}%`
+          ) : (
+            <>
+              <span className={styles.launchCtaDesktop}>{introReady ? "Press Enter to Launch" : "Click to skip typing"}</span>
+              <span className={styles.launchCtaMobile}>{introReady ? "Tap to Enter" : "Tap to skip typing"}</span>
+            </>
+          )}
         </button>
         <p className={styles.introHint} aria-hidden="true">{introReady ? "↓" : ""}</p>
       </section>
@@ -342,8 +379,8 @@ function TerminalIntro({
   return (
     <div className={styles.terminal} aria-live="polite" aria-label="Wenjun OS terminal output">
       <div className={styles.terminalBar}>
-        <div className={styles.trafficLights} aria-hidden="true"><i /><i /><i /></div>
-        <span>wenjun@delivery-os — zsh</span>
+        <span className={styles.terminalBrand}><i aria-hidden="true" /> WENJUN / DELIVERY OS</span>
+        <span className={styles.terminalMode}>{launching ? "LAUNCH" : ready ? "READY" : "BOOT"}</span>
         <span>UTF-8</span>
       </div>
       <div className={styles.terminalBody}>
@@ -360,25 +397,47 @@ function TerminalIntro({
         })}
         {launching ? (
           <>
-            <div className={styles.terminal_output}>&gt; launching...</div>
+            <div className={styles.terminal_output}>&gt; routing brief → build → eval → handoff...</div>
             <div className={styles.bootProgress} aria-label={`启动进度 ${progress} / 12`}>
-              [{"█".repeat(progress)}{"░".repeat(12 - progress)}] {Math.round((progress / 12) * 100)}%
+              <div className={styles.bootTrack} aria-hidden="true"><i style={{ width: `${Math.round((progress / 12) * 100)}%` }} /></div>
+              <div className={styles.bootStages}>
+                {["BRIEF", "BUILD", "EVAL", "HANDOFF"].map((stage, index) => (
+                  <span
+                    key={stage}
+                    data-state={progress >= (index + 1) * 3 ? "done" : progress > index * 3 ? "active" : "pending"}
+                  >
+                    {stage}
+                  </span>
+                ))}
+              </div>
             </div>
           </>
+        ) : ready ? (
+          <div className={styles.bootProgress} aria-label="交付流程：BRIEF、BUILD、EVAL、HANDOFF">
+            <div className={styles.bootTrack} aria-hidden="true"><i style={{ width: "100%" }} /></div>
+            <div className={styles.bootStages}>
+              {["BRIEF", "BUILD", "EVAL", "HANDOFF"].map((stage) => (
+                <span key={stage} data-state="done">{stage}</span>
+              ))}
+            </div>
+          </div>
         ) : null}
       </div>
     </div>
   );
 }
 
-function LaptopShell({ children, className = "" }: { children: ReactNode; className?: string }) {
+function ConsoleShell({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <div className={`${styles.laptop} ${className}`}>
-      <div className={styles.laptopLid}>
-        <div className={styles.camera} aria-hidden="true" />
-        <div className={styles.laptopScreen}>{children}</div>
+    <div className={`${styles.console} ${className}`}>
+      <span className={styles.consolePort} data-side="in" aria-hidden="true">IN</span>
+      <span className={styles.consolePort} data-side="out" aria-hidden="true">OUT</span>
+      <div className={styles.consoleScreen}>{children}</div>
+      <div className={styles.consoleFooter} aria-hidden="true">
+        <span><i /> SIGNAL LOCKED</span>
+        <span>DELIVERY CONSOLE · CH 01—04</span>
+        <span>UTC+8</span>
       </div>
-      <div className={styles.laptopBase}><span aria-hidden="true" /></div>
     </div>
   );
 }
@@ -519,9 +578,9 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
         <div className={styles.menuIdentity}>
           <Image src="/profile/wenjun-avatar.png" alt="游文君 Wenjun You" width={22} height={22} />
           <strong>Wenjun OS</strong>
-          <span className={styles.desktopMenuText}>Profile</span>
-          <span className={styles.desktopMenuText}>Projects</span>
-          <span className={styles.desktopMenuText}>Delivery</span>
+          <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => openWindow("about")}>Profile</button>
+          <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => { window.location.hash = "#works"; }}>Projects</button>
+          <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => openWindow("fde")}>Delivery</button>
         </div>
         <div className={styles.menuStatus}>
           <span className={styles.onlineDot} aria-label="Available" />
@@ -533,6 +592,7 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
         className={styles.wallpaper}
         onClick={() => setSelectedIcon(null)}
       >
+        <DeliverySignal className={styles.desktopSignal} />
         <div className={styles.iconLayer}>
           {iconDefinitions.map((icon) => {
             const position = iconPositions[icon.id];
@@ -544,7 +604,7 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
                 data-icon-id={icon.id}
                 type="button"
                 key={icon.id}
-                aria-label={`${labels[icon.id]} — ${isMobile ? "open" : "double click or press Enter to open"}`}
+                aria-label={`${labels[icon.id]} — open`}
                 onPointerDown={(event) => startIconDrag(event, icon.id)}
                 onPointerMove={moveIcon}
                 onPointerUp={endIconDrag}
@@ -555,13 +615,9 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
                     suppressIconClick.current = null;
                     return;
                   }
-                  if (isMobile) {
-                    openWindow(icon.id);
-                  } else {
-                    setSelectedIcon(icon.id);
-                  }
+                  setSelectedIcon(icon.id);
+                  openWindow(icon.id);
                 }}
-                onDoubleClick={() => !isMobile && openWindow(icon.id)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     event.preventDefault();
@@ -666,7 +722,7 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
     return (
       <div>
         <WindowHeading
-          kicker="fde.delivery · 2026.09—11"
+          kicker="fde.delivery · 2026.09—12"
           title={isZh ? "三条企业 AI 交付主线" : "Three enterprise AI delivery threads"}
         />
         <p>
@@ -945,8 +1001,9 @@ function ExitSequence({ reducedMotion, onReturnDesktop }: { reducedMotion: boole
     <section className={styles.exitSection} ref={sectionRef} aria-label="Wenjun OS exit sequence">
       <div className={styles.exitSticky} style={style}>
         <div className={styles.exitCounter} aria-hidden="true">EXIT / {String(Math.round(progress * 100)).padStart(3, "0")}</div>
-        <LaptopShell className={styles.exitLaptop}>
+        <ConsoleShell className={styles.exitLaptop}>
           <div className={styles.exitDesktopPreview}>
+            <DeliverySignal className={styles.exitSignal} />
             <div className={styles.exitPreviewBar}><span>Wenjun OS</span><span>Frontend × Agent × Delivery</span></div>
             <span className={styles.exitPreviewStar}>✦</span>
           </div>
@@ -961,7 +1018,7 @@ function ExitSequence({ reducedMotion, onReturnDesktop }: { reducedMotion: boole
             <button type="button" onClick={onReturnDesktop}>重新启动 / Return to desktop ↵</button>
             <p>Press Enter to return</p>
           </div>
-        </LaptopShell>
+        </ConsoleShell>
       </div>
     </section>
   );

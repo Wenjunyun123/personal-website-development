@@ -135,7 +135,7 @@ function getInitialCards(): CanvasCard[] {
       x: 500,
       y: 200,
       width: 450,
-      height: 340
+      height: 280
     },
     {
       id: "team-agent",
@@ -151,7 +151,7 @@ function getInitialCards(): CanvasCard[] {
       x: 1020,
       y: 180,
       width: 430,
-      height: 326
+      height: 280
     },
     {
       id: "capability-stack",
@@ -326,19 +326,20 @@ export function SystemCanvas() {
   const nextCardId = useRef(1);
   const didInitialFrame = useRef(false);
   const [cards, setCards] = useState<CanvasCard[]>(getInitialCards);
-  const [transform, setTransform] = useState<Transform>({ x: 60, y: 20, scale: 0.85 });
+  const [transform, setTransform] = useState<Transform>({ x: -20, y: -130, scale: 1 });
   const [viewportSize, setViewportSize] = useState({ width: 1, height: 1 });
   const [selectedId, setSelectedId] = useState("profile");
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [isPanning, setIsPanning] = useState(false);
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [templateOpen, setTemplateOpen] = useState(false);
+  const [layersOpen, setLayersOpen] = useState(false);
   const [connectionMode, setConnectionMode] = useState(false);
   const [connectionAnchor, setConnectionAnchor] = useState<string | null>(null);
   const [history, setHistory] = useState<HistoryAction[]>([]);
 
   const copy = useMemo(() => ({
-    canvas: isZh ? "WENJUN 画布" : "WENJUN Canvas",
+    canvas: "WENJUN / CANVAS",
     hint: isZh ? "滚轮缩放 · 拖拽移动画布" : "Scroll to zoom · Drag to move canvas",
     newCard: isZh ? "新建卡片" : "New card",
     connect: isZh ? "连接" : "Connect",
@@ -387,7 +388,7 @@ export function SystemCanvas() {
   }, [fitBounds]);
 
   const frameOpening = useCallback(() => {
-    setTransform({ x: 60, y: 20, scale: 0.85 });
+    setTransform({ x: -20, y: -130, scale: 1 });
   }, []);
 
   useEffect(() => {
@@ -617,19 +618,24 @@ export function SystemCanvas() {
     <section className={styles.shell} aria-label={isZh ? "Wenjun 无限系统画布" : "Wenjun infinite system canvas"} tabIndex={0} onKeyDown={handleKeyDown}>
       <header className={styles.toolbar}>
         <div className={styles.brand}><i aria-hidden="true" /><strong>{copy.canvas}</strong></div>
-        <p>{copy.hint}</p>
+        <div className={styles.stageRail} aria-label="交付信号阶段" title={copy.hint}>
+          {["BRIEF", "BUILD", "EVAL", "HANDOFF"].map((stage, index) => (
+            <span key={stage}>{stage}{index < 3 ? <i aria-hidden="true">→</i> : null}</span>
+          ))}
+        </div>
         <div className={styles.toolbarActions}>
+          <button type="button" className={styles.layersToggle} aria-label={copy.layers} aria-expanded={layersOpen} onClick={() => setLayersOpen((open) => !open)}><span aria-hidden="true">▤</span>{copy.layers}</button>
           <button type="button" aria-label={copy.newCard} aria-expanded={templateOpen} onClick={() => setTemplateOpen((open) => !open)}><span aria-hidden="true">＋</span>{copy.newCard}</button>
           <button type="button" aria-label={copy.connect} aria-pressed={connectionMode} onClick={() => { setConnectionMode((active) => !active); setConnectionAnchor(null); }}><span aria-hidden="true">⌁</span>{copy.connect}</button>
           <button type="button" aria-label={copy.undo} aria-keyshortcuts="Control+Z Meta+Z" disabled={history.length === 0} onClick={undo}><span aria-hidden="true">↶</span>{copy.undo}</button>
         </div>
       </header>
 
-      <aside className={styles.sidebar} aria-label={copy.layers}>
+      <aside className={`${styles.sidebar} ${layersOpen ? styles.sidebarOpen : ""}`} aria-label={copy.layers}>
         <div className={styles.layersHeading}><div><strong>{copy.layers}</strong><span>{copy.cards}</span></div><button type="button" aria-label={copy.newCard} aria-expanded={templateOpen} onClick={() => setTemplateOpen((open) => !open)}>＋</button></div>
         <div className={styles.layerList}>
           {cards.map((card, index) => (
-            <button key={card.id} type="button" aria-pressed={selectedId === card.id} onClick={() => focusCard(card)}>
+            <button key={card.id} type="button" aria-pressed={selectedId === card.id} onClick={() => { setLayersOpen(false); focusCard(card); }}>
               <i className={styles[`tone_${card.tone}`]} aria-hidden="true" />
               <span><small>{String(index + 1).padStart(2, "0")}</small>{isZh ? card.titleZh : card.titleEn}</span>
             </button>

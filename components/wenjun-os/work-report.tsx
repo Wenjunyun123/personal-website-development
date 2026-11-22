@@ -77,6 +77,14 @@ export function WorkReport() {
             我是一名 AI 应用交付工程师（FDE）。我在客户现场把模糊需求做成可运行、可评测、可交接的 AI 应用，
             用响应时间、交付质量与业务产出证明效果，而不是只停留在功能演示。
           </p>
+          <ol className={styles.deliveryRail} aria-label="交付流程">
+            {["BRIEF", "BUILD", "EVAL", "HANDOFF"].map((stage, index) => (
+              <li key={stage}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                {stage}
+              </li>
+            ))}
+          </ol>
         </header>
 
         <section className={styles.capabilities} aria-labelledby="capability-title">

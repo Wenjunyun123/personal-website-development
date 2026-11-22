@@ -6,11 +6,16 @@
 .intro {
   --cream: #fefcf6;
   --blue: #2b7fd8;
+  --navy: #05142f;
+  --navy-deep: #020a18;
+  --cyan: #7fd8ff;
+  --signal: #4aa8ff;
+  --line: rgb(127 216 255 / 18%);
   --ink: #1a1a2e;
   --yellow: #f4d758;
   --red: #ef645e;
   --green: #56c68b;
-  --terminal: #2b7fd8;
+  --terminal: #1e63d8;
   color: var(--ink);
 }
 
@@ -28,9 +33,9 @@
   overflow: hidden;
   padding: 0 18px;
   background:
-    radial-gradient(circle at 50% 46%, rgb(71 33 130 / 22%), transparent 31%),
-    radial-gradient(circle at 34% 74%, rgb(0 186 255 / 9%), transparent 28%),
-    #020203;
+    radial-gradient(circle at 50% 44%, rgb(43 127 216 / 38%), transparent 34%),
+    radial-gradient(circle at 16% 80%, rgb(127 216 255 / 12%), transparent 32%),
+    linear-gradient(180deg, #071b3d 0%, #04122b 48%, var(--navy-deep) 100%);
   font-family: Georgia, "Times New Roman", serif;
 }
 
@@ -38,20 +43,101 @@
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
-  background: radial-gradient(560px circle at center, rgb(98 46 255 / 14%), transparent 68%);
-  mix-blend-mode: screen;
+  background-image:
+    linear-gradient(rgb(127 216 255 / 5.5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(127 216 255 / 5.5%) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at center, black, transparent 76%);
+}
+
+.deliverySignal {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.signalHalo,
+.signalLine {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.signalHalo {
+  stroke: rgb(43 127 216 / 14%);
+  stroke-width: 14;
+}
+
+.signalLine {
+  stroke: rgb(127 216 255 / 40%);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 7px rgb(127 216 255 / 32%));
+}
+
+.signalNode {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.signalNodeHalo {
+  fill: rgb(127 216 255 / 8%);
+  stroke: rgb(127 216 255 / 24%);
+  stroke-width: 1;
+}
+
+.signalNodeDot {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 6px rgb(127 216 255 / 80%));
+}
+
+.signalNodeLabel {
+  fill: rgb(254 252 246 / 82%);
+  font: 700 11px/1 "Fira Code", "Cascadia Code", monospace;
+  letter-spacing: 0.18em;
+  paint-order: stroke;
+  stroke: rgb(2 10 24 / 55%);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.deliverySignalAnimated .signalLine {
+  stroke-dasharray: 18 10;
+  animation: signalFlow 18s linear infinite;
+}
+
+.deliverySignalAnimated .signalNode {
+  animation: signalNodePulse 3.2s ease-in-out infinite;
+  animation-delay: var(--node-delay, 0s);
+}
+
+.introSignal {
+  z-index: 1;
+  opacity: 0.95;
+}
+
+.desktopSignal {
+  z-index: 2;
+  opacity: 1;
+}
+
+.exitSignal {
+  z-index: 1;
+  opacity: 0.55;
 }
 
 .introDevice {
-  --device-scale: 1;
   position: relative;
-  width: min(760px, 92vw, calc((100svh - 150px) * 1.4615));
+  z-index: 2;
+  width: min(760px, 92vw, calc((100svh - 230px) * 1.45));
   outline: none;
   cursor: pointer;
-  transform: scale(var(--device-scale));
-  will-change: transform;
-  transition: transform 1.5s cubic-bezier(.4, 0, .2, 1), filter .8s ease;
+  will-change: opacity, filter, transform;
+  transition: opacity .55s ease, filter .55s ease, transform .55s ease;
 }
 
 .introDevice:focus-visible {
@@ -59,87 +145,118 @@
 }
 
 .introDeviceLaunching {
-  --device-scale: 2.45;
-  transition-duration: 1.5s;
+  opacity: 0.25;
+  filter: blur(3px);
+  transform: translateY(-10px);
 }
 
-.introDeviceLaunching .terminal { opacity: 0; filter: blur(2px); transform: scale(1.15); transition: transform .8s cubic-bezier(.4,0,.2,1), opacity .8s ease, filter .8s ease; }
+.introDeviceLaunching .terminal {
+  opacity: 0;
+  transition: opacity .45s ease;
+}
 
-.laptop {
+.console {
   position: relative;
   width: 100%;
-  aspect-ratio: 760 / 520;
-  transform-origin: center center;
+  padding: 12px;
+  border-radius: 16px;
+  background:
+    linear-gradient(90deg, rgb(127 216 255 / 16%) 0 1px, transparent 1px) 0 0 / 33.333% 100%,
+    linear-gradient(160deg, #0d2d5c 0%, #05132c 52%, #0a2145 100%);
+  box-shadow:
+    0 0 0 1px rgb(127 216 255 / 24%),
+    0 0 52px rgb(43 127 216 / 18%),
+    0 34px 70px rgb(0 0 0 / 55%),
+    inset 0 1px 0 rgb(255 255 255 / 10%);
 }
 
-.laptopLid {
-  position: relative;
-  width: 93.1579%;
-  height: 90%;
-  margin: 0 auto;
-  padding: 14px;
-  border-radius: 14px 14px 0 0;
-  background: linear-gradient(135deg, #313138, #131318 52%, #35353c);
-  box-shadow: 0 34px 70px rgb(0 0 0 / 54%), 0 0 0 1px rgb(255 255 255 / 8%) inset;
-}
-
-.camera {
+.console::before {
+  content: "";
   position: absolute;
-  top: 5px;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #080812;
-  box-shadow: 0 0 0 1px #3a3c52;
+  inset: 5px;
+  z-index: 4;
+  border-radius: 12px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--cyan), var(--cyan)) left top / 14px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) left top / 1px 14px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) right top / 14px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) right top / 1px 14px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) left bottom / 14px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) left bottom / 1px 14px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) right bottom / 14px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) right bottom / 1px 14px no-repeat;
+  opacity: 0.42;
 }
 
-.laptopScreen {
+.consolePort {
+  position: absolute;
+  top: 16px;
+  z-index: 5;
+  padding: 3px 5px;
+  border: 1px solid rgb(127 216 255 / 28%);
+  border-radius: 3px;
+  background: #04122b;
+  color: rgb(127 216 255 / 72%);
+  font: 700 7px/1 "Fira Code", "Cascadia Code", monospace;
+  letter-spacing: 0.12em;
+}
+
+.consolePort[data-side="in"] {
+  left: -8px;
+}
+
+.consolePort[data-side="out"] {
+  right: -8px;
+}
+
+.consoleScreen {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: clamp(300px, 46vh, 430px);
+  box-sizing: border-box;
   overflow: hidden;
-  border-radius: 4px;
-  background-color: #000;
-  background-image: url("/wallpapers/mac-spectrum.webp");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  border: 1px solid rgb(127 216 255 / 26%);
+  border-radius: 9px;
+  background: linear-gradient(135deg, #0b2f6b 0%, var(--terminal) 52%, #0a2a63 100%);
+  box-shadow: inset 0 0 60px rgb(2 8 20 / 40%);
   isolation: isolate;
 }
 
-.laptopScreen::after {
+.consoleScreen::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 3;
   pointer-events: none;
-}
-
-.laptopScreen::after {
   background: linear-gradient(115deg, transparent 20%, rgb(255 255 255 / 7%) 42%, transparent 61%);
   opacity: .75;
 }
 
-
-.laptopBase {
-  position: relative;
-  width: 100%;
-  height: 10%;
-  margin-top: -1px;
-  clip-path: polygon(4% 0, 96% 0, 100% 58%, 96% 76%, 4% 76%, 0 58%);
-  background: linear-gradient(#d8d9dd, #989ba3 65%, #747780 66%, #bfc1c7 76%);
-  filter: drop-shadow(0 12px 9px rgba(26, 26, 46, 0.22));
+.consoleFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 4px 1px;
+  color: rgb(254 252 246 / 46%);
+  font: 700 8px/1 "Fira Code", "Cascadia Code", monospace;
+  letter-spacing: 0.1em;
 }
 
-.laptopBase span {
-  position: absolute;
-  top: 0;
-  left: 44%;
-  width: 12%;
-  height: 8px;
-  border-radius: 0 0 10px 10px;
-  background: #b8bbc2;
+.consoleFooter span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.consoleFooter i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
 }
 
 .terminal {
@@ -148,8 +265,8 @@
   width: 100%;
   height: 100%;
   background:
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgb(255 255 255 / 3%) 2px, rgb(255 255 255 / 3%) 3px),
-    linear-gradient(105deg, rgb(1 2 7 / 78%), rgb(1 2 7 / 42%) 55%, rgb(1 2 7 / 63%));
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgb(255 255 255 / 3.5%) 2px, rgb(255 255 255 / 3.5%) 3px),
+    linear-gradient(180deg, rgb(3 12 28 / 22%), rgb(3 12 28 / 56%));
   color: var(--cream);
   font: 13px/1.7 "Fira Code", "Cascadia Code", "Courier New", monospace;
 }
@@ -161,9 +278,9 @@
   align-items: center;
   gap: 8px;
   padding: 0 12px;
-  border-bottom: 1px solid rgba(254, 252, 246, 0.18);
-  background: rgba(255, 255, 255, 0.055);
-  color: rgba(254, 252, 246, 0.62);
+  border-bottom: 1px solid rgb(127 216 255 / 22%);
+  background: rgb(3 12 28 / 34%);
+  color: rgb(254 252 246 / 68%);
   font-size: 10px;
 }
 
@@ -171,24 +288,28 @@
   justify-self: end;
 }
 
-.trafficLights {
+.terminalBrand {
   display: flex;
-  gap: 5px;
+  align-items: center;
+  gap: 7px;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: 0.08em;
 }
 
-.trafficLights i {
-  width: 8px;
-  height: 8px;
+.terminalBrand i {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
   border-radius: 50%;
-  background: var(--red);
+  background: var(--cyan);
+  box-shadow: 0 0 9px rgb(127 216 255 / 80%);
 }
 
-.trafficLights i:nth-child(2) {
-  background: var(--yellow);
-}
-
-.trafficLights i:nth-child(3) {
-  background: var(--green);
+.terminalMode {
+  color: var(--cyan);
+  font-weight: 800;
+  letter-spacing: 0.16em;
 }
 
 .terminalBody {
@@ -206,7 +327,7 @@
 .terminal_output,
 .terminal_gold {
   min-height: 1.7em;
-  color: rgba(255,255,255,.9);
+  color: #cfe9ff;
 }
 
 .terminal_gold {
@@ -214,20 +335,52 @@
   min-height: auto;
   padding: 1px 7px;
   border-radius: 3px;
-  color: #1e5ba8;
+  color: #0b2a58;
   background: var(--yellow);
   font-weight: 800;
 }
 
 .cursor {
-  color: var(--yellow);
+  color: var(--cyan);
   animation: blink 800ms steps(1) infinite;
 }
 
 .bootProgress {
-  margin-top: 2px;
-  color: var(--yellow);
-  font-weight: 700;
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.bootTrack {
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(254 252 246 / 14%);
+}
+
+.bootTrack i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--signal), var(--yellow));
+  transition: width .2s linear;
+}
+
+.bootStages {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: rgb(254 252 246 / 38%);
+  font: 700 8px/1 "Fira Code", "Cascadia Code", monospace;
+  letter-spacing: 0.08em;
+}
+
+.bootStages span[data-state="active"] {
+  color: var(--cyan);
+}
+
+.bootStages span[data-state="done"] {
+  color: var(--cream);
 }
 
 .launchWash {
@@ -251,7 +404,7 @@
   border: 0;
   padding: 0;
   background: transparent;
-  color: #aaa8b7;
+  color: rgb(254 252 246 / 62%);
   box-shadow: none;
   cursor: pointer;
   font: 400 13px/1.3 "Fira Code", "Cascadia Code", monospace;
@@ -261,14 +414,18 @@
 
 .launchCta:hover,
 .launchCta:focus-visible {
-  color: #fff;
+  color: var(--cyan);
   outline: none;
+}
+
+.launchCtaMobile {
+  display: none;
 }
 
 .introHint {
   height: 26px;
   margin: 8px 0 0;
-  color: #aaa8b7;
+  color: var(--cyan);
   text-align: center;
   font: 18px/1.45 "Fira Code", monospace;
   animation: bounce 1.6s ease infinite;
@@ -277,6 +434,11 @@
 .desktop {
   --cream: #fefcf6;
   --blue: #2b7fd8;
+  --navy: #05142f;
+  --navy-deep: #020a18;
+  --cyan: #7fd8ff;
+  --signal: #4aa8ff;
+  --line: rgb(127 216 255 / 18%);
   --ink: #1a1a2e;
   --yellow: #f4d758;
   --red: #ef645e;
@@ -287,7 +449,7 @@
   height: 100svh;
   min-height: 520px;
   overflow: hidden;
-  background: #000;
+  background: var(--navy);
   color: var(--ink);
   font-family: "Fira Code", "Cascadia Code", monospace;
 }
@@ -301,10 +463,10 @@
   justify-content: space-between;
   gap: 14px;
   padding: 0 10px;
-  border-bottom: 1px solid rgb(255 255 255 / 10%);
-  background: rgb(8 8 12 / 72%);
-  box-shadow: 0 8px 28px rgb(0 0 0 / 20%);
-  backdrop-filter: blur(20px) saturate(145%);
+  border-bottom: 1px solid var(--line);
+  background: rgb(4 15 34 / 72%);
+  box-shadow: 0 8px 28px rgb(2 8 20 / 30%);
+  backdrop-filter: blur(20px) saturate(140%);
   color: rgba(255,255,255,.92);
   font-size: 10px;
   user-select: none;
@@ -321,10 +483,11 @@
 .menuIdentity img {
   width: 22px;
   height: 22px;
-  border: 1px solid var(--yellow);
+  border: 1px solid var(--cyan);
   border-radius: 50%;
   object-fit: cover;
-  background: var(--yellow);
+  background: var(--navy);
+  box-shadow: 0 0 12px rgb(127 216 255 / 22%);
 }
 
 .menuIdentity strong {
@@ -342,8 +505,24 @@
 
 .menuStatus button:hover,
 .menuStatus button:focus-visible {
-  background: var(--yellow);
-  outline: 1px solid var(--ink);
+  background: var(--cyan);
+  color: var(--navy);
+  outline: none;
+}
+
+.menuNav {
+  border: 0;
+  padding: 2px 0;
+  background: transparent;
+  color: rgb(254 252 246 / 62%);
+  cursor: pointer;
+  font: inherit;
+}
+
+.menuNav:hover,
+.menuNav:focus-visible {
+  color: var(--cyan);
+  outline: none;
 }
 
 .onlineDot {
@@ -358,11 +537,13 @@
   position: relative;
   height: calc(100% - 30px);
   overflow: hidden;
-  background-color: #000;
-  background-image: url("/wallpapers/mac-spectrum.webp");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  background:
+    radial-gradient(circle at 78% 16%, rgb(43 127 216 / 34%), transparent 34%),
+    radial-gradient(circle at 18% 84%, rgb(127 216 255 / 10%), transparent 32%),
+    linear-gradient(rgb(127 216 255 / 6%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(127 216 255 / 6%) 1px, transparent 1px),
+    linear-gradient(145deg, #071a38 0%, #04122b 45%, var(--navy-deep) 100%);
+  background-size: auto, auto, 64px 64px, 64px 64px, auto;
 }
 
 .wallpaper::before {
@@ -374,7 +555,7 @@
 
 .wallpaper::before {
   z-index: 1;
-  background: radial-gradient(circle at center, transparent 34%, rgb(0 0 0 / 48%) 115%);
+  background: radial-gradient(circle at center, transparent 38%, rgb(2 8 20 / 55%) 120%);
 }
 
 .iconLayer {
@@ -384,7 +565,7 @@
 }
 
 .desktopIcon {
-  --icon-accent: #00c896;
+  --icon-accent: var(--cyan);
   position: absolute;
   width: 108px;
   height: 92px;
@@ -394,13 +575,13 @@
   align-items: center;
   gap: 4px;
   overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 15%);
+  border: 1px solid rgb(127 216 255 / 16%);
   border-radius: 8px;
   padding: 13px 8px 8px;
-  background: rgb(4 6 9 / 58%);
-  box-shadow: 0 8px 26px rgb(0 0 0 / 18%), inset 0 0 0 1px rgb(255 255 255 / 2%);
+  background: rgb(3 14 32 / 58%);
+  box-shadow: 0 8px 26px rgb(2 8 20 / 22%), inset 0 1px 0 rgb(255 255 255 / 6%);
   color: rgb(248 249 252 / 92%);
-  cursor: default;
+  cursor: pointer;
   touch-action: none;
   user-select: none;
   font: 650 9px/1.25 "Fira Code", "Cascadia Code", monospace;
@@ -435,8 +616,8 @@
 .desktopIcon:focus-visible,
 .desktopIconSelected {
   border-color: var(--icon-accent);
-  background: rgb(3 17 16 / 76%);
-  box-shadow: 0 10px 30px rgb(0 200 150 / 12%), inset 0 0 0 1px rgb(0 200 150 / 12%);
+  background: rgb(8 30 60 / 76%);
+  box-shadow: 0 0 0 1px rgb(127 216 255 / 28%), 0 10px 30px rgb(43 127 216 / 20%);
   outline: none;
   transform: translateY(-2px);
 }
@@ -478,10 +659,10 @@
   flex-direction: column;
   overflow: hidden;
   resize: both;
-  border: 1px solid rgba(0,0,0,.12);
+  border: 1px solid rgb(127 216 255 / 22%);
   border-radius: 10px;
   background: var(--cream);
-  box-shadow: 0 18px 50px rgba(0,0,0,.18), 0 0 0 .5px rgba(0,0,0,.06);
+  box-shadow: 0 24px 60px rgb(2 8 20 / 55%), 0 0 0 1px rgb(127 216 255 / 12%);
   font-family: Georgia, "Times New Roman", serif;
 }
 
@@ -518,8 +699,9 @@
   align-items: center;
   gap: 8px;
   padding: 0 9px;
-  border-bottom: 1px solid rgba(26,26,46,.1);
-  background: var(--cream);
+  border-bottom: 1px solid rgb(127 216 255 / 18%);
+  background: linear-gradient(180deg, #0b2a58, #071a38);
+  color: rgb(254 252 246 / 92%);
   cursor: grab;
   touch-action: none;
   user-select: none;
@@ -546,13 +728,14 @@
 
 .windowControls button {
   position: relative;
-  width: 12px;
-  height: 12px;
-  border: 0;
-  border-radius: 50%;
+  width: 18px;
+  height: 14px;
+  border: 1px solid rgb(127 216 255 / 32%);
+  border-radius: 3px;
+  background: transparent;
   cursor: pointer;
-  color: rgba(26, 26, 46, 0.76);
-  font: 900 10px/10px Arial, sans-serif;
+  color: rgb(254 252 246 / 58%);
+  font: 700 9px/1 "Fira Code", "Cascadia Code", monospace;
   padding: 0;
 }
 
@@ -561,29 +744,31 @@
   inset: 0;
   display: grid;
   place-items: center;
-  opacity: 0;
 }
 
-.windowControls button:hover > span,
-.windowControls button:focus-visible > span {
-  opacity: 1;
+.windowControls button:hover,
+.windowControls button:focus-visible {
+  color: var(--navy);
+  outline: none;
 }
 
 .windowControls button:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgb(127 216 255 / 45%);
 }
 
-.windowClose {
+.windowClose:hover {
+  border-color: var(--red);
   background: var(--red);
 }
 
-.windowMinimize {
+.windowMinimize:hover {
+  border-color: var(--yellow);
   background: var(--yellow);
 }
 
-.windowMaximize {
-  background: var(--green);
+.windowMaximize:hover {
+  border-color: var(--cyan);
+  background: var(--cyan);
 }
 
 .windowMaximized .windowTitleBar {
@@ -595,7 +780,7 @@
   overflow: auto;
   padding: clamp(18px, 3vw, 34px);
   background:
-    linear-gradient(rgba(26, 26, 46, 0.05) 1px, transparent 1px),
+    linear-gradient(rgb(43 127 216 / 7%) 1px, transparent 1px),
     var(--cream);
   background-size: 100% 32px;
   color: var(--ink);
@@ -1187,16 +1372,17 @@
   place-items: center;
   overflow: hidden;
   background:
-    radial-gradient(circle at center, rgba(244, 215, 88, 0.18), transparent 42%),
-    var(--cream);
+    radial-gradient(circle at center, rgb(43 127 216 / 22%), transparent 42%),
+    radial-gradient(circle at 82% 18%, rgb(127 216 255 / 10%), transparent 30%),
+    var(--navy-deep);
 }
 
 .exitSticky::before {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.18;
-  background-image: radial-gradient(var(--ink) 0.7px, transparent 0.7px);
+  opacity: 0.24;
+  background-image: radial-gradient(rgb(127 216 255 / 55%) 0.7px, transparent 0.7px);
   background-size: 9px 9px;
 }
 
@@ -1226,23 +1412,25 @@
 
 .exitDesktopPreview {
   opacity: var(--preview-opacity, 1);
-  background-color: #000;
-  background-image:
-    radial-gradient(circle at center, transparent 36%, rgb(0 0 0 / 38%) 112%),
-    url("/wallpapers/mac-spectrum.webp");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%, cover;
+  background:
+    radial-gradient(circle at center, transparent 36%, rgb(2 8 20 / 42%) 112%),
+    radial-gradient(circle at 78% 16%, rgb(43 127 216 / 34%), transparent 34%),
+    linear-gradient(rgb(127 216 255 / 6%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(127 216 255 / 6%) 1px, transparent 1px),
+    linear-gradient(145deg, #071a38 0%, #04122b 45%, #020a18 100%);
+  background-size: 100% 100%, auto, 64px 64px, 64px 64px, auto;
 }
 
 .exitPreviewBar {
+  position: relative;
+  z-index: 2;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 12px;
-  border-bottom: 1px solid rgb(255 255 255 / 10%);
-  background: rgb(8 8 12 / 72%);
+  border-bottom: 1px solid var(--line);
+  background: rgb(4 15 34 / 72%);
   color: rgb(255 255 255 / 88%);
   backdrop-filter: blur(18px) saturate(140%);
   font: 800 9px/1 "Fira Code", "Cascadia Code", monospace;
@@ -1258,9 +1446,9 @@
   padding: clamp(20px, 5vw, 54px);
   opacity: var(--goodbye-opacity, 0);
   background:
-    linear-gradient(rgba(43, 127, 216, 0.05) 1px, transparent 1px),
-    #10172b;
-  background-size: 100% 4px;
+    linear-gradient(rgb(127 216 255 / 6%) 1px, transparent 1px),
+    linear-gradient(145deg, #071a38, #020a18);
+  background-size: 100% 4px, auto;
   color: var(--cream);
   font-family: "Fira Code", "Cascadia Code", monospace;
 }
@@ -1333,6 +1521,15 @@
   50% { opacity: 0; }
 }
 
+@keyframes signalFlow {
+  to { stroke-dashoffset: -280; }
+}
+
+@keyframes signalNodePulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.86); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
 @keyframes launchWash {
   0% { opacity: 0; transform: scaleY(0); }
   45% { opacity: 0.92; transform: scaleY(1); }
@@ -1348,21 +1545,54 @@
   }
 
   .introDevice {
-    width: min(96vw, calc((100svh - 160px) * 1.4615));
+    width: min(96vw, calc((100svh - 190px) * 1.4));
   }
 
-  .laptopLid {
-    padding: max(5px, 1.84vw);
-    border-radius: 12px 12px 7px 7px;
+  .console {
+    padding: max(7px, 1.9vw);
+    border-radius: 12px;
+  }
+
+  .consoleScreen {
+    height: clamp(260px, 42svh, 340px);
+  }
+
+  .consoleFooter {
+    padding-top: 7px;
+    font-size: 7px;
+  }
+
+  .consoleFooter span:nth-child(2) {
+    display: none;
+  }
+
+  .consolePort {
+    display: none;
   }
 
   .terminal {
-    font-size: clamp(7px, 2.2vw, 11px);
+    font-size: clamp(9px, 2.8vw, 12px);
   }
 
   .terminalBar {
     height: 24px;
-    font-size: 6px;
+    font-size: 8px;
+  }
+
+  .signalNodeLabel {
+    display: none;
+  }
+
+  .launchCtaDesktop {
+    display: none;
+  }
+
+  .launchCtaMobile {
+    display: inline;
+  }
+
+  .introSignal {
+    opacity: 0.5;
   }
 
   .terminalBody {
@@ -1549,7 +1779,9 @@
   }
 
   .cursor,
-  .launchWashActive {
+  .launchWashActive,
+  .deliverySignalAnimated .signalLine,
+  .deliverySignalAnimated .signalNode {
     animation: none;
   }
 

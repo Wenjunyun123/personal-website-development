@@ -6,7 +6,7 @@
 .pillNav button { padding:9px 18px; border:0; border-radius:999px; color:var(--ink-light); background:transparent; cursor:pointer; white-space:nowrap; font:500 13px/1.2 "Noto Sans SC",sans-serif; transition:color .25s ease,background .25s ease; }
 .pillNav button:hover,.pillNav button:focus-visible { color:var(--ink); outline:none; }
 .pillNav button:focus-visible { box-shadow:0 0 0 2px #f4d758; }
-.pillNav button.active { color:white; background:var(--blue); }
+.pillNav button.active { color:white; background:#1e5ba8; }
 .pillNav button span { margin-right:5px; opacity:.5; font:400 10px/1 "Fira Code",monospace; }
 @media (max-width:560px) { .pillNav { bottom:14px; } .pillNav button { padding:9px 12px; font-size:12px; } }
 @media (prefers-reduced-motion:reduce) { .pillNav { transition:none; } }

@@ -9,17 +9,26 @@
   --report-rule: rgba(30, 91, 168, 0.18);
   width: 100%;
   min-height: 100vh;
+  padding: clamp(16px, 4vw, 42px) 0;
   background:
-    radial-gradient(circle at 86% 7%, rgba(244, 202, 50, 0.14), transparent 19rem),
-    var(--report-cream);
+    radial-gradient(circle at 86% 7%, rgb(244 202 50 / 10%), transparent 19rem),
+    radial-gradient(circle at 18% 86%, rgb(43 127 216 / 18%), transparent 30rem),
+    linear-gradient(rgb(127 216 255 / 4.5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(127 216 255 / 4.5%) 1px, transparent 1px),
+    linear-gradient(145deg, #071a38 0%, #04122b 55%, #020a18 100%);
+  background-size: auto, auto, 64px 64px, 64px 64px, auto;
   color: var(--report-ink);
   font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
 }
 
 .inner {
-  width: min(100%, 1100px);
+  width: min(calc(100% - 32px), 1160px);
   margin: 0 auto;
-  padding: clamp(70px, 12vh, 120px) 24px 140px;
+  padding: clamp(48px, 8vh, 92px) clamp(24px, 4vw, 56px) 120px;
+  border: 1px solid rgb(127 216 255 / 16%);
+  border-radius: 18px;
+  background: var(--report-paper);
+  box-shadow: 0 30px 80px rgb(2 8 20 / 35%);
 }
 
 .hero {
@@ -51,13 +60,47 @@
 }
 
 .positioning {
-  max-width: 820px;
+  max-width: 860px;
   margin: 32px 0 0;
   color: #343b45;
   font-family: "Noto Serif SC", serif;
   font-size: clamp(17px, 2vw, 21px);
   font-weight: 700;
   line-height: 1.9;
+  text-wrap: pretty;
+}
+
+.deliveryRail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 38px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--report-rule);
+  border-bottom: 1px solid var(--report-rule);
+  list-style: none;
+}
+
+.deliveryRail li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 12px 22px 12px 0;
+  color: var(--report-blue-dark);
+  font-family: "Fira Code", Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.deliveryRail li + li {
+  padding-left: 22px;
+  border-left: 1px solid var(--report-rule);
+}
+
+.deliveryRail span {
+  color: var(--report-blue);
+  font-size: 9px;
 }
 
 .capabilities {
@@ -599,6 +642,18 @@
 .fdeStats strong {
   font-size: clamp(18px, 2.2vw, 24px);
   line-height: 1.15;
+}
+
+@media (max-width: 720px) {
+  .report {
+    padding: 8px 0;
+  }
+
+  .inner {
+    width: calc(100% - 16px);
+    padding: 32px 18px 96px;
+    border-radius: 12px;
+  }
 }
 
 @media (max-width: 900px) {

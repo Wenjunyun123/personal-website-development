@@ -2,8 +2,12 @@
   --cream: #fefcf6;
   --ink: #25283a;
   --muted: #77798a;
-  --blue: #4a7cc9;
+  --blue: #2b7fd8;
+  --cyan: #7fd8ff;
+  --navy: #05142f;
   --yellow: #ffd93d;
+  --line: rgb(127 216 255 / 18%);
+  position: relative;
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
   grid-template-rows: 48px minmax(0, 1fr);
@@ -11,10 +15,10 @@
   min-height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background-color: #171720;
-  background-image: url("/wallpapers/system-editorial.webp");
-  background-position: center;
-  background-size: cover;
+  background:
+    radial-gradient(circle at 82% 8%, rgb(43 127 216 / 30%), transparent 32%),
+    radial-gradient(circle at 14% 88%, rgb(127 216 255 / 9%), transparent 30%),
+    linear-gradient(145deg, #071a38 0%, #04122b 55%, #020a18 100%);
   color: var(--ink);
   font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
   isolation: isolate;
@@ -50,33 +54,56 @@
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr) auto;
   align-items: center;
-  border-bottom: 2px dashed rgb(74 124 201 / 18%);
-  background: rgb(254 252 246 / 88%);
-  box-shadow: 0 8px 28px rgb(20 20 30 / 12%);
-  backdrop-filter: blur(22px) saturate(120%);
+  border-bottom: 1px solid var(--line);
+  background: rgb(4 15 34 / 78%);
+  box-shadow: 0 8px 28px rgb(2 8 20 / 30%);
+  backdrop-filter: blur(20px) saturate(140%);
 }
 
 .brand {
   height: 48px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   padding: 0 14px;
-  border-right: 2px dashed rgb(74 124 201 / 18%);
-  color: var(--blue);
-  font: 700 13px/1 "Segoe Print", "Comic Sans MS", cursive;
-  letter-spacing: .01em;
+  border-right: 1px solid var(--line);
+  color: var(--cyan);
+  font: 800 11px/1 "Fira Code", "Cascadia Code", monospace;
+  letter-spacing: .14em;
 }
 
 .brand i {
-  width: 21px;
-  height: 21px;
+  width: 7px;
+  height: 7px;
   display: block;
-  border: 2px solid var(--ink);
-  border-radius: 6px;
-  background: var(--yellow);
-  box-shadow: 3px 3px 0 var(--blue);
-  transform: rotate(-2deg);
+  border: 0;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 9px var(--cyan);
+}
+
+.stageRail {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 16px;
+  overflow: hidden;
+  color: rgb(254 252 246 / 48%);
+  font: 700 9px/1 "Fira Code", "Cascadia Code", monospace;
+  letter-spacing: .12em;
+  white-space: nowrap;
+}
+
+.stageRail span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.stageRail i {
+  color: rgb(127 216 255 / 46%);
+  font-style: normal;
 }
 
 .toolbar > p {
@@ -107,20 +134,24 @@
   border: 1px solid transparent;
   border-radius: 7px;
   background: transparent;
-  color: var(--ink);
+  color: rgb(254 252 246 / 72%);
   font: 700 10px/1 "Cascadia Code", Consolas, monospace;
   cursor: pointer;
 }
 
 .toolbarActions button:hover,
 .toolbarActions button[aria-pressed="true"] {
-  border-color: rgb(74 124 201 / 35%);
-  background: #e9f0fb;
-  color: #285da9;
+  border-color: rgb(127 216 255 / 32%);
+  background: rgb(127 216 255 / 10%);
+  color: var(--cyan);
 }
 
 .toolbarActions button[aria-pressed="true"] {
-  box-shadow: inset 0 0 0 1px var(--blue);
+  box-shadow: inset 0 0 0 1px rgb(127 216 255 / 40%);
+}
+
+.layersToggle {
+  display: none;
 }
 
 .toolbarActions button:disabled {
@@ -142,10 +173,9 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-right: 2px dashed rgb(74 124 201 / 18%);
-  background: rgb(254 252 246 / 90%);
-  box-shadow: 12px 0 40px rgb(20 20 30 / 12%);
-  backdrop-filter: blur(24px) saturate(115%);
+  border-right: 1px solid rgb(127 216 255 / 16%);
+  background: var(--cream);
+  box-shadow: 12px 0 40px rgb(2 8 20 / 24%);
 }
 
 .layersHeading {
@@ -243,15 +273,15 @@
   align-items: center;
   gap: 7px;
   overflow: hidden;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 680;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .layerList small {
-  color: #9a9ba8;
-  font: 700 7px/1 "Cascadia Code", Consolas, monospace;
+  color: #77798a;
+  font: 700 9px/1 "Cascadia Code", Consolas, monospace;
 }
 
 .sidebarNew {
@@ -274,7 +304,7 @@
   display: grid;
   gap: 8px;
   padding: 12px 14px 76px;
-  border-top: 2px dashed rgb(74 124 201 / 18%);
+  border-top: 1px solid rgb(74 124 201 / 16%);
   background: var(--cream);
 }
 
@@ -334,17 +364,17 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background-color: #aaa5a4;
+  background-color: #06152f;
   background-image:
-    linear-gradient(90deg, rgb(17 18 29 / 28%), transparent 30%, transparent 72%, rgb(17 18 29 / 20%)),
-    linear-gradient(rgb(255 255 255 / 8%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 8%) 1px, transparent 1px),
-    radial-gradient(rgb(255 217 61 / 38%) 1.2px, transparent 1.2px),
-    linear-gradient(rgb(22 23 34 / 9%), rgb(22 23 34 / 24%)),
-    url("/wallpapers/system-editorial.webp");
+    linear-gradient(90deg, rgb(2 8 20 / 36%), transparent 30%, transparent 72%, rgb(2 8 20 / 28%)),
+    linear-gradient(rgb(127 216 255 / 8%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(127 216 255 / 8%) 1px, transparent 1px),
+    radial-gradient(rgb(127 216 255 / 26%) 1.2px, transparent 1.2px),
+    radial-gradient(circle at 74% 18%, rgb(43 127 216 / 22%), transparent 42%),
+    linear-gradient(145deg, #071a38 0%, #04122b 55%, #020a18 100%);
   background-repeat: no-repeat, repeat, repeat, repeat, no-repeat, no-repeat;
   background-position: center, 0 0, 0 0, 0 0, center, center;
-  background-size: 100% 100%, 120px 120px, 120px 120px, 20px 20px, 100% 100%, cover;
+  background-size: 100% 100%, 120px 120px, 120px 120px, 20px 20px, 100% 100%, 100% 100%;
   cursor: grab;
   touch-action: none;
   user-select: none;
@@ -380,14 +410,14 @@
 
 .connections > path {
   fill: none;
-  stroke: rgb(74 124 201 / 55%);
+  stroke: rgb(127 216 255 / 52%);
   stroke-width: 2.5;
   stroke-dasharray: 8 7;
   marker-end: url(#wenjun-canvas-arrow);
 }
 
 .connections marker path {
-  fill: #4a7cc9;
+  fill: #7fd8ff;
 }
 
 .card {
@@ -461,7 +491,7 @@
 
 .card header span {
   color: color-mix(in srgb, var(--tone-border) 86%, #25283a);
-  font: 900 8px/1 "Cascadia Code", Consolas, monospace;
+  font: 900 9px/1 "Cascadia Code", Consolas, monospace;
   letter-spacing: .08em;
 }
 
@@ -484,9 +514,9 @@
 
 .card p {
   margin: 0;
-  color: #595d70;
-  font-size: 11px;
-  line-height: 1.48;
+  color: #4b4f62;
+  font-size: 12.5px;
+  line-height: 1.55;
 }
 
 .card ul {
@@ -503,8 +533,8 @@
   border: 1px solid color-mix(in srgb, var(--tone-border) 34%, transparent);
   border-radius: 999px;
   background: rgb(255 255 255 / 47%);
-  color: #464b60;
-  font: 700 8px/1.2 "Cascadia Code", Consolas, monospace;
+  color: #3f4459;
+  font: 700 9.5px/1.25 "Cascadia Code", Consolas, monospace;
 }
 
 .profileContent {
@@ -543,8 +573,8 @@
 }
 
 .profileContent > div:last-child > p {
-  font-size: 10px;
-  line-height: 1.45;
+  font-size: 11.5px;
+  line-height: 1.5;
 }
 
 .profileContent ul {
@@ -566,8 +596,8 @@
 
 .timelineContent > p,
 .githubContent > p {
-  font-size: 10px;
-  line-height: 1.38;
+  font-size: 11.5px;
+  line-height: 1.45;
 }
 
 .timelineContent ol {
@@ -609,7 +639,7 @@
 
 .timelineContent time {
   color: #4c6554;
-  font: 800 8px/1.25 "Cascadia Code", Consolas, monospace;
+  font: 800 9px/1.25 "Cascadia Code", Consolas, monospace;
   text-align: right;
 }
 
@@ -641,14 +671,14 @@
   border: 1px solid rgb(76 138 96 / 45%);
   border-radius: 999px;
   background: rgb(255 255 255 / 65%);
-  color: #3f704e;
-  font: 800 7px/1 "Cascadia Code", Consolas, monospace;
+  color: #356244;
+  font: 800 8px/1 "Cascadia Code", Consolas, monospace;
 }
 
 .timelineContent li strong {
   min-width: 0;
   overflow: hidden;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -658,8 +688,8 @@
   grid-column: 2;
   min-width: 0;
   overflow: hidden;
-  color: #707b73;
-  font-size: 8px;
+  color: #626d65;
+  font-size: 9px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -678,8 +708,8 @@
   border: 1px solid rgb(74 124 201 / 35%);
   border-radius: 6px;
   background: rgb(255 255 255 / 55%);
-  color: #53647e;
-  font: 700 7px/1.15 "Cascadia Code", Consolas, monospace;
+  color: #485a74;
+  font: 700 8px/1.2 "Cascadia Code", Consolas, monospace;
 }
 
 .githubMetrics strong {
@@ -693,8 +723,8 @@
 
 .githubContent section h3 {
   margin: 0 0 5px;
-  color: #285da9;
-  font: 900 8px/1 "Cascadia Code", Consolas, monospace;
+  color: #1e5ba8;
+  font: 900 9px/1 "Cascadia Code", Consolas, monospace;
   letter-spacing: .06em;
 }
 
@@ -736,14 +766,14 @@
   border-radius: 3px;
   background: var(--yellow);
   color: #5b4811;
-  font: 900 6px/1 "Cascadia Code", Consolas, monospace;
+  font: 900 7px/1 "Cascadia Code", Consolas, monospace;
 }
 
 .githubEvidenceList a > strong,
 .githubBugList a > strong {
   min-width: 0;
   overflow: hidden;
-  font: 800 7px/1.1 "Cascadia Code", Consolas, monospace;
+  font: 800 8.5px/1.15 "Cascadia Code", Consolas, monospace;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -753,8 +783,8 @@
   grid-column: 2;
   min-width: 0;
   overflow: hidden;
-  color: #707789;
-  font-size: 7px;
+  color: #626a7d;
+  font-size: 8px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -772,18 +802,18 @@
   border-left: 3px solid var(--yellow);
   padding: 5px 7px;
   background: rgb(255 217 61 / 14%);
-  color: #646b7d;
-  font: 700 7px/1.35 "Cascadia Code", Consolas, monospace;
+  color: #565d6f;
+  font: 700 8px/1.4 "Cascadia Code", Consolas, monospace;
 }
 
 .tone_profile {
   --tone-fill: #fffefa;
-  --tone-border: #4a7cc9;
+  --tone-border: #2b7fd8;
 }
 
 .tone_blue {
   --tone-fill: #e8f1ff;
-  --tone-border: #4a7cc9;
+  --tone-border: #2b7fd8;
 }
 
 .tone_yellow {
@@ -793,12 +823,12 @@
 
 .tone_paper {
   --tone-fill: #fffefa;
-  --tone-border: #77798a;
+  --tone-border: #6f7f95;
 }
 
 .tone_principle {
-  --tone-fill: #e9f4eb;
-  --tone-border: #4c8a60;
+  --tone-fill: #e8f4f8;
+  --tone-border: #2f7f9e;
 }
 
 .tone_note {
@@ -1060,6 +1090,53 @@
   .zoomControls {
     right: 8px;
     bottom: 104px;
+  }
+}
+
+@media (max-width: 720px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .toolbar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .brand {
+    padding-inline: 10px;
+    border-right: 0;
+  }
+
+  .stageRail {
+    display: none;
+  }
+
+  .sidebar {
+    position: absolute;
+    top: 48px;
+    bottom: 0;
+    left: 0;
+    z-index: 26;
+    width: min(78vw, 300px);
+    display: flex;
+    transform: translateX(-105%);
+    transition: transform .25s cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .layersToggle {
+    display: flex;
+  }
+
+  .canvasStage {
+    grid-column: 1;
+  }
+
+  .zoomControls {
+    bottom: 96px;
   }
 }
 
