@@ -6,6 +6,7 @@
 .design-evidence
 node_modules
 out
+output
 coverage
 test-results
 playwright-report
