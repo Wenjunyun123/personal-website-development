@@ -26,7 +26,7 @@ export default function ResumePage() {
         <Image
           className={styles.portrait}
           src="/profile/wenjun.png"
-          alt="游文君证件照"
+          alt="游文君个人照片"
           width={210}
           height={280}
           priority

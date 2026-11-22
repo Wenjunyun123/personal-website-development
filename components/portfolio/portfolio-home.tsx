@@ -28,7 +28,7 @@ export function PortfolioHome() {
     <div className={styles.surface}>
       <main className={styles.home} id="main">
         <Link href="/resume/" className={styles.avatarLink} aria-label={zh ? "查看游文君的简历" : "View Wenjun’s resume"}>
-          <Image className={styles.avatar} src="/profile/wenjun.png" alt={zh ? "游文君" : "Wenjun You"} width={32} height={32} priority />
+          <Image className={styles.avatar} src="/profile/wenjun-avatar.png" alt={zh ? "游文君" : "Wenjun You"} width={32} height={32} priority />
         </Link>
         <h1>{zh ? "你好，我是游文君。" : "Hey there, I’m Wenjun You."}</h1>
         <p className={styles.subtitle}>{zh ? "一名做 AI 应用交付的 FDE。" : "a forward deployed engineer for AI applications."}</p>
