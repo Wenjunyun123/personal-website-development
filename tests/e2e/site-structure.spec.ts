@@ -5,7 +5,11 @@ test("移动端主要页面无横向溢出且可见图片均成功加载", async
   await page.setViewportSize({ width: 390, height: 844 });
   for (const path of ["/", "/selected/", "/explorations/", "/work/feishu-customer-service-gateway/", "/work/product-knowledge-ai-query/", "/work/enterprise-data-migration-dashboards/", "/work/customer-service-evaluation/", "/work/feishu-service-desk/", "/work/aily-knowledge-and-actions/"]) {
     await page.goto(path);
-    await expect(page.locator("h1")).toBeVisible();
+    if (path === "/") {
+      await expect(page.getByLabel("Wenjun OS 启动终端")).toBeVisible();
+    } else {
+      await expect(page.locator("h1"), `missing visible h1 on ${path}`).toBeVisible();
+    }
     await page.evaluate(async () => {
       for (let y = 0; y < document.body.scrollHeight; y += 600) {
         window.scrollTo(0, y);
@@ -18,6 +22,12 @@ test("移动端主要页面无横向溢出且可见图片均成功加载", async
         const rect = image.getBoundingClientRect();
         return rect.width > 0 && rect.height > 0;
       });
+      for (const image of rendered) {
+        if ((image as HTMLImageElement).naturalWidth === 0) {
+          image.scrollIntoView({ block: "center", inline: "center" });
+          await new Promise(resolve => setTimeout(resolve, 80));
+        }
+      }
       await Promise.all(rendered.map(image => {
         const img = image as HTMLImageElement;
         if (img.complete && img.naturalWidth > 0) return Promise.resolve();
@@ -29,11 +39,15 @@ test("移动端主要页面无横向溢出且可见图片均成功加载", async
         });
       }));
     });
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    expect(await page.locator("img:visible").evaluateAll(images => images.filter(image => {
-      const rect = image.getBoundingClientRect();
-      return rect.width > 0 && rect.height > 0;
-    }).every(image => (image as HTMLImageElement).naturalWidth > 0))).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `horizontal overflow on ${path}`).toBe(true);
+    const brokenImages = await page.locator("img:visible").evaluateAll(images => images
+      .filter(image => {
+        const rect = image.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0;
+      })
+      .filter(image => (image as HTMLImageElement).naturalWidth === 0)
+      .map(image => (image as HTMLImageElement).currentSrc || (image as HTMLImageElement).src));
+    expect(brokenImages, `broken images on ${path}`).toEqual([]);
   }
 });
 

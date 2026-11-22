@@ -12,6 +12,10 @@ import {
   useState
 } from "react";
 import Image from "next/image";
+import type { IconType } from "react-icons";
+import { FaGithub } from "react-icons/fa";
+import { FiBriefcase, FiFileText, FiGrid, FiLayers, FiRepeat, FiTarget, FiUser, FiUsers } from "react-icons/fi";
+import { portfolioWork } from "../../content/portfolio";
 import {
   deliveryStageOrder,
   deliveryStages,
@@ -35,6 +39,7 @@ type HomeOSProps = {
 
 type WindowId =
   | "about"
+  | "fde"
   | "experience"
   | "delivery-loop"
   | "team-agent"
@@ -60,38 +65,55 @@ type Point = { x: number; y: number };
 
 const VISITED_KEY = "wenjun-os-visited";
 
+const metricLabelEn: Record<string, string> = {
+  "平均响应": "avg response",
+  "去长尾平均": "trimmed avg",
+  "中位响应": "median",
+  "隔日复测中位差": "rerun median delta",
+  "A/B 中位耗时": "A/B median",
+  "A/B P90": "A/B P90",
+  "每题候选文件": "candidate files / question",
+  "查询台平均响应": "query desk avg",
+  "项未解释差异": "unexplained diffs",
+  "迁移规模": "migration scale",
+  "证书查询": "certificate query",
+  "工具调用": "tool calls"
+};
+
 const terminalScript = [
   { text: "$ whoami", kind: "command" },
   { text: "> 游文君 Wenjun You", kind: "output" },
   { text: "$ cat about.md", kind: "command" },
-  { text: "> AI 交付工程师（FDE）", kind: "output" },
-  { text: "  把业务需求变成可运行、可验证、可交接的 AI 系统", kind: "output" },
-  { text: "  Frontend × Agent × Delivery", kind: "output" },
+  { text: "> AI 应用交付工程师（FDE）", kind: "output" },
+  { text: "  驻场负熵云，做企业智能客服、产品知识与数据迁移", kind: "output" },
+  { text: "  把模糊需求变成可运行、可评测、可交接的 AI 应用", kind: "output" },
   { text: '$ echo "1 person + AI = one delivery team"', kind: "command" },
   { text: "> 1 person + AI = one delivery team", kind: "gold" },
   { text: "$ open wenjun-os.app", kind: "command" }
 ] as const;
 
-const iconDefinitions: ReadonlyArray<{ id: WindowId; label: string; labelZh: string }> = [
-  { id: "about", label: "about.md", labelZh: "about.md" },
-  { id: "experience", label: "timeline", labelZh: "经历时间轴" },
-  { id: "delivery-loop", label: "lark-github-loop", labelZh: "飞书-GitHub闭环" },
-  { id: "team-agent", label: "team-agent", labelZh: "Team Agent" },
-  { id: "release-matrix", label: "release-matrix", labelZh: "发布矩阵" },
-  { id: "skills", label: "skills", labelZh: "能力栈" },
-  { id: "resume", label: "resume", labelZh: "简历" },
-  { id: "github", label: "open-source", labelZh: "开源贡献" }
+const iconDefinitions: ReadonlyArray<{ id: WindowId; label: string; labelZh: string; action: string }> = [
+  { id: "about", label: "about.md", labelZh: "about.md", action: "Open Profile" },
+  { id: "fde", label: "fde-delivery", labelZh: "FDE 交付", action: "Open Delivery Threads" },
+  { id: "experience", label: "timeline", labelZh: "经历时间轴", action: "View Timeline" },
+  { id: "delivery-loop", label: "lark-github-loop", labelZh: "飞书-GitHub闭环", action: "Open Workflow" },
+  { id: "team-agent", label: "team-agent", labelZh: "Team Agent", action: "Open Agent" },
+  { id: "release-matrix", label: "release-matrix", labelZh: "发布矩阵", action: "Open Matrix" },
+  { id: "skills", label: "skills", labelZh: "能力栈", action: "View Stack" },
+  { id: "resume", label: "resume", labelZh: "简历", action: "View Resume" },
+  { id: "github", label: "open-source", labelZh: "开源贡献", action: "See the Repo" }
 ];
 
 const initialIconPositions: Record<WindowId, Point> = {
-  about: { x: 24, y: 54 },
-  experience: { x: 24, y: 154 },
-  "delivery-loop": { x: 24, y: 254 },
-  "team-agent": { x: 24, y: 354 },
-  "release-matrix": { x: 124, y: 54 },
-  skills: { x: 124, y: 154 },
-  resume: { x: 124, y: 254 },
-  github: { x: 124, y: 354 }
+  about: { x: 22, y: 52 },
+  fde: { x: 262, y: 52 },
+  experience: { x: 22, y: 158 },
+  "delivery-loop": { x: 22, y: 264 },
+  "team-agent": { x: 22, y: 370 },
+  "release-matrix": { x: 142, y: 52 },
+  skills: { x: 142, y: 158 },
+  resume: { x: 142, y: 264 },
+  github: { x: 142, y: 370 }
 };
 
 export function HomeOS({ onLaunchedChange, onIntroReadyChange }: HomeOSProps) {
@@ -382,6 +404,13 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
   }, []);
 
   useEffect(() => {
+    document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+    return () => {
+      document.documentElement.lang = "zh-CN";
+    };
+  }, [language]);
+
+  useEffect(() => {
     const query = window.matchMedia("(max-width: 720px)");
     const update = () => setIsMobile(query.matches);
     update();
@@ -450,7 +479,7 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
     setIconPositions((current) => ({
       ...current,
       [drag.id]: {
-        x: clamp(drag.origin.x + dx, 8, Math.max(8, window.innerWidth - 92)),
+        x: clamp(drag.origin.x + dx, 8, Math.max(8, window.innerWidth - 116)),
         y: clamp(drag.origin.y + dy, 38, Math.max(38, window.innerHeight - 104))
       }
     }));
@@ -488,7 +517,7 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
     <section className={styles.desktop} ref={forwardedRef} aria-label="Wenjun OS desktop">
       <header className={styles.menuBar}>
         <div className={styles.menuIdentity}>
-          <Image src="/profile/wenjun.png" alt="游文君 Wenjun You" width={22} height={22} />
+          <Image src="/profile/wenjun-avatar.png" alt="游文君 Wenjun You" width={22} height={22} />
           <strong>Wenjun OS</strong>
           <span className={styles.desktopMenuText}>Profile</span>
           <span className={styles.desktopMenuText}>Projects</span>
@@ -500,7 +529,10 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
           <time dateTime={time.toISOString()}>{formatClock(time, language)}</time>
         </div>
       </header>
-      <div className={styles.wallpaper} onClick={() => setSelectedIcon(null)}>
+      <div
+        className={styles.wallpaper}
+        onClick={() => setSelectedIcon(null)}
+      >
         <div className={styles.iconLayer}>
           {iconDefinitions.map((icon) => {
             const position = iconPositions[icon.id];
@@ -508,6 +540,8 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
               <button
                 className={`${styles.desktopIcon} ${selectedIcon === icon.id ? styles.desktopIconSelected : ""}`}
                 style={{ left: position.x, top: position.y }}
+                data-hover-label={icon.action}
+                data-icon-id={icon.id}
                 type="button"
                 key={icon.id}
                 aria-label={`${labels[icon.id]} — ${isMobile ? "open" : "double click or press Enter to open"}`}
@@ -544,7 +578,7 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
       </div>
       {windows.map((item) => (
           <article
-            className={`${styles.osWindow} ${item.minimized ? styles.windowMinimized : ""} ${item.maximized ? styles.windowMaximized : ""}`}
+            className={`${styles.osWindow} ${item.id === "fde" ? styles.fdeWindow : ""} ${item.minimized ? styles.windowMinimized : ""} ${item.maximized ? styles.windowMaximized : ""}`}
             style={{ left: item.x, top: item.y, zIndex: item.z }}
             key={item.id}
             onPointerDown={() => bringToFront(item.id)}
@@ -618,12 +652,46 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
     return (
       <div className={styles.aboutWindow}>
         <div className={styles.profileLead}>
-          <Image src="/profile/wenjun.png" alt="" width={92} height={92} />
+          <Image src="/profile/wenjun-avatar.png" alt="" width={92} height={92} />
           <div><span className={styles.eyebrow}>{copy.status}</span><h2>{copy.identity}</h2><p>{copy.chineseName}</p></div>
         </div>
         <h3>{copy.role}</h3>
         <p className={styles.largeCopy}>{copy.thesis}</p>
         <div className={styles.signalRow}>{copy.heroSignals.map((signal) => <span key={signal}>{signal}</span>)}</div>
+      </div>
+    );
+  }
+
+  if (id === "fde") {
+    return (
+      <div>
+        <WindowHeading
+          kicker="fde.delivery · 2026.09—11"
+          title={isZh ? "三条企业 AI 交付主线" : "Three enterprise AI delivery threads"}
+        />
+        <p>
+          {isZh
+            ? "驻场负熵云客户现场：先把客服链路从“能回答”做到“稳定送达”，再把 889 份产品资料变成可检索、可交付的知识库，最后把 2,041 条生产订单和会议/证书数据搬进可运营的 Base。三条线都从需求拆解走到验收与交接。"
+            : "Onsite at Negative Entropy Cloud, I first moved customer service from “can answer” to “reliably delivered,” then turned 889 product documents into a queryable, handover-ready knowledge base, and finally moved 2,041 production-order records plus meeting and certificate data into an operating Base. Each thread runs from scoping through acceptance and handoff."}
+        </p>
+        <div className={styles.deliveryFlow}>
+          {portfolioWork.map((project, index) => (
+            <article key={project.slug}>
+              <b>0{index + 1}</b>
+              <span>{isZh ? project.titleZh : project.title}</span>
+              <small>{isZh ? project.categoryZh : project.category}</small>
+              <p>{isZh ? project.summaryZh : project.summary}</p>
+              <div className={styles.evidenceList}>
+                {project.metrics.map(([value, label]) => (
+                  <small key={label}>{value} {isZh ? label : metricLabelEn[label] ?? label}</small>
+                ))}
+              </div>
+              <a className={styles.threadLink} href={`/work/${project.slug}/`}>
+                {isZh ? "阅读完整案例" : "Read the case"} ↗
+              </a>
+            </article>
+          ))}
+        </div>
       </div>
     );
   }
@@ -639,6 +707,7 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
           <span data-kind="education">{isZh ? "教育" : "Education"}</span>
           <span data-kind="award">{isZh ? "获奖" : "Awards"}</span>
           <span data-kind="internship">{isZh ? "实习" : "Internships"}</span>
+          <span data-kind="work">{isZh ? "工作" : "Work"}</span>
         </div>
         <div className={styles.experienceTimeline}>
           {experienceTimeline.map((item) => (
@@ -807,27 +876,19 @@ function WindowHeading({ kicker, title }: { kicker: string; title: string }) {
 }
 
 function IconGlyph({ id }: { id: WindowId }) {
-  const common = { width: 48, height: 48, viewBox: "0 0 48 48", fill: "none", xmlns: "http://www.w3.org/2000/svg", "aria-hidden": true } as const;
-  if (id === "github") {
-    return <svg {...common} className={styles.iconGraphic}><circle cx="24" cy="24" r="21" fill="#1a1a2e"/><path d="M16 37c0-4 2-6 5-7-5-.6-8-3-8-9 0-2 .7-4 2-5-1-3 0-5 0-5s3-1 6 2c2-.5 5-.5 7 0 3-3 6-2 6-2s1 2 0 5c1.3 1 2 3 2 5 0 6-3 8.4-8 9 2 1 3 3 3 6v1" stroke="#fefcf6" strokeWidth="2" strokeLinecap="round"/></svg>;
-  }
-  if (id === "team-agent") {
-    return <svg {...common} className={styles.iconGraphic}><path d="M8 10h32v27H8z" fill="#f4d758" stroke="#1a1a2e" strokeWidth="2"/><circle cx="18" cy="22" r="5" fill="#2b7fd8"/><circle cx="30" cy="22" r="5" fill="#2b7fd8"/><path d="M16 32c4-3 12-3 16 0" stroke="#1a1a2e" strokeWidth="2"/></svg>;
-  }
-  if (id === "delivery-loop") {
-    return <svg {...common} className={styles.iconGraphic}><circle cx="24" cy="24" r="18" stroke="#f4d758" strokeWidth="5" strokeDasharray="18 7"/><path d="m31 8 8 1-3 7" fill="#f4d758"/><path d="m17 40-8-1 3-7" fill="#f4d758"/></svg>;
-  }
-  if (id === "release-matrix") {
-    return <svg {...common} className={styles.iconGraphic}><rect x="5" y="5" width="38" height="38" rx="4" fill="#fefcf6" stroke="#1a1a2e" strokeWidth="2"/><path d="M17 5v38M31 5v38M5 17h38M5 31h38" stroke="#2b7fd8" strokeWidth="2"/><path d="m20 24 3 3 7-8" stroke="#1a1a2e" strokeWidth="3"/></svg>;
-  }
-  if (id === "skills") {
-    return <svg {...common} className={styles.iconGraphic}><path d="m24 3 6 12 13 2-10 10 2 14-11-6-12 6 3-14L5 17l13-2z" fill="#f4d758" stroke="#1a1a2e" strokeWidth="2"/></svg>;
-  }
-  if (id === "experience") {
-    return <svg {...common} className={styles.iconGraphic}><path d="M5 15h38v27H5z" fill="#f4d758" stroke="#1a1a2e" strokeWidth="2"/><path d="M17 15V9h14v6M5 25h38" stroke="#1a1a2e" strokeWidth="2"/><path d="M20 23h8v5h-8z" fill="#2b7fd8"/></svg>;
-  }
-  const isResume = id === "resume";
-  return <svg {...common} className={styles.iconGraphic}><path d="M9 4h23l7 7v33H9z" fill={isResume ? "#f4d758" : "#fefcf6"} stroke="#1a1a2e" strokeWidth="2"/><path d="M32 4v8h7M15 21h18M15 27h18M15 33h12" stroke="#2b7fd8" strokeWidth="2"/><path d="M15 14h9" stroke="#1a1a2e" strokeWidth="3"/></svg>;
+  const iconMap: Record<WindowId, IconType> = {
+    about: FiUser,
+    fde: FiTarget,
+    experience: FiBriefcase,
+    "delivery-loop": FiRepeat,
+    "team-agent": FiUsers,
+    "release-matrix": FiGrid,
+    skills: FiLayers,
+    resume: FiFileText,
+    github: FaGithub
+  };
+  const Icon = iconMap[id];
+  return <Icon className={styles.iconGraphic} aria-hidden="true" focusable="false" />;
 }
 
 function ExitSequence({ reducedMotion, onReturnDesktop }: { reducedMotion: boolean; onReturnDesktop: () => void }) {

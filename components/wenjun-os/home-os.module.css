@@ -27,15 +27,30 @@
   gap: 0;
   overflow: hidden;
   padding: 0 18px;
-  background: var(--cream);
+  background:
+    radial-gradient(circle at 50% 46%, rgb(71 33 130 / 22%), transparent 31%),
+    radial-gradient(circle at 34% 74%, rgb(0 186 255 / 9%), transparent 28%),
+    #020203;
   font-family: Georgia, "Times New Roman", serif;
 }
 
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(560px circle at center, rgb(98 46 255 / 14%), transparent 68%);
+  mix-blend-mode: screen;
+}
+
 .introDevice {
+  --device-scale: 1;
   position: relative;
   width: min(760px, 92vw, calc((100svh - 150px) * 1.4615));
   outline: none;
   cursor: pointer;
+  transform: scale(var(--device-scale));
+  will-change: transform;
   transition: transform 1.5s cubic-bezier(.4, 0, .2, 1), filter .8s ease;
 }
 
@@ -44,7 +59,8 @@
 }
 
 .introDeviceLaunching {
-  transform: scale(2.45);
+  --device-scale: 2.45;
+  transition-duration: 1.5s;
 }
 
 .introDeviceLaunching .terminal { opacity: 0; filter: blur(2px); transform: scale(1.15); transition: transform .8s cubic-bezier(.4,0,.2,1), opacity .8s ease, filter .8s ease; }
@@ -63,8 +79,8 @@
   margin: 0 auto;
   padding: 14px;
   border-radius: 14px 14px 0 0;
-  background: #2a2a30;
-  box-shadow: none;
+  background: linear-gradient(135deg, #313138, #131318 52%, #35353c);
+  box-shadow: 0 34px 70px rgb(0 0 0 / 54%), 0 0 0 1px rgb(255 255 255 / 8%) inset;
 }
 
 .camera {
@@ -84,8 +100,27 @@
   height: 100%;
   overflow: hidden;
   border-radius: 4px;
-  background: var(--terminal);
+  background-color: #000;
+  background-image: url("/wallpapers/mac-spectrum.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  isolation: isolate;
 }
+
+.laptopScreen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.laptopScreen::after {
+  background: linear-gradient(115deg, transparent 20%, rgb(255 255 255 / 7%) 42%, transparent 61%);
+  opacity: .75;
+}
+
 
 .laptopBase {
   position: relative;
@@ -108,9 +143,13 @@
 }
 
 .terminal {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: 100%;
-  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 3px), var(--terminal);
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgb(255 255 255 / 3%) 2px, rgb(255 255 255 / 3%) 3px),
+    linear-gradient(105deg, rgb(1 2 7 / 78%), rgb(1 2 7 / 42%) 55%, rgb(1 2 7 / 63%));
   color: var(--cream);
   font: 13px/1.7 "Fira Code", "Cascadia Code", "Courier New", monospace;
 }
@@ -212,7 +251,7 @@
   border: 0;
   padding: 0;
   background: transparent;
-  color: #8a8a9a;
+  color: #aaa8b7;
   box-shadow: none;
   cursor: pointer;
   font: 400 13px/1.3 "Fira Code", "Cascadia Code", monospace;
@@ -222,14 +261,14 @@
 
 .launchCta:hover,
 .launchCta:focus-visible {
-  color: var(--ink);
+  color: #fff;
   outline: none;
 }
 
 .introHint {
   height: 26px;
   margin: 8px 0 0;
-  color: #8a8a9a;
+  color: #aaa8b7;
   text-align: center;
   font: 18px/1.45 "Fira Code", monospace;
   animation: bounce 1.6s ease infinite;
@@ -248,7 +287,7 @@
   height: 100svh;
   min-height: 520px;
   overflow: hidden;
-  background: var(--blue);
+  background: #000;
   color: var(--ink);
   font-family: "Fira Code", "Cascadia Code", monospace;
 }
@@ -262,10 +301,10 @@
   justify-content: space-between;
   gap: 14px;
   padding: 0 10px;
-  border-bottom: 0;
-  background: rgba(43, 127, 216, 0.96);
-  box-shadow: none;
-  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+  background: rgb(8 8 12 / 72%);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 20%);
+  backdrop-filter: blur(20px) saturate(145%);
   color: rgba(255,255,255,.92);
   font-size: 10px;
   user-select: none;
@@ -319,13 +358,23 @@
   position: relative;
   height: calc(100% - 30px);
   overflow: hidden;
-  background:
-    radial-gradient(circle at 16% 28%, rgba(254, 252, 246, 0.82) 0 1.2px, transparent 1.8px),
-    radial-gradient(circle at 84% 18%, rgba(244, 215, 88, 0.9) 0 1.5px, transparent 2px),
-    radial-gradient(circle at 62% 72%, rgba(254, 252, 246, 0.72) 0 1px, transparent 1.6px),
-    radial-gradient(circle at 35% 82%, rgba(244, 215, 88, 0.8) 0 1px, transparent 1.5px),
-    var(--blue);
-  background-size: 150px 150px, 240px 240px, 190px 190px, 270px 270px, 100% 100%;
+  background-color: #000;
+  background-image: url("/wallpapers/mac-spectrum.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.wallpaper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.wallpaper::before {
+  z-index: 1;
+  background: radial-gradient(circle at center, transparent 34%, rgb(0 0 0 / 48%) 115%);
 }
 
 .iconLayer {
@@ -335,47 +384,88 @@
 }
 
 .desktopIcon {
+  --icon-accent: #00c896;
   position: absolute;
-  width: 80px;
-  min-height: 82px;
+  width: 108px;
+  height: 92px;
   display: grid;
+  grid-template-rows: 1fr auto;
   justify-items: center;
-  align-content: start;
-  gap: 5px;
-  border: 1px solid transparent;
-  border-radius: 7px;
-  padding: 4px 2px;
-  background: transparent;
-  color: var(--cream);
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 15%);
+  border-radius: 8px;
+  padding: 13px 8px 8px;
+  background: rgb(4 6 9 / 58%);
+  box-shadow: 0 8px 26px rgb(0 0 0 / 18%), inset 0 0 0 1px rgb(255 255 255 / 2%);
+  color: rgb(248 249 252 / 92%);
   cursor: default;
   touch-action: none;
   user-select: none;
-  font: 700 10px/1.25 "Fira Code", "Cascadia Code", monospace;
-  text-shadow: 0 1px 3px rgba(26, 26, 46, 0.8);
+  font: 650 9px/1.25 "Fira Code", "Cascadia Code", monospace;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 72%);
+  backdrop-filter: blur(8px);
+  transition: border-color .18s ease, background-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.desktopIcon::after {
+  content: attr(data-hover-label);
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  color: var(--icon-accent);
+  font: 700 7px/1 "Fira Code", "Cascadia Code", monospace;
+  letter-spacing: -.02em;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity .18s ease, transform .18s ease;
 }
 
 .desktopIcon > span {
-  max-width: 78px;
-  padding: 2px 3px;
+  position: relative;
+  z-index: 1;
+  max-width: 96px;
+  padding: 2px 4px;
   overflow-wrap: anywhere;
+  transition: color .18s ease;
 }
 
 .desktopIcon:hover,
 .desktopIcon:focus-visible,
 .desktopIconSelected {
-  border-color: rgba(254, 252, 246, 0.55);
-  background: rgba(254, 252, 246, 0.18);
+  border-color: var(--icon-accent);
+  background: rgb(3 17 16 / 76%);
+  box-shadow: 0 10px 30px rgb(0 200 150 / 12%), inset 0 0 0 1px rgb(0 200 150 / 12%);
   outline: none;
+  transform: translateY(-2px);
+}
+
+.desktopIcon:hover::after,
+.desktopIcon:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.desktopIcon:hover .iconGraphic,
+.desktopIcon:focus-visible .iconGraphic,
+.desktopIconSelected .iconGraphic,
+.desktopIcon:hover > span,
+.desktopIcon:focus-visible > span,
+.desktopIconSelected > span {
+  color: var(--icon-accent);
 }
 
 .desktopIconSelected > span {
-  background: var(--ink);
+  background: transparent;
 }
 
 .iconGraphic {
-  width: 48px;
-  height: 48px;
-  filter: drop-shadow(0 4px 3px rgba(26, 26, 46, 0.25));
+  width: 42px;
+  height: 42px;
+  color: rgb(248 249 252 / 94%);
+  filter: drop-shadow(0 6px 8px rgb(0 0 0 / 36%));
+  transition: color .18s ease, transform .18s ease;
 }
 
 .osWindow {
@@ -393,6 +483,11 @@
   background: var(--cream);
   box-shadow: 0 18px 50px rgba(0,0,0,.18), 0 0 0 .5px rgba(0,0,0,.06);
   font-family: Georgia, "Times New Roman", serif;
+}
+
+.fdeWindow {
+  width: min(1040px, calc(100vw - 70px));
+  height: min(680px, calc(100vh - 86px));
 }
 
 .windowMaximized {
@@ -652,6 +747,11 @@
   background: #c9efcf;
 }
 
+.timelineLegend span[data-kind="work"],
+.experienceTimeline article[data-kind="work"] .timelineKind {
+  background: #ffd9d0;
+}
+
 .experienceTimeline {
   position: relative;
   display: grid;
@@ -695,6 +795,7 @@
 .experienceTimeline article[data-kind="education"] .timelineDot { background: var(--blue); }
 .experienceTimeline article[data-kind="award"] .timelineDot { background: var(--yellow); }
 .experienceTimeline article[data-kind="internship"] .timelineDot { background: var(--green); }
+.experienceTimeline article[data-kind="work"] .timelineDot { background: #c94f43; }
 
 .timelineCard {
   border: 2px solid var(--ink);
@@ -730,6 +831,29 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 9px;
   margin-top: 24px;
+}
+
+.deliveryFlow article {
+  display: flex;
+  flex-direction: column;
+}
+
+.threadLink {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 14px;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+  font: 800 10px/1.5 "Fira Code", "Cascadia Code", monospace;
+  text-decoration: none;
+}
+
+.threadLink:hover,
+.threadLink:focus-visible {
+  border-color: var(--blue);
+  color: var(--blue);
+  outline: none;
 }
 
 .deliveryFlow article,
@@ -1102,11 +1226,13 @@
 
 .exitDesktopPreview {
   opacity: var(--preview-opacity, 1);
-  background:
-    radial-gradient(circle at 12% 18%, var(--cream) 0 1px, transparent 1.6px),
-    radial-gradient(circle at 78% 42%, var(--yellow) 0 1.5px, transparent 2px),
-    var(--blue);
-  background-size: 110px 110px, 180px 180px, auto;
+  background-color: #000;
+  background-image:
+    radial-gradient(circle at center, transparent 36%, rgb(0 0 0 / 38%) 112%),
+    url("/wallpapers/mac-spectrum.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%, cover;
 }
 
 .exitPreviewBar {
@@ -1115,18 +1241,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 12px;
-  background: rgba(254, 252, 246, 0.9);
-  color: var(--ink);
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+  background: rgb(8 8 12 / 72%);
+  color: rgb(255 255 255 / 88%);
+  backdrop-filter: blur(18px) saturate(140%);
   font: 800 9px/1 "Fira Code", "Cascadia Code", monospace;
 }
 
 .exitPreviewStar {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  color: var(--yellow);
-  font: 240px/0.5 Georgia, serif;
-  transform: translate(-50%, -50%) rotate(8deg);
+  display: none;
 }
 
 .goodbyeTerminal {
@@ -1428,6 +1551,12 @@
   .cursor,
   .launchWashActive {
     animation: none;
+  }
+
+  .desktopIcon,
+  .desktopIcon::after,
+  .iconGraphic {
+    transition: none;
   }
 
   .launchWashActive {

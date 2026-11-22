@@ -20,8 +20,8 @@ test("项目说明保留培训与实习证据边界，流程演示可走完", as
 
 test("精选项目优先展示当前交付，案例区分真实记录与示意", async ({ page }) => {
   await page.goto("/selected/");
-  await page.getByRole("link", { name: /企业级智能客服：评测、诊断与稳定性治理/ }).click();
-  await expect(page.getByRole("heading", { level: 1, name: "企业级智能客服：评测、诊断与稳定性治理" })).toBeVisible();
+  await page.getByRole("link", { name: /企业级智能客服：从能回答到稳定送达/ }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "企业级智能客服：从能回答到稳定送达" })).toBeVisible();
   await expect(page.getByText("客户交付 · 脱敏展示", { exact: true })).toBeVisible();
   await expect(page.getByRole("region", { name: "智能客服接入结构示意" })).toBeVisible();
   await page.getByRole("link", { name: "返回", exact: true }).click();

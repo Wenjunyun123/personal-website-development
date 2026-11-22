@@ -591,3 +591,31 @@
     transition: none;
   }
 }
+
+.fdeStats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.fdeStats strong {
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.15;
+}
+
+@media (max-width: 900px) {
+  .fdeStats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fdeStats div {
+    border-right: 1px solid var(--report-rule);
+    border-bottom: 1px solid var(--report-rule);
+  }
+
+  .fdeStats div:nth-child(even) {
+    border-right: 0;
+  }
+
+  .fdeStats div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+}

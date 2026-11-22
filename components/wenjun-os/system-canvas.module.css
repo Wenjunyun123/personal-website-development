@@ -11,7 +11,10 @@
   min-height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background: var(--cream);
+  background-color: #171720;
+  background-image: url("/wallpapers/system-editorial.webp");
+  background-position: center;
+  background-size: cover;
   color: var(--ink);
   font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
   isolation: isolate;
@@ -48,8 +51,9 @@
   grid-template-columns: 220px minmax(0, 1fr) auto;
   align-items: center;
   border-bottom: 2px dashed rgb(74 124 201 / 18%);
-  background: rgb(254 252 246 / 96%);
-  box-shadow: 0 2px 8px rgb(37 40 58 / 5%);
+  background: rgb(254 252 246 / 88%);
+  box-shadow: 0 8px 28px rgb(20 20 30 / 12%);
+  backdrop-filter: blur(22px) saturate(120%);
 }
 
 .brand {
@@ -139,7 +143,9 @@
   flex-direction: column;
   overflow: hidden;
   border-right: 2px dashed rgb(74 124 201 / 18%);
-  background: rgb(254 252 246 / 98%);
+  background: rgb(254 252 246 / 90%);
+  box-shadow: 12px 0 40px rgb(20 20 30 / 12%);
+  backdrop-filter: blur(24px) saturate(115%);
 }
 
 .layersHeading {
@@ -321,19 +327,24 @@
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  background: var(--cream);
+  background: transparent;
 }
 
 .viewport {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background-color: var(--cream);
+  background-color: #aaa5a4;
   background-image:
-    linear-gradient(rgb(37 40 58 / 3%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(37 40 58 / 3%) 1px, transparent 1px),
-    radial-gradient(rgb(74 124 201 / 31%) 1.2px, transparent 1.2px);
-  background-size: 120px 120px, 120px 120px, 20px 20px;
+    linear-gradient(90deg, rgb(17 18 29 / 28%), transparent 30%, transparent 72%, rgb(17 18 29 / 20%)),
+    linear-gradient(rgb(255 255 255 / 8%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 8%) 1px, transparent 1px),
+    radial-gradient(rgb(255 217 61 / 38%) 1.2px, transparent 1.2px),
+    linear-gradient(rgb(22 23 34 / 9%), rgb(22 23 34 / 24%)),
+    url("/wallpapers/system-editorial.webp");
+  background-repeat: no-repeat, repeat, repeat, repeat, no-repeat, no-repeat;
+  background-position: center, 0 0, 0 0, 0 0, center, center;
+  background-size: 100% 100%, 120px 120px, 120px 120px, 20px 20px, 100% 100%, cover;
   cursor: grab;
   touch-action: none;
   user-select: none;

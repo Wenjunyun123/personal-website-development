@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { portfolioWork } from "../../content/portfolio";
 import {
   experienceItems,
   featuredProjects,
@@ -6,6 +7,13 @@ import {
   profileStats
 } from "../../content/profile";
 import styles from "./work-report.module.css";
+
+const fdeProof = [
+  ["74–78→52–55s", "智能客服平均响应"],
+  ["9.96s", "资料查询台平均响应"],
+  ["37→27s", "知识检索 A/B 中位"],
+  ["0", "迁移未解释差异"]
+] as const;
 
 const capabilityColumns = [
   {
@@ -41,6 +49,10 @@ const capabilityColumns = [
 ] as const;
 
 const experienceEvidenceZh: Record<string, string> = {
+  "74–78→52–55s CS avg": "客服平均响应 74–78→52–55s",
+  "37→27s knowledge A/B": "知识检索 A/B 37→27s",
+  "9.96s query desk": "查询台平均响应 9.96s",
+  "0 migration differences": "迁移 0 项未解释差异",
   "60 public add-ons": "60 个公开 add-ons 核验",
   "62 packages audited": "62 个包体审计",
   "16 Office manifests": "16 个 Office manifests",
@@ -62,8 +74,8 @@ export function WorkReport() {
           <p className={styles.eyebrow}>WENJUN YOU / SELECTED WORK 2025—2026</p>
           <h1 id="work-report-title">1 Person + AI = One Delivery Team</h1>
           <p className={styles.positioning}>
-            我是一名 AI 交付工程师（FDE）。我把模糊的业务需求拆成数据模型、界面、Agent、自动化与发布检查，
-            再用 PR、CI、运行记录和验收证据把工作闭环到真实业务中。
+            我是一名 AI 应用交付工程师（FDE）。我在客户现场把模糊需求做成可运行、可评测、可交接的 AI 应用，
+            用响应时间、交付质量与业务产出证明效果，而不是只停留在功能演示。
           </p>
         </header>
 
@@ -82,6 +94,41 @@ export function WorkReport() {
               </ul>
             </article>
           ))}
+        </section>
+
+        <section className={styles.portfolio} aria-labelledby="fde-title">
+          <div className={styles.sectionHeading}>
+            <p>FDE DELIVERY / 00</p>
+            <h2 id="fde-title">企业 AI 交付主线</h2>
+          </div>
+
+          <div className={`${styles.stats} ${styles.fdeStats}`} aria-label="FDE 交付效果">
+            {fdeProof.map(([value, label]) => (
+              <div key={label}>
+                <strong>{value}</strong>
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.projectGrid}>
+            {portfolioWork.map((project) => (
+              <article className={styles.projectCard} key={project.slug}>
+                <Link className={styles.projectLink} href={`/work/${project.slug}/`} prefetch={false}>
+                  <div className={styles.projectMeta}>
+                    <span>{project.period}</span>
+                    <strong>{project.categoryZh}</strong>
+                  </div>
+                  <h3>{project.titleZh}</h3>
+                  <p className={styles.projectSummary}>{project.summaryZh}</p>
+                  <ul className={styles.proofList}>
+                    {project.metrics.map(([value, label]) => <li key={label}>{value} · {label}</li>)}
+                  </ul>
+                  <span className={styles.caseCta}>阅读完整案例 <span aria-hidden="true">↗</span></span>
+                </Link>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className={styles.portfolio} aria-labelledby="portfolio-title">

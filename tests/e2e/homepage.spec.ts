@@ -1,65 +1,89 @@
 import { expect, test } from "@playwright/test";
 
-test("简洁首页直接展示当前 FDE 身份，并可进入项目与实践", async ({ page }) => {
+test("首页按终端启动、个人桌面、FDE 交付窗口的逻辑工作", async ({ page }) => {
+  await page.addInitScript(() => localStorage.removeItem("wenjun-os-visited"));
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: "你好，我是游文君。" })).toBeVisible();
-  await expect(page.getByText("一名做 AI 应用交付的 FDE。")).toBeVisible();
-  await expect(page.getByRole("link", { name: "邮件", exact: true })).toHaveAttribute("href", "mailto:wenjunyou2002@outlook.com");
-  await expect(page.getByRole("link", { name: "GitHub", exact: true })).toHaveAttribute("href", "https://github.com/Wenjunyun123");
-  await page.getByRole("link", { name: "精选项目", exact: true }).click();
-  await expect(page).toHaveURL(/\/selected\//);
-  await expect(page.getByRole("heading", { name: "精选项目", exact: true })).toBeVisible();
-  await page.getByRole("link", { name: "返回", exact: true }).click();
-  await page.getByRole("link", { name: "经历与实践", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "经历与实践", exact: true })).toBeVisible();
+
+  const terminal = page.getByLabel("Wenjun OS 启动终端");
+  await expect(terminal).toBeVisible();
+  await page.getByRole("button", { name: /跳过终端输入动画/ }).click();
+  await expect(terminal.getByText(/游文君 Wenjun You/)).toBeVisible();
+  await expect(terminal.getByText(/AI 应用交付工程师（FDE）/)).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "个人网站场景" })).toBeVisible();
+
+  await page.keyboard.press("Enter");
+  const desktop = page.getByLabel("Wenjun OS desktop");
+  await expect(desktop).toBeVisible({ timeout: 5_000 });
+  await expect(page.getByRole("button", { name: /FDE 交付/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /飞书-GitHub闭环/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Team Agent/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: "拖动游文君的个人卡片" })).toHaveCount(0);
+
+  await page.getByRole("button", { name: /FDE 交付/ }).dblclick();
+  const fdeWindow = page.getByLabel("FDE 交付 window");
+  await expect(fdeWindow.getByRole("heading", { name: "三条企业 AI 交付主线" })).toBeVisible();
+  await expect(fdeWindow.getByText(/74–78s 降到 52–55s/)).toBeVisible();
+  await expect(fdeWindow.getByText("37→27s A/B 中位耗时", { exact: true })).toBeVisible();
+  await expect(fdeWindow.getByText("0 项未解释差异", { exact: true })).toBeVisible();
+  await expect(fdeWindow.getByRole("link", { name: /阅读完整案例/ })).toHaveCount(3);
+  await fdeWindow.getByRole("button", { name: "关闭窗口：FDE 交付" }).click();
+  await expect(fdeWindow).toHaveCount(0);
+
+  await page.getByRole("button", { name: /about\.md/ }).dblclick();
+  await expect(page.getByRole("heading", { name: "游文君" })).toBeVisible();
+  await expect(page.getByText(/把模糊业务需求拆成数据与知识模型/)).toBeVisible();
+  await expect(page.getByRole("link", { name: "wenjunyou2002@outlook.com" })).toHaveAttribute("href", /^mailto:/);
+
+  const aboutWindow = page.getByLabel("about.md window");
+  await expect(aboutWindow).toHaveAttribute("data-window-state", "normal");
+  await expect(aboutWindow.getByRole("button", { name: "关闭窗口：about.md" })).toBeVisible();
+  await expect(aboutWindow.getByText("×")).toHaveCount(1);
+
+  await aboutWindow.getByRole("button", { name: "最小化窗口：about.md" }).click();
+  await expect(aboutWindow).toHaveAttribute("data-window-state", "minimized");
+  await expect(page.getByRole("heading", { name: "游文君" })).toBeHidden();
+
+  await aboutWindow.getByRole("button", { name: "恢复窗口：about.md" }).click();
+  await expect(aboutWindow).toHaveAttribute("data-window-state", "normal");
+  await aboutWindow.getByRole("button", { name: "最大化窗口：about.md" }).click();
+  await expect(aboutWindow).toHaveAttribute("data-window-state", "maximized");
+  await expect(aboutWindow).toHaveCSS("top", "30px");
+
+  await aboutWindow.getByRole("button", { name: "恢复窗口：about.md" }).click();
+  await expect(aboutWindow).toHaveAttribute("data-window-state", "normal");
+  await aboutWindow.getByRole("button", { name: "关闭窗口：about.md" }).click();
+  await expect(aboutWindow).toHaveCount(0);
+
+  await page.getByRole("button", { name: /经历时间轴/ }).dblclick();
+  const timelineWindow = page.getByLabel("经历时间轴 window");
+  await expect(timelineWindow.getByRole("heading", { name: "从大一到 AI 交付现场" })).toBeVisible();
+  await expect(timelineWindow.getByText("大一 · 本科阶段从这里开始")).toBeVisible();
+  await expect(timelineWindow.getByText("集成电路创新大赛 · 龙芯杯")).toBeVisible();
+  await expect(timelineWindow.getByText("上海凯淳实业股份有限公司 · K.AI 智能实验室")).toBeVisible();
+  await expect(timelineWindow.getByText("广州市负熵云信息科技有限公司")).toBeVisible();
+  await timelineWindow.getByRole("button", { name: "关闭窗口：经历时间轴" }).click();
+
+  await page.getByRole("button", { name: /开源贡献/ }).dblclick();
+  const githubWindow = page.getByLabel("开源贡献 window");
+  await expect(githubWindow.getByRole("heading", { name: "开源贡献账本" })).toBeVisible();
+  await expect(githubWindow.getByText("外部仓库已合并 PR")).toBeVisible();
+  await expect(githubWindow.getByRole("link", { name: /usewhale\/Whale#266/ })).toHaveAttribute("href", "https://github.com/usewhale/Whale/pull/266");
+  await expect(githubWindow.getByRole("link", { name: /freestylefly\/wesight#20/ })).toHaveAttribute("href", "https://github.com/freestylefly/wesight/issues/20");
 });
 
-test("首页支持语言切换和键盘入口", async ({ page }) => {
+test("桌面支持语言切换，FDE 窗口可切换为英文", async ({ page }) => {
+  await page.addInitScript(() => localStorage.removeItem("wenjun-os-visited"));
   await page.goto("/");
-  await page.getByRole("button", { name: "Switch to English" }).click();
-  await expect(page.getByRole("heading", { name: "Hey there, I’m Wenjun You." })).toBeVisible();
+  await page.getByRole("button", { name: /跳过终端输入动画/ }).click();
+  await page.keyboard.press("Enter");
+  await expect(page.getByLabel("Wenjun OS desktop")).toBeVisible({ timeout: 5_000 });
+
+  await page.getByRole("button", { name: /FDE 交付/ }).dblclick();
+  const fdeWindow = page.getByLabel("FDE 交付 window");
+  await expect(fdeWindow.getByRole("heading", { name: "三条企业 AI 交付主线" })).toBeVisible();
+
+  await page.getByRole("button", { name: "Switch desktop language" }).click();
+  await expect(page.getByRole("heading", { name: "Three enterprise AI delivery threads" })).toBeVisible();
+  await expect(page.getByLabel("fde-delivery window").getByText(/74–78s to 52–55s/)).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await page.locator("h1").click();
-  await page.keyboard.press("s");
-  await expect(page.getByRole("heading", { name: "Selected work", exact: true })).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(page.getByRole("heading", { name: "Hey there, I’m Wenjun You." })).toBeVisible();
-});
-
-test("公司建筑预览支持悬停，并链接到署名来源", async ({ page }) => {
-  await page.goto("/");
-  const yichong = page.getByRole("link", { name: "易宠科技", exact: true });
-  await yichong.hover();
-  await expect(page.locator("#yichong-preview")).toBeVisible();
-  await page.locator("#yichong-preview img").evaluate((element: HTMLImageElement) => element.decode());
-  await yichong.click();
-  await expect(page).toHaveURL(/\/explorations\/#yichong$/);
-  await expect(page.locator("#yichong").getByRole("link", { name: /浦东国际人才大厦.*图片/ })).toHaveAttribute("href", "https://www.pdgjrcc.cn/");
-  await page.getByRole("button", { name: "Switch to English" }).click();
-  await expect(page.locator("#yichong").getByRole("img")).toHaveAttribute("alt", "Yichong internship office: Pudong International Talent Building");
-  await page.getByRole("button", { name: "切换到中文" }).click();
-  await page.goto("/");
-  const yimu = page.getByRole("link", { name: "怡沐", exact: true });
-  await yimu.focus();
-  const yimuPreview = page.locator("#yimu-preview");
-  await expect(yimuPreview).toBeVisible();
-  await expect(yimuPreview).toContainText("公开招聘地址对应园区");
-  await yimuPreview.locator("img").evaluate((element: HTMLImageElement) => element.decode());
-  await yimu.click();
-  await expect(page).toHaveURL(/\/explorations\/#yimu$/);
-  await expect(page.locator("#yimu").getByRole("link", { name: "公开招聘地址", exact: true })).toHaveAttribute("href", "https://www.jobui.com/company/15054227/");
-  await expect(page.locator("#yimu").getByRole("link", { name: /中环协信天地园区.*图片/ })).toHaveAttribute("href", "https://www.justwork.com.cn/products/中环协信天地/");
-
-  await page.getByRole("button", { name: "Switch to English" }).click();
-  await expect(page.locator("#yimu")).toContainText("Public recruitment address");
-  await page.getByRole("button", { name: "切换到中文" }).click();
-  await page.goto("/");
-  const company = page.getByRole("link", { name: "凯淳 K.AI", exact: true });
-  await company.hover();
-  await expect(page.locator("#kaytune-preview")).toBeVisible();
-  const image = page.getByAltText("凯淳股份智慧之岸总部大楼");
-  await expect(image).toBeVisible();
-  await image.evaluate((element: HTMLImageElement) => element.decode());
-  await company.click();
-  await expect(page.getByRole("link", { name: /凯淳总部.*摄影/ })).toHaveAttribute("href", "https://www.hetaochina.cn/news/decoration_guide/594.html");
 });

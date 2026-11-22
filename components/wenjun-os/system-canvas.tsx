@@ -227,7 +227,7 @@ function CanvasCardContent({ card, isZh }: { card: CanvasCard; isZh: boolean }) 
     return (
       <div className={styles.profileContent}>
         <div className={styles.profilePortrait}>
-          <Image src="/profile/wenjun.png" alt={isZh ? "游文君证件照" : "Portrait of Wenjun You"} width={106} height={142} draggable={false} priority />
+          <Image src="/profile/wenjun.png" alt={isZh ? "游文君个人照片" : "Portrait of Wenjun You"} width={106} height={142} draggable={false} priority />
           <i aria-hidden="true">✦</i>
         </div>
         <div>
