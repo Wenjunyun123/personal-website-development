@@ -56,8 +56,8 @@ export function GatewayPreview({ zh }: { zh: boolean }) {
 
 export function KnowledgePreview({ zh }: { zh: boolean }) {
   const cards = zh
-    ? [["01 / CORPUS", "889 份产品文档", "解析、去重、结构化"], ["02 / CARDS", "235 条 QA + 184 张知识卡", "型号、参数、接口、装箱、横比"], ["03 / ACCEPTANCE", "225 题 UI 验收", "平均 9.96s · P95 14.46s"]]
-    : [["01 / CORPUS", "889 product documents", "Parse, dedupe, structure"], ["02 / CARDS", "235 QA + 184 cards", "Models, specs, interfaces, packing, comparison"], ["03 / ACCEPTANCE", "225 UI checks", "9.96s average · 14.46s P95"]];
+    ? [["01 / CORPUS", "889 份产品文档", "解析、去重、结构化"], ["02 / CARDS", "235 条 QA + 184 张知识卡", "型号、参数、接口、装箱、横比"], ["03 / OUTCOME", "查询台平均 9.96s", "P95 14.46s · 旧链路 18.93%"]]
+    : [["01 / CORPUS", "889 product documents", "Parse, dedupe, structure"], ["02 / CARDS", "235 QA + 184 cards", "Models, specs, interfaces, packing, comparison"], ["03 / OUTCOME", "9.96s query desk average", "14.46s P95 · 18.93% of old chain"]];
   return <section className={styles.demo} data-demo="knowledge" aria-label={zh ? "产品知识工程结构示意" : "Product knowledge engineering diagram"}>
     <header className={styles.header}><span>Product knowledge</span><span className={styles.demoTag}>{zh ? "结构示意 / 已脱敏" : "Illustration / anonymized"}</span></header>
     <div className={styles.releaseBody}><span className={styles.eyebrow}>STRUCTURE / RETRIEVE / VERIFY</span><h2>{zh ? "让型号、参数和文件都答得准。" : "Make models, specs, and files answerable."}</h2><p>{zh ? "从 889 份文档到可查询的知识卡，再把边界写进验收。" : "From 889 documents to queryable knowledge cards, with boundaries built into acceptance."}</p>
@@ -70,8 +70,8 @@ export function KnowledgePreview({ zh }: { zh: boolean }) {
 
 export function DataMigrationPreview({ zh }: { zh: boolean }) {
   const cards = zh
-    ? [["01 / MIGRATE", "9 张表 · 2,041 条记录", "38,819 个字段单元格"], ["02 / RECONCILE", "51 个公式字段 · 5 条工作流", "全量回读 0 项未解释差异"], ["03 / OPERATE", "会议看板 + 证书智能体", "121 场会议 · 189 项自动化测试"]]
-    : [["01 / MIGRATE", "9 tables · 2,041 records", "38,819 field cells"], ["02 / RECONCILE", "51 formula fields · 5 workflows", "0 unexplained differences after read-back"], ["03 / OPERATE", "Meeting dashboard + certificate agent", "121 meetings · 189 automated tests"]];
+    ? [["01 / MIGRATE", "9 张表 · 2,041 条记录", "38,819 个字段单元格"], ["02 / RECONCILE", "51 个公式字段 · 5 条工作流", "全量回读 0 项未解释差异"], ["03 / OPERATE", "会议看板 + 证书智能体", "证书查询 68s → 17–26s"]]
+    : [["01 / MIGRATE", "9 tables · 2,041 records", "38,819 field cells"], ["02 / RECONCILE", "51 formula fields · 5 workflows", "0 unexplained differences after read-back"], ["03 / OPERATE", "Meeting dashboard + certificate agent", "Certificate query 68s → 17–26s"]];
   return <section className={styles.demo} data-demo="migration" aria-label={zh ? "企业数据迁移与业务看板结构示意" : "Enterprise data migration diagram"}>
     <header className={styles.header}><span>Data systems</span><span className={styles.demoTag}>{zh ? "结构示意 / 已脱敏" : "Illustration / anonymized"}</span></header>
     <div className={styles.releaseBody}><span className={styles.eyebrow}>MIGRATE / RECONCILE / OPERATE</span><h2>{zh ? "把表格迁移成可运行的业务系统。" : "Turn spreadsheets into an operating system."}</h2><p>{zh ? "数据、看板和智能体共享同一套口径与权限。" : "Data, dashboards, and agents share one set of definitions and permissions."}</p>

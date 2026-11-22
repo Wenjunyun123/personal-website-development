@@ -8,16 +8,16 @@ export const operatingLayerOrder: OperatingLayer[] = ["business", "agent", "exec
 export const profileCopy = {
   en: {
     nav: { home: "Profile", work: "Projects", system: "System Map" },
-    status: "Shanghai · AI Delivery Engineer / FDE",
+    status: "Shanghai · AI Application Delivery Engineer / FDE",
     identity: "Wenjun You",
     chineseName: "游文君",
-    role: "AI Delivery Engineer (FDE)",
-    thesis: "I turn ambiguous business needs into interfaces, agents, automation, release checks, and evidence-backed handoffs.",
+    role: "AI Application Delivery Engineer (FDE)",
+    thesis: "I turn ambiguous business needs into data and knowledge models, interfaces, agents, evaluations, and evidence-backed handoffs.",
     availability: "Open to AI application, FDE, Agent workflow, and plugin delivery opportunities.",
     launch: "Press Enter to inspect the delivery loop",
     viewResume: "View Resume",
     email: "Email Wenjun",
-    heroSignals: ["AI application frontend", "Agent workflows", "Release engineering", "Business automation"],
+    heroSignals: ["AI application delivery", "Knowledge & data modeling", "Evaluation & acceptance", "Agent workflows"],
     loopKicker: "Flagship system / user-confirmed practice",
     loopTitle: "Lark CLI × GitHub CLI Delivery Loop",
     loopIntro: "A six-stage operating loop that carries a business request from a Lark record into a GitHub implementation, then returns PR, CI, and acceptance evidence to the original record.",
@@ -28,7 +28,7 @@ export const profileCopy = {
     projectCta: "Inspect the full project system",
     profileKicker: "$ open profile.yaml",
     profileTitle: "I build the connective tissue between AI capability and real operations.",
-    profileIntro: "My work spans product interfaces, plugin delivery, Base automation, data pipelines, release governance, and the operational details that make Agent systems dependable.",
+    profileIntro: "My work spans enterprise customer service, product knowledge engineering, data migration, product interfaces, Base automation, release governance, and the operational details that make Agent systems dependable.",
     featuredTitle: "Flagship Systems",
     experienceTitle: "Experience Ledger",
     skillsTitle: "Capability Stack",
@@ -53,16 +53,16 @@ export const profileCopy = {
   },
   zh: {
     nav: { home: "个人", work: "项目", system: "系统地图" },
-    status: "上海 · AI 交付工程师 / FDE",
+    status: "上海 · AI 应用交付工程师（FDE）",
     identity: "游文君",
     chineseName: "Wenjun You",
-    role: "AI 交付工程师（FDE）",
-    thesis: "我把模糊业务需求拆成界面、智能体、自动化、发布检查和带证据的交接闭环。",
+    role: "AI 应用交付工程师（FDE）",
+    thesis: "我把模糊业务需求拆成数据与知识模型、界面、智能体、自动化与评测验收，再用证据闭环到真实业务。",
     availability: "关注 AI 应用、FDE、Agent 工作流与插件交付机会。",
     launch: "按 Enter 检查交付闭环",
     viewResume: "查看简历",
     email: "邮件联系",
-    heroSignals: ["AI 应用前端", "Agent 工作流", "发布工程", "业务自动化"],
+    heroSignals: ["AI 应用交付", "知识与数据建模", "评测与验收", "Agent 工作流"],
     loopKicker: "旗舰系统 / 用户确认实践",
     loopTitle: "飞书 CLI × GitHub CLI 交付闭环",
     loopIntro: "一条六阶段操作链：让业务需求从飞书记录进入 GitHub 实现，再把 PR、CI 与验收证据回写到最初的业务记录。",
@@ -73,7 +73,7 @@ export const profileCopy = {
     projectCta: "查看完整项目系统",
     profileKicker: "$ open profile.yaml",
     profileTitle: "我构建 AI 能力与真实业务之间的连接层。",
-    profileIntro: "我的实践横跨产品界面、插件交付、飞书 Base 自动化、数据管道、发布治理，以及让 Agent 系统真正可靠的操作细节。",
+    profileIntro: "我的实践横跨企业智能客服、产品知识工程、数据迁移、产品界面、飞书 Base 自动化、发布治理，以及让 Agent 系统真正可靠的操作细节。",
     featuredTitle: "旗舰系统",
     experienceTitle: "经历账本",
     skillsTitle: "能力栈",
@@ -178,15 +178,15 @@ export const experienceItems = [
     companyZh: "广州市负熵云信息科技有限公司",
     role: "AI Application Delivery Engineer · FDE, client onsite",
     roleZh: "AI 应用交付工程师（FDE · 驻场客户现场）",
-    summary: "Owned enterprise AI delivery across customer service, product knowledge, data migration, and business dashboards, from scoping and integration to evaluation, acceptance, and handoff.",
-    summaryZh: "负责企业 AI 应用交付，覆盖智能客服、产品知识查询、数据迁移与业务看板；从需求拆解、接口集成到评测验收和交接文档独立推进。",
-    evidence: ["2,245 / 225 / 262 eval sets", "238 traces diagnosed", "889 docs structured", "9 tables / 2,041 records"],
+    summary: "Owned enterprise AI delivery across customer service, product knowledge, data migration, and business dashboards: average customer-service response fell from 74–78s to 52–55s, product-knowledge A/B median from 37s to 27s, and 2,041 migrated production-order records read back with 0 unexplained differences.",
+    summaryZh: "驻场客户现场，交付企业智能客服、产品知识、数据迁移与业务看板：客服平均响应 74–78s 降到 52–55s，知识检索 A/B 中位 37→27s，2,041 条生产订单迁移后回读 0 项未解释差异。",
+    evidence: ["74–78→52–55s CS avg", "37→27s knowledge A/B", "9.96s query desk", "0 migration differences"],
     bullets: [
       "驻场客户现场，负责企业协同、客服与知识管理场景的多个 AI 应用交付，覆盖智能客服、产品知识查询、证书查询、会议看板和多语言营销；与业务方对齐范围、验收标准和风险边界，从需求拆解、数据/知识建模、接口集成到评测验收和交接文档，独立推进项目落地。",
-      "建设并持续优化 Udesk 外部智能体中间层（NestJS + React + PostgreSQL），补齐 SSE 流式输出、人工转接、幂等、限流、脱敏和观测；将 Webhook 签名校验从 warn 切换为 enforce，保留回滚 SQL 与日志核验方案。",
-      "搭建可恢复的大规模评测体系：逐题 JSONL、断点续跑、统一判定、Base/Excel/HTML 报告；分别建立 2,245 题工作流全量、225 题 Aily 基准（中位 40.4s、P90 61.0s、自动判定 99.11%）和 262 题扩展集（260/262、99.2%）的评测口径。",
-      "基于 238 条 trace 定位入口排队（约 12.7–13.0s）、索引切片、46.5KB 上下文截断和二次回读等瓶颈，提出结构化索引、检索过滤、上下文裁剪与模板化文件交付；产品化查询台 225 题 UI 验收平均 9.96s、P50 10.87s、P95 14.46s，总耗时约为旧链路的 18.93%。",
-      "完成 889 份产品文档结构化，产出 235 条 QA 与 184 张参数知识卡；29 题受控 A/B 中位 37→27s、自动判定 96.6%→100%、P90 51→37s，并用 805 条真实 FAQ 校准知识覆盖。"
+      "建设并持续优化智能客服“小灰”的 Udesk 外部智能体中间层（NestJS + React + PostgreSQL），补齐 SSE 流式输出、人工转接、幂等、限流、脱敏和观测；把 Webhook 签名校验从 warn 切到 enforce，保留回滚 SQL 与日志核验；配合运行档案与检索顺序优化，把平均响应从 74–78s 降到 52–55s，262 题扩展集保持 99.2% 正确，10 路同题隔日复测中位差 0.4s。",
+      "先用逐题 JSONL、断点续跑和统一判定把平台成本与模型质量分开，再用 238 条 trace 定位入口排队（约 12.7–13.0s）、索引切片、46.5KB 上下文截断和二次回读；提出结构化索引、检索过滤、上下文裁剪与模板化文件交付，产品化查询台 UI 验收平均 9.96s、P95 14.46s，总耗时约为旧链路的 18.93%。",
+      "完成 889 份产品文档结构化，产出 235 条 QA 与 184 张参数知识卡；受控 A/B 中位 37→27s、P90 51→37s、每题候选文件 9.8→1.1，并用 805 条真实 FAQ 校准知识覆盖，把知识工程从“调提示词”推进到数据抽取、检索粒度和客户口径。",
+      "把委外生产订单 9 张表、2,041 条记录、38,819 个单元格、51 个公式字段和 5 条工作流迁入多维表格，保留原表 #N/A/#DIV/0! 与业务口径，全量回读 0 项未解释差异；交付会议经营看板与证书查询智能体，典型证书查询从 68s/3 次调用降到 17–26s/1 次。"
     ]
   },
   {
@@ -224,7 +224,7 @@ export const experienceItems = [
   }
 ] as const;
 
-export type ExperienceTimelineKind = "education" | "award" | "internship";
+export type ExperienceTimelineKind = "education" | "award" | "internship" | "work";
 
 export const experienceTimeline = [
   {
@@ -329,6 +329,24 @@ export const experienceTimeline = [
     summary: "Delivered Adobe Express, Canva, Office, and Safari plugin surfaces while governing package truth, release risk, and source handoff.",
     summaryZh: "交付 Adobe Express、Canva、Office 与 Safari 插件，同时治理包体真源、发布风险与源码交接。",
     evidence: [["60 public add-ons", "60 个公开 add-on"], ["62-package audit", "62 个包体审计"], ["16 Office manifests", "16 个 Office manifests"]]
+  },
+  {
+    period: "2026.09 — 2026.11",
+    kind: "work" as ExperienceTimelineKind,
+    kindLabel: "Work",
+    kindLabelZh: "工作",
+    title: "AI Application Delivery Engineer · FDE",
+    titleZh: "AI 应用交付工程师 · FDE",
+    organization: "Guangzhou Negative Entropy Cloud Information Technology",
+    organizationZh: "广州市负熵云信息科技有限公司",
+    summary: "Onsite with the client, delivered enterprise customer service, product knowledge, data migration, and business dashboards from scoping and integration to evaluation, acceptance, and handoff.",
+    summaryZh: "驻场客户现场，交付企业智能客服、产品知识工程、数据迁移与业务看板，覆盖需求拆解、接口集成、评测验收与交接。",
+    evidence: [
+      ["9.96s avg / 14.46s P95", "9.96s 平均 / 14.46s P95"],
+      ["18.93% of old chain", "旧链路总耗时 18.93%"],
+      ["37→27s knowledge A/B", "知识查询 A/B 37→27s"],
+      ["0 migration differences", "迁移 0 项未解释差异"]
+    ]
   }
 ] as const;
 

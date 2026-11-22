@@ -84,21 +84,21 @@ const evaluationNote = {
 export const portfolioWork = [
   {
     slug: "feishu-customer-service-gateway",
-    title: "Enterprise customer service: evaluation, diagnosis, and stability",
-    titleZh: "企业级智能客服：评测、诊断与稳定性治理",
+    title: "Enterprise customer service: from answering to reliable delivery",
+    titleZh: "企业级智能客服：从能回答到稳定送达",
     period: "2026.09—11",
     category: "Client delivery · anonymized",
     categoryZh: "客户交付 · 脱敏展示",
-    summary: "Built the Udesk middleware and a resumable evaluation system, then used traces to separate model quality from platform and delivery bottlenecks.",
-    summaryZh: "建设 Udesk 外部智能体中间层与可恢复评测体系，用 trace 区分模型能力、平台瓶颈与交付问题。",
+    summary: "Built the Udesk external-agent middleware for Webhook/SSE, human handoff, idempotency, rate limiting, masking, and observability, then used 238 traces to separate entrance queuing, index slicing, context truncation, and second read-back. That moved the service from “can answer” to “reliably delivered”: average response fell from 74–78s to 52–55s (trimmed average 62–64s → 45–49s), with same-question reruns on the next day landing within 0.4s. The handover includes the gateway, an enforce rollback plan, and a prioritized optimization list.",
+    summaryZh: "通过 Udesk 外部智能体中间层承接 Webhook/SSE，补齐人工转接、幂等、限流、脱敏与观测，并用 238 条 trace 把慢点拆到入口排队、索引切片、上下文截断和二次回读；把客服从“能回答”推进到“稳定送达”——平均响应 74–78s 降到 52–55s、去长尾 62–64s 降到 45–49s，10 路同题隔日复测中位差 0.4s；产出可交接的网关、enforce 回滚方案和按优先级排好的优化清单。",
     tags: ["NestJS", "React", "PostgreSQL", "Udesk", "SSE", "Webhook", "RAG", "Evaluation"],
     image: "/portfolio/customer-service-gateway.png",
-    metrics: [["2,245", "题工作流全量"], ["225", "题 Aily 基准"], ["238", "条 trace"], ["225", "题 UI 验收"]],
+    metrics: [["74–78→52–55s", "平均响应"], ["62–64→45–49s", "去长尾平均"], ["40–45s", "中位响应"], ["0.4s", "隔日复测中位差"]],
     sections: [
       { title: "The problem", titleZh: "问题", text: "A working agent is only one part of customer service. Messages still need to cross platforms, preserve the conversation, reach the customer, and leave enough evidence to investigate failures. Webhook/SSE delivery, context truncation, entrance queuing, and file handoff belong to different layers; without evidence, platform problems are easily mistaken for model problems.", textZh: "智能体能回答，不等于客户能顺利收到答案。客服渠道、接入中间件、Aily 和前台展示分属不同环节；Webhook/SSE 回传、上下文截断、入口排队和文件交付也分属不同层。缺少证据时，平台问题很容易被误判成模型问题。" },
       { title: "What I built", titleZh: "我做了什么", text: "I built and continuously improved the Udesk external-agent middleware in NestJS, React, and PostgreSQL: SSE streaming, human handoff, idempotency, rate limiting, masking, and observability. Webhook signature verification moved from warn to enforce, with a rollback SQL and log-verification plan.", textZh: "建设并持续优化智能客服的 Udesk 外部智能体中间层（NestJS + React + PostgreSQL），补齐 SSE 流式输出、人工转接、幂等、限流、脱敏和观测；将 Webhook 签名校验从 warn 切换为 enforce，保留回滚 SQL 与日志核验方案。" },
-      { title: "Evaluation system", titleZh: "评测体系", text: "I built a resumable evaluation system with per-question JSONL, checkpoint resume, unified grading, and Base/Excel/HTML reports. It covers three separate sets: 2,245 workflow questions, a 225-question Aily baseline (median 40.4s, P90 61.0s, automatic grading 99.11%), and a 262-question extension set (260/262, 99.2%). This keeps capability level, real usability, and platform limits from being mixed into one number.", textZh: "搭建可恢复的大规模评测体系：逐题 JSONL、断点续跑、统一判定、Base/Excel/HTML 报告；分别建立 2,245 题工作流全量、225 题 Aily 基准（中位 40.4s、P90 61.0s、自动判定 99.11%）和 262 题扩展集（260/262、99.2%）的评测口径，避免把能力水位、真实可用率和平台瓶颈混成一个数字。" },
-      { title: "Diagnosis and outcome", titleZh: "诊断与结果", text: "Using 238 traces, I located entrance queuing at roughly 12.7–13.0s, index slicing, 46.5KB context truncation, and a second read-back. I proposed structured indexing, retrieval filtering, context trimming, and templated file delivery. The productized query desk passed a 225-question UI acceptance run at an average of 9.96s, P50 10.87s, P95 14.46s, about 18.93% of the old chain’s total time.", textZh: "基于 238 条 trace 定位入口排队（约 12.7–13.0s）、索引切片、46.5KB 上下文截断和二次回读等瓶颈，提出结构化索引、检索过滤、上下文裁剪与模板化文件交付；产品化查询台 225 题 UI 验收平均 9.96s、P50 10.87s、P95 14.46s，总耗时约为旧链路的 18.93%。" }
+      { title: "Measurement and diagnosis", titleZh: "度量与诊断", text: "To decide which layer to fix, I built a resumable measurement system with per-question JSONL, checkpoint resume, unified grading, and Base/Excel/HTML reports. Separate sets kept capability level, real usability, and platform limits from being mixed into one number; the goal was not a test count, but a clear decision about where to optimize.", textZh: "为了判断该修哪一层，我搭建可恢复的度量体系：逐题 JSONL、断点续跑、统一判定、Base/Excel/HTML 报告。不同口径把能力水位、真实可用率和平台瓶颈分开，目的不是堆测试数量，而是明确优化方向。" },
+      { title: "Diagnosis and outcome", titleZh: "诊断与结果", text: "Using 238 traces, I located entrance queuing at roughly 12.7–13.0s, index slicing, 46.5KB context truncation, and a second read-back. I turned those findings into structured indexing, retrieval filtering, context trimming, and templated file delivery. Average response fell from 74–78s to 52–55s, the trimmed average from 62–64s to 45–49s, and a next-day same-question rerun held the median within 0.4s—so the gain was reproducible, not a one-day platform spike.", textZh: "基于 238 条 trace 定位入口排队（约 12.7–13.0s）、索引切片、46.5KB 上下文截断和二次回读等瓶颈，转化为结构化索引、检索过滤、上下文裁剪与模板化文件交付；平均响应从 74–78s 降到 52–55s，去长尾平均从 62–64s 降到 45–49s，隔日同题复测中位差 0.4s——提升可复现，不是某一天的平台波动。" }
     ]
   },
   {
@@ -108,16 +108,16 @@ export const portfolioWork = [
     period: "2026.09—11",
     category: "Client delivery · knowledge engineering",
     categoryZh: "客户交付 · 知识工程",
-    summary: "Structured 889 product documents into QA and parameter cards, then delivered a query desk with aliases, firmware boundaries, file links, and multi-turn follow-ups.",
-    summaryZh: "把 889 份产品文档结构化为 QA 与参数知识卡，交付支持型号别名、固件边界、文件链接和多轮追问的 AI 资料查询台。",
+    summary: "Turned 889 product documents into 235 QA pairs and 184 model/spec/interface/packing/comparison cards, calibrated against 805 real FAQs, and replaced full-text slicing with filtering by model, document type, language, and version. In a controlled A/B, median response fell from 37s to 27s, P90 from 51s to 37s, and candidate files per question from 9.8 to 1.1. The delivered query desk handles model aliases, firmware boundaries, file links, and multi-turn follow-ups at 9.96s average and 14.46s P95, about 18.93% of the old chain’s total time.",
+    summaryZh: "通过把 889 份产品文档解析成 235 条 QA 与 184 张型号/参数/接口/装箱/横比知识卡，用 805 条真实 FAQ 反向校准，并把检索从全文切片改成按型号、资料类型、语言和版本过滤；受控 A/B 中位 37→27s、P90 51→37s、每题候选文件 9.8→1.1；产出支持型号别名、固件边界、文件链接和多轮追问的查询台，UI 验收平均 9.96s、P95 14.46s，总耗时约为旧链路的 18.93%。",
     tags: ["RAG", "Knowledge cards", "Miaoda", "Base", "OpenAPI", "Evaluation"],
     image: "/portfolio/knowledge-query.png",
-    metrics: [["889", "份产品文档"], ["235", "条 QA"], ["184", "张知识卡"], ["29", "题 A/B"]],
+    metrics: [["37→27s", "A/B 中位耗时"], ["51→37s", "A/B P90"], ["9.8→1.1", "每题候选文件"], ["9.96s", "查询台平均响应"]],
     sections: [
       { title: "The problem", titleZh: "问题", text: "Product knowledge is scattered across manuals, tables, and firmware notes. Model aliases, version boundaries, and file delivery mean a retrieved passage is not the same as a correct answer.", textZh: "产品资料分散在文档、表格和固件说明里；型号别名、版本边界和文件交付让“检索到”不等于“答得对”。" },
       { title: "Knowledge engineering", titleZh: "知识工程", text: "I parsed 889 product documents into structured knowledge and produced 235 QA pairs plus 184 cards covering model, parameters, interfaces, packing, and cross-model comparison. 805 real FAQs were used to calibrate frequent phrasings and missing table fields.", textZh: "将 889 份产品文档解析为结构化知识，生成 235 条 QA 与 184 张型号/参数/接口/装箱/横比知识卡；用 805 条真实 FAQ 校准高频问法和表格字段遗漏。" },
-      { title: "Evaluation", titleZh: "评测", text: "In a controlled 29-question A/B, the median dropped from 37s to 27s, automatic grading rose from 96.6% to 100%, and P90 dropped from 51s to 37s. Six targeted regressions passed 6/6.", textZh: "29 题受控 A/B 中位 37→27s、自动判定 96.6%→100%、P90 51→37s；6 道针对性回归 6/6 通过。" },
-      { title: "Delivered", titleZh: "交付结果", text: "I delivered an AI query desk supporting model aliases, firmware boundaries, file links, and multi-turn follow-ups. A 225-question UI acceptance run completed 225/225 executions at an average of 9.96s, P50 10.87s, P95 14.46s. The main remaining defects were file delivery and multi-turn entity inheritance; both were recorded as improvement items.", textZh: "搭建 AI 资料查询台，支持型号别名、固件边界、文件链接和多轮追问；225 题 UI 验收 225/225 执行完成，平均 9.96s、P50 10.87s、P95 14.46s；主要缺陷集中在文件交付与多轮实体继承，已沉淀为改进项。" }
+      { title: "Effect", titleZh: "效果", text: "In a controlled A/B, the median dropped from 37s to 27s, P90 dropped from 51s to 37s, and the average number of candidate files per question fell from 9.8 to 1.1. The gain came from narrower retrieval and better knowledge cards, not from a larger model.", textZh: "受控 A/B 中位 37→27s、P90 51→37s、每题平均候选文件 9.8→1.1。提升来自更窄的检索与更好的知识卡，而不是换更大的模型。" },
+      { title: "Delivered", titleZh: "交付结果", text: "The delivered query desk supports model aliases, firmware boundaries, file links, and multi-turn follow-ups, at 9.96s average and 14.46s P95—about 18.93% of the old chain’s total time. File delivery and multi-turn entity inheritance remained the two weak spots; both were converted into scoped improvement items rather than hidden behind an aggregate score.", textZh: "交付的查询台支持型号别名、固件边界、文件链接和多轮追问，实测平均 9.96s、P95 14.46s，总耗时约为旧链路的 18.93%；文件交付与多轮实体继承仍是两处短板，被转成有范围的改进项，而不是用总分掩盖。" }
     ]
   },
   {
@@ -127,16 +127,16 @@ export const portfolioWork = [
     period: "2026.09—11",
     category: "Client delivery · data systems",
     categoryZh: "客户交付 · 数据系统",
-    summary: "Migrated outsourced production orders into Base, then delivered meeting and certificate workflows with reconciliation, permissions, and automated checks.",
-    summaryZh: "把委外生产订单迁移到多维表格，并交付会议经营看板与证书查询智能体，覆盖对账、权限和自动化检查。",
+    summary: "Migrated 9 outsourced-production tables with 2,041 records, 38,819 field cells, 51 formula fields, and 5 workflows into Base, preserving #N/A/#DIV/0! and business definitions; a full read-back found 0 unexplained differences. I then connected meeting discovery, transcript reading, permission requests, topic/action extraction, Base, and native dashboards, and delivered a certificate agent that cut a typical query from 68s and 3 calls to 17–26s and 1 call. The result is an operating data system with daily jobs, deduplication, idempotency, and empty-state guards—not isolated demos.",
+    summaryZh: "通过把委外生产订单 9 张表、2,041 条记录、38,819 个单元格和 51 个公式字段迁入多维表格，保留原表 #N/A/#DIV/0! 与业务口径，全量回读 0 项未解释差异；再把会议发现、正文读取、权限申请、主题/行动提炼、看板和证书查询串成闭环；把散落的电子表格变成可查询、可提醒、可运营的 Base——证书查询从 68s/3 次调用降到 17–26s/1 次，并产出每日计划任务、去重/幂等/空态保护和交接文档。",
     tags: ["Base", "SQL", "Workflow", "Dashboard", "Certificate agent", "Meeting data"],
     image: "/portfolio/data-migration.png",
-    metrics: [["9", "张表"], ["2,041", "条记录"], ["38,819", "个单元格"], ["0", "项未解释差异"]],
+    metrics: [["0", "项未解释差异"], ["68→17–26s", "证书查询"], ["3→1", "调用次数"], ["9 表 / 2,041 条", "迁移规模"]],
     sections: [
       { title: "The problem", titleZh: "问题", text: "Outsourced production orders lived in spreadsheets. Formulas, #N/A and #DIV/0! values, and business definitions all had to survive the migration. Meeting and certificate data sat in separate systems.", textZh: "委外生产订单散落在电子表格里，公式、#N/A/#DIV/0! 和业务口径都必须保留；会议与证书数据又分属不同系统。" },
       { title: "Migration", titleZh: "数据迁移", text: "I migrated 9 tables, 2,041 records, 38,819 field cells, 51 formula fields, and 5 workflows. The original #N/A and #DIV/0! values and business definitions were preserved; a full read-back found 0 unexplained differences.", textZh: "将委外生产订单电子表格迁移为多维表格：9 张表、2,041 条记录、38,819 个字段单元格、51 个公式字段、5 条工作流；保留原表 #N/A/#DIV/0! 和业务口径，全量回读 0 项未解释差异。" },
-      { title: "Dashboards and agent", titleZh: "看板与智能体", text: "I designed a meeting-operations loop from meeting discovery and transcript reading through permission requests, topic/action extraction, Base, and native dashboards. Across 121 meetings, 25 had readable transcripts and 22 had insufficient permission. I also delivered a certificate query agent; a typical query went from 68s and 3 calls to 17–26s and 1 call, with 28/28, 16/16, 14/14 regressions and 13/13 health checks passing.", textZh: "设计会议经营看板闭环：会议发现→正文读取→权限申请→主题/行动提炼→多维表格→原生仪表盘；121 场会议中发现 25 场可读正文、22 场权限不足；交付证书查询智能体，典型查询 68s/3 次调用→17–26s/1 次，28/28、16/16、14/14 回归与 13/13 健康检查通过。" },
-      { title: "Delivered", titleZh: "交付结果", text: "Daily scheduled jobs, deduplication, idempotency, and empty-state guards were added, with 189 automated tests passing. The data, dashboards, and agent form a handoff-ready delivery rather than isolated demos.", textZh: "建立每日计划任务、去重/幂等/空态保护，189 项自动化测试通过；把数据、看板和智能体串成可交接的交付物，而不是彼此孤立的演示。" }
+      { title: "Dashboards and agent", titleZh: "看板与智能体", text: "I designed a meeting-operations loop from meeting discovery and transcript reading through permission requests, topic/action extraction, Base, and native dashboards. Across 121 meetings, 25 had readable transcripts and 22 had insufficient permission. I also delivered a certificate query agent; a typical query went from 68s and 3 calls to 17–26s and 1 call.", textZh: "设计会议经营看板闭环：会议发现→正文读取→权限申请→主题/行动提炼→多维表格→原生仪表盘；121 场会议中发现 25 场可读正文、22 场权限不足；交付证书查询智能体，典型查询 68s/3 次调用→17–26s/1 次。" },
+      { title: "Delivered", titleZh: "交付结果", text: "Daily scheduled jobs, deduplication, idempotency, and empty-state guards were added. The data, dashboards, and agent form a handoff-ready delivery rather than isolated demos.", textZh: "建立每日计划任务、去重/幂等/空态保护；把数据、看板和智能体串成可交接的交付物，而不是彼此孤立的演示。" }
     ]
   }
 ] as const;
@@ -188,13 +188,13 @@ export const otherDeliveries = [
   {
     title: "Multilingual marketing assistant",
     titleZh: "多语言营销助手",
-    summary: "Completed an English/German end-to-end run for HD-A3L: 47.4s and 41.3s, 12 columns consistent column by column, pending customer acceptance.",
-    summaryZh: "完成 HD-A3L 英文/德文端到端闭环：47.4s/41.3s，12 列逐列一致，待客户验收。"
+    summary: "Built a Base → Aily HTTP → 12-column write-back loop and ran HD-A3L in English and German end to end: 47.4s and 41.3s, all 12 columns consistent, status returned as pending customer review. Prompt constraints forbid inventing specs and route missing market rules to human review.",
+    summaryZh: "搭好“多维表格 → Aily HTTP 任务 → 12 列回写 → 待审核”的闭环，用 HD-A3L 跑通英文/德文端到端：47.4s/41.3s、12 列逐列一致，状态回到“待客户审核”；提示词约束型号、参数和认证不得编造，缺失市场规则时转人工。"
   },
   {
     title: "FDE evaluation package system",
-    titleZh: "FDE 评测包体系",
-    summary: "Maintained 24 L1/L2 evaluation case files with rubric, human baseline, model failure samples, and review-rework closure; the 2026-09-28 snapshot recorded 6 passed and 16 pending review.",
-    summaryZh: "管理 24 个 L1/L2 评测案例档案，固化 Rubric、真人基线、模型失败样本与审核返修闭环；2026-09-28 快照 6 个通过、16 个待审。"
+    titleZh: "FDE 评测包交付体系",
+    summary: "Turned evaluation submission from manual packaging into a versioned delivery pipeline: 24 L1/L2 case files share rubric, human baseline, failure evidence, and ZIP checks, managed by pending-review / rework / passed status; the 2026-09-28 snapshot recorded 6 passed and 16 pending review.",
+    summaryZh: "把评测提交从手工打包变成版本化交付流水线：24 个 L1/L2 包档案统一 Rubric、真人基线、失败证据和 ZIP 校验，按待审/返修/通过分层管理；2026-09-28 快照 6 个通过、16 个待审。"
   }
 ] as const;

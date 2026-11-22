@@ -35,9 +35,9 @@ export function PortfolioHome() {
 
         <div className={styles.introduction}>
           <p>{zh ? <>
-            我在业务现场把模糊需求落成可运行、可评测、可交接的<Link href="/selected/" className={styles.inlineLink}>AI 应用</Link>。最近在负熵云驻场，做<Link href="/work/feishu-customer-service-gateway/" className={styles.inlineLink} style={{ "--link-color": "#198348" } as React.CSSProperties}>企业智能客服</Link>、产品知识查询和企业数据迁移。
+            我在业务现场把模糊需求落成可运行、可评测、可交接的<Link href="/selected/" className={styles.inlineLink}>AI 应用</Link>。最近在负熵云驻场：把<Link href="/work/feishu-customer-service-gateway/" className={styles.inlineLink} style={{ "--link-color": "#198348" } as React.CSSProperties}>企业智能客服</Link>的平均响应从 74–78 秒压到 52–55 秒，把产品知识查询中位从 37 秒降到 27 秒，并把 2,041 条生产订单迁进多维表格、全量回读 0 项未解释差异。
           </> : <>
-            I turn ambiguous business needs into <Link href="/selected/" className={styles.inlineLink}>AI applications</Link> that run, can be evaluated, and can be handed over. Lately I’ve been onsite at Negative Entropy Cloud, working on <Link href="/work/feishu-customer-service-gateway/" className={styles.inlineLink} style={{ "--link-color": "#198348" } as React.CSSProperties}>enterprise customer service</Link>, product knowledge, and data migration.
+            I turn ambiguous business needs into <Link href="/selected/" className={styles.inlineLink}>AI applications</Link> that run, can be evaluated, and can be handed over. Lately I’ve been onsite at Negative Entropy Cloud: cutting <Link href="/work/feishu-customer-service-gateway/" className={styles.inlineLink} style={{ "--link-color": "#198348" } as React.CSSProperties}>enterprise customer service</Link> average response from 74–78s to 52–55s, product-knowledge median from 37s to 27s, and migrating 2,041 production-order records into Base with zero unexplained differences.
           </>}</p>
           <p>{zh ? <>
             此前在<CompanyReference officeKey="yichong" zh={zh} />、<CompanyReference officeKey="yimu" zh={zh} />和<CompanyReference officeKey="kaytune" zh={zh} />实习，做过插件开发、AI 商品图工作流与数据管道。喜欢把复杂问题变成简单、可靠的工具。
@@ -47,9 +47,9 @@ export function PortfolioHome() {
         </div>
 
         <dl className={styles.proofStrip}>
-          <div><dt>2,245</dt><dd>{zh ? "题工作流评测" : "workflow evals"}</dd></div>
-          <div><dt>238</dt><dd>{zh ? "条 trace 诊断" : "traces diagnosed"}</dd></div>
-          <div><dt>889</dt><dd>{zh ? "份产品文档" : "product docs"}</dd></div>
+          <div><dt>52–55s</dt><dd>{zh ? "客服平均响应" : "service avg response"}</dd></div>
+          <div><dt>37→27s</dt><dd>{zh ? "知识查询 A/B 中位" : "knowledge A/B median"}</dd></div>
+          <div><dt>0</dt><dd>{zh ? "迁移未解释差异" : "migration diffs"}</dd></div>
         </dl>
 
         <p className={styles.nowLine}>
