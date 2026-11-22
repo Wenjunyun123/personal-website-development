@@ -173,7 +173,7 @@ export const teamAgentEvents = [
 
 export const experienceItems = [
   {
-    period: "2026.09 — 2026.11",
+    period: "2026.09 — 2026.12",
     company: "Guangzhou Negative Entropy Cloud Information Technology",
     companyZh: "广州市负熵云信息科技有限公司",
     role: "AI Application Delivery Engineer · FDE, client onsite",
@@ -331,7 +331,7 @@ export const experienceTimeline = [
     evidence: [["60 public add-ons", "60 个公开 add-on"], ["62-package audit", "62 个包体审计"], ["16 Office manifests", "16 个 Office manifests"]]
   },
   {
-    period: "2026.09 — 2026.11",
+    period: "2026.09 — 2026.12",
     kind: "work" as ExperienceTimelineKind,
     kindLabel: "Work",
     kindLabelZh: "工作",
