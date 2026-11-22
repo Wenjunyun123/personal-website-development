@@ -1,13 +1,16 @@
 node_modules/
 .next/
 out/
+dist/
 coverage/
 test-results/
 playwright-report/
+output/playwright/
 .env
 .env.*
 !.env.example
 npm-debug.log*
+*.tsbuildinfo
 
 # Tencent Cloud EdgeOne
 .env

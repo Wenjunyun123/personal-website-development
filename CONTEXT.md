@@ -1,5 +1,11 @@
 # Personal Website
 
+## Current brief — 2026-11-22
+
+The owner is an **AI 应用交付工程师（FDE）** at 广州市负熵云信息科技有限公司, working onsite with a client. The public positioning is AI application delivery, not “Feishu FDE”; Feishu, Aily, and Base are tools inside the delivery stack, not the identity. The site keeps Nick Pyl’s restrained structure: a narrow introduction, small inline company references, two visual entrances, and concise project stories. Production is GitHub Pages at `https://darioyou.cc/`; the Vercel project is a temporary preview. Source-backed case material and clear practice/production distinctions remain required. See `docs/adr/0001-minimal-fde-portfolio.md`.
+
+The current selected work is three FDE delivery threads: (1) enterprise customer service — Udesk middleware, resumable evaluation, trace diagnosis, and UI acceptance; (2) product knowledge engineering and an AI query desk; (3) enterprise data migration and business dashboards. Plugin delivery, the IT service desk, the evaluator repair, and the Aily architecture note live in Explorations. Keep client work anonymized on the public site; do not publish client names, raw data, or private research. Do not restore the earlier internship-first flagship emphasis or treat scenario/demo companies as production customers.
+
 This context defines the language for a personal website whose purpose is to build trust and attract high-quality opportunities.
 
 ## Language
@@ -65,12 +71,12 @@ Case-study content grounded in the resume, GitHub repositories, and verifiable p
 _Avoid_: Fabricated metrics, unverifiable project stories, generic capability claims
 
 **Flagship case**:
-The Adobe/Canva plugin release governance and frontend delivery system, used as the site's strongest proof of AI frontend engineering and end-to-end delivery.
-_Avoid_: Treating it as a small portfolio card, burying it below weaker projects
+The enterprise customer-service delivery: Udesk external-agent middleware, resumable evaluation, trace diagnosis, and 225-question UI acceptance, used as the strongest proof of FDE scoping, integration, measurement, and handoff.
+_Avoid_: Presenting it as a model demo, mixing test sets into one number, claiming client-wide acceptance
 
-**Release Command Center**:
-The first-screen interface slice for the flagship case: a productized view of plugin release governance, showing status checks, package evidence, risk priority, and release queue control.
-_Avoid_: Static dashboard mockup, unrelated analytics panel, single-plugin demo
+**Delivery thread**:
+One end-to-end FDE workstream with a business problem, integration surface, evaluation method, and handoff artifact; the selected page currently carries three.
+_Avoid_: Feature list, isolated demo, screenshot gallery
 
 **Lark CLI automation**:
 Automation experience using Feishu/Lark CLI or API-driven workflows to execute operational tasks, update records, and coordinate work in Feishu surfaces.

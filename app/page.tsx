@@ -1,5 +1,5 @@
-import { WenjunSite } from "../components/wenjun-os/site-shell";
+import { PortfolioHome } from "../components/portfolio/portfolio-home";
 
 export default function HomePage() {
-  return <WenjunSite />;
+  return <PortfolioHome />;
 }

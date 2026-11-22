@@ -173,9 +173,27 @@ export const teamAgentEvents = [
 
 export const experienceItems = [
   {
+    period: "2026.09 — 2026.11",
+    company: "Guangzhou Negative Entropy Cloud Information Technology",
+    companyZh: "广州市负熵云信息科技有限公司",
+    role: "AI Application Delivery Engineer · FDE, client onsite",
+    roleZh: "AI 应用交付工程师（FDE · 驻场客户现场）",
+    summary: "Owned enterprise AI delivery across customer service, product knowledge, data migration, and business dashboards, from scoping and integration to evaluation, acceptance, and handoff.",
+    summaryZh: "负责企业 AI 应用交付，覆盖智能客服、产品知识查询、数据迁移与业务看板；从需求拆解、接口集成到评测验收和交接文档独立推进。",
+    evidence: ["2,245 / 225 / 262 eval sets", "238 traces diagnosed", "889 docs structured", "9 tables / 2,041 records"],
+    bullets: [
+      "驻场客户现场，负责企业协同、客服与知识管理场景的多个 AI 应用交付，覆盖智能客服、产品知识查询、证书查询、会议看板和多语言营销；与业务方对齐范围、验收标准和风险边界，从需求拆解、数据/知识建模、接口集成到评测验收和交接文档，独立推进项目落地。",
+      "建设并持续优化 Udesk 外部智能体中间层（NestJS + React + PostgreSQL），补齐 SSE 流式输出、人工转接、幂等、限流、脱敏和观测；将 Webhook 签名校验从 warn 切换为 enforce，保留回滚 SQL 与日志核验方案。",
+      "搭建可恢复的大规模评测体系：逐题 JSONL、断点续跑、统一判定、Base/Excel/HTML 报告；分别建立 2,245 题工作流全量、225 题 Aily 基准（中位 40.4s、P90 61.0s、自动判定 99.11%）和 262 题扩展集（260/262、99.2%）的评测口径。",
+      "基于 238 条 trace 定位入口排队（约 12.7–13.0s）、索引切片、46.5KB 上下文截断和二次回读等瓶颈，提出结构化索引、检索过滤、上下文裁剪与模板化文件交付；产品化查询台 225 题 UI 验收平均 9.96s、P50 10.87s、P95 14.46s，总耗时约为旧链路的 18.93%。",
+      "完成 889 份产品文档结构化，产出 235 条 QA 与 184 张参数知识卡；29 题受控 A/B 中位 37→27s、自动判定 96.6%→100%、P90 51→37s，并用 805 条真实 FAQ 校准知识覆盖。"
+    ]
+  },
+  {
     period: "2026.03 — 2026.07",
     company: "Shanghai Yichong Technology",
     companyZh: "上海易宠科技有限公司",
+    officeKey: "yichong",
     role: "AI Application Frontend Engineer",
     roleZh: "AI 应用开发前端工程师",
     summary: "Delivered Adobe Express, Canva, Office, and Safari plugin surfaces; governed package truth, release review, risk audits, and source handoff.",
@@ -186,6 +204,7 @@ export const experienceItems = [
     period: "2025.10 — 2026.03",
     company: "Shanghai Yimu Furniture",
     companyZh: "上海怡沐家具用品有限公司",
+    officeKey: "yimu",
     role: "AI Digital Operations Intern",
     roleZh: "AI 数字化运营实习生",
     summary: "Built a Lark Base + AI product-image workflow spanning intake, generation, human QA, state tracking, SOP, and training.",
@@ -196,6 +215,7 @@ export const experienceItems = [
     period: "2025.07 — 2025.10",
     company: "Shanghai Kaichun Industry · K.AI Lab",
     companyZh: "上海凯淳实业股份有限公司 · K.AI 智能实验室",
+    officeKey: "kaytune",
     role: "AI Researcher Intern · Backend",
     roleZh: "AI 研究员实习生 · 后端方向",
     summary: "Built Python/SQL ETL, cleaning, storage, scheduling, and data-quality flows for AI product prototypes.",
@@ -474,10 +494,12 @@ export const githubVerifiedBugs = [
 ] as const;
 
 export const skillGroups = [
-  ["Frontend & plugins", "TypeScript · React · JavaScript · HTML/CSS · Adobe Express · Canva Apps · Office Add-ins · Safari WebExtension", "前端与插件", "TypeScript · React · JavaScript · HTML/CSS · Adobe Express · Canva Apps · Office Add-ins · Safari WebExtension"],
-  ["AI & agents", "Agent · Multi-Agent · MCP · RAG · Function Calling · Prompt Engineering · n8n · Coze · Dify · LangChain", "AI 与 Agent", "Agent · Multi-Agent · MCP · RAG · Function Calling · Prompt Engineering · n8n · Coze · Dify · LangChain"],
-  ["Data & automation", "Python · SQL · Pandas · ETL · scheduling · data quality · Lark Base automation", "数据与自动化", "Python · SQL · Pandas · ETL · 任务调度 · 数据质量 · 飞书 Base 自动化"],
-  ["Delivery engineering", "Git · GitHub CLI · PR / CI · lint / types / tests / build · manifest / package / zip · SOP · handoff", "交付工程", "Git · GitHub CLI · PR / CI · lint / types / tests / build · manifest / package / zip · SOP · handoff"]
+  ["Delivery method", "Discovery · solution design · acceptance criteria · prioritization · delivery docs · SOP / handoff · client communication · risk management", "交付方法", "需求调研 · 方案设计 · 验收标准 · 优先级 · 交付文档 · SOP/交接 · 客户沟通 · 风险管理"],
+  ["AI applications", "RAG · Agent / Workflow · Function Calling · Prompt Engineering · eval design · A/B · trace diagnosis · regression", "AI 应用", "RAG · Agent/Workflow · Function Calling · Prompt Engineering · 评测集设计 · A/B · trace 诊断 · 回归"],
+  ["Backend & integration", "Node.js / NestJS · Python / FastAPI · REST / Webhook / SSE · PostgreSQL / Drizzle · SQL · ETL · Docker · n8n", "后端与集成", "Node.js/NestJS · Python/FastAPI · REST/Webhook/SSE · PostgreSQL/Drizzle · SQL · ETL · Docker · n8n"],
+  ["Frontend & platforms", "React · TypeScript · JavaScript · low-code (Miaoda / Aily) · Base · Feishu · OpenAPI", "前端与平台", "React · TypeScript · JavaScript · 低代码平台（妙搭/Aily）· 多维表格/Base · 飞书生态 · OpenAPI"],
+  ["Engineering & governance", "Git / GitHub · CI · lint / types / tests / build · manifest / zip · auth / signatures · multi-tenant identity routing · observability", "工程与治理", "Git/GitHub · CI · lint/types/tests/build · manifest/zip · 权限/验签 · 多租户身份路由 · 可观测性"],
+  ["AI coding tools", "Claude Code · Codex · Cursor for codebase understanding, cross-file development, command execution, testing, and delivery", "AI 编程工具", "Claude Code · Codex · Cursor；用于代码库理解、跨文件开发、命令执行、测试验证与交付"]
 ] as const;
 
 export const otherProjects = [
@@ -498,7 +520,6 @@ export const educationSignals = {
     ["2025 Integrated Circuit Innovation · Phytium Cup Second Prize", "2025 集成电路创新大赛飞腾杯 · 二等奖"],
     ["2024 Loongson Cup · Level-1 Certification", "2024 集成电路创新大赛龙芯杯 · 一级认证"],
     ["2025 National English Writing Competition · Undergraduate Provincial Second Prize", "2025 全国英语作文大赛本科组省二等奖"],
-    ["AI Public-Welfare Poster Competition · Second Prize", "AI 公益海报创意设计大赛二等奖"],
-    ["University Scholarship × 2", "校级奖学金 ×2"]
+    ["Shanghai Sanda University · 2026 Outstanding Undergraduate Thesis", "上海杉达学院 · 2026 年优秀本科毕业论文（设计）"]
   ]
 } as const;
