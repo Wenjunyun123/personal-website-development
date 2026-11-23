@@ -61,9 +61,12 @@ export function WenjunSite() {
       </section>
 
       <nav className={`${styles.pillNav} ${activeTab === "home" && !introReady ? styles.navHidden : ""}`} aria-label="个人网站场景">
-        <button className={activeTab === "home" ? styles.active : ""} type="button" onClick={() => navigate("home")} aria-current={activeTab === "home" ? "page" : undefined}><span>01</span>首页</button>
-        <button className={activeTab === "works" ? styles.active : ""} type="button" onClick={() => navigate("works")} aria-current={activeTab === "works" ? "page" : undefined}><span>02</span>作品集</button>
-        <button className={activeTab === "system" ? styles.active : ""} type="button" onClick={() => navigate("system")} aria-current={activeTab === "system" ? "page" : undefined}><span>03</span>我的OS</button>
+        <span className={styles.navMark}>游文君 <em>Wenjun You</em></span>
+        <div className={styles.navLinks}>
+          <button className={activeTab === "home" ? styles.active : ""} type="button" onClick={() => navigate("home")} aria-current={activeTab === "home" ? "page" : undefined}><span>01</span>首页</button>
+          <button className={activeTab === "works" ? styles.active : ""} type="button" onClick={() => navigate("works")} aria-current={activeTab === "works" ? "page" : undefined}><span>02</span>作品集</button>
+          <button className={activeTab === "system" ? styles.active : ""} type="button" onClick={() => navigate("system")} aria-current={activeTab === "system" ? "page" : undefined}><span>03</span>我的OS</button>
+        </div>
       </nav>
     </main>
   );

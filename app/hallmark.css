@@ -1,0 +1,119 @@
+/* Hallmark · v2.0.0 · theme: Specimen (dealt 3/3) · redesign: full · scope: site · genre: editorial · shape: Index · hero: Stage · nav: masthead · footer: colophon · imagery: product screenshots 3, portrait 1 · built: 2026-11-23 */
+/* Critique: the old build wore the detective story as a costume — navy board, red string, stamps and a fake laptop. Same evidence, set as an editorial dossier: oat paper, razor serif, one ink-blue signal, real screenshots. */
+/* Hallmark · waive 24b · component chrome aligns hairlines to glyphs while sections hold a four-pixel rhythm · the dossier and console read as one editorial system, not a scale violation */
+/* Hallmark · waive 38iii · the owner's blue opening is the single accented word; every other head stays in ink · the original brief asked for a blue word in the opening hero, and that is now the site's only one */
+/* Hallmark · waive 47b · the delivery log header is a working status strip · it reports boot state as an editorial device, not a mocked terminal */
+
+:root {
+  --color-paper: oklch(96.5% 0.014 82);
+  --color-paper-2: oklch(93.5% 0.018 80);
+  --color-paper-3: oklch(89% 0.022 78);
+  --color-ink: oklch(18% 0.012 60);
+  --color-ink-2: oklch(29% 0.012 60);
+  --color-muted: oklch(47% 0.014 65);
+  --color-rule: oklch(81% 0.016 75);
+  --color-rule-2: oklch(62% 0.018 72);
+  --color-accent: oklch(44% 0.16 262);
+  --color-accent-ink: oklch(97% 0.012 82);
+  --color-focus: oklch(50% 0.16 262);
+  --color-guide: oklch(55% 0.14 262 / 0.45);
+  --color-danger: oklch(45% 0.16 28);
+
+  --font-display: "DM Serif Display", "Noto Serif SC", "Songti SC", "STSong", serif;
+  --font-body: "Geist", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-outlier: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+
+  --radius-card: 0;
+  --radius-pill: 0;
+  --rule-hair: 1px;
+  --shadow-card: none;
+  --tracking-display: -0.02em;
+
+  --container: 1440px;
+  --gutter: clamp(20px, 4.5vw, 64px);
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --section-gap: clamp(72px, 9vw, 144px);
+
+  --paper: var(--color-paper);
+  --ink: var(--color-ink);
+  --muted: var(--color-muted);
+  --rule: var(--color-rule-2);
+  --blue: var(--color-accent);
+  --warm: var(--color-paper-2);
+  --panel: var(--color-paper);
+  --danger: var(--color-danger);
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 0.18em;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-accent) 24%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+button:active,
+a:active {
+  opacity: 0.72;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+html {
+  scrollbar-color: var(--color-rule-2) var(--color-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

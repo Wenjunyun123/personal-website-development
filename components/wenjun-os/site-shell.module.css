@@ -1,12 +1,132 @@
-.shell { --cream:#fefcf6; --ink:#1a1a2e; --ink-light:#4a4a5a; --blue:#2b7fd8; min-height:100vh; color:var(--ink); background:var(--cream); font-family:"Noto Sans SC",sans-serif; }
-.activePage { display:block; }
-.hiddenPage { display:none; }
-.pillNav { position:fixed; z-index:1000; bottom:24px; left:50%; display:flex; gap:4px; padding:5px; border:1px solid rgba(26,26,46,.08); border-radius:999px; background:rgba(255,255,255,.85); box-shadow:0 8px 32px rgba(26,26,46,.12); backdrop-filter:blur(16px); transform:translateX(-50%); transition:opacity .4s ease,transform .4s cubic-bezier(.16,1,.3,1); }
-.navHidden { opacity:0; pointer-events:none; transform:translateX(-50%) translateY(16px); }
-.pillNav button { padding:9px 18px; border:0; border-radius:999px; color:var(--ink-light); background:transparent; cursor:pointer; white-space:nowrap; font:500 13px/1.2 "Noto Sans SC",sans-serif; transition:color .25s ease,background .25s ease; }
-.pillNav button:hover,.pillNav button:focus-visible { color:var(--ink); outline:none; }
-.pillNav button:focus-visible { box-shadow:0 0 0 2px #f4d758; }
-.pillNav button.active { color:white; background:#1e5ba8; }
-.pillNav button span { margin-right:5px; opacity:.5; font:400 10px/1 "Fira Code",monospace; }
-@media (max-width:560px) { .pillNav { bottom:14px; } .pillNav button { padding:9px 12px; font-size:12px; } }
-@media (prefers-reduced-motion:reduce) { .pillNav { transition:none; } }
+.shell {
+  min-height: 100vh;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+.activePage {
+  display: block;
+}
+
+.hiddenPage {
+  display: none;
+}
+
+.pillNav {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  height: 64px;
+  padding: 0 var(--gutter);
+  background: var(--color-paper);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  transition: opacity 240ms ease, visibility 240ms ease;
+}
+
+.navHidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.navMark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  letter-spacing: var(--tracking-display);
+  white-space: nowrap;
+}
+
+.navMark em {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+}
+
+.navLinks {
+  display: flex;
+  align-items: stretch;
+  align-self: stretch;
+  gap: 4px;
+}
+
+.pillNav button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.pillNav button span {
+  display: none;
+}
+
+.pillNav button::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -1px;
+  height: 2px;
+  background: transparent;
+}
+
+.pillNav button:hover {
+  color: var(--color-ink);
+}
+
+.pillNav button.active {
+  color: var(--color-ink);
+}
+
+.pillNav button.active::after {
+  background: var(--color-ink);
+}
+
+.pillNav button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -6px;
+}
+
+@media (max-width: 640px) {
+  .pillNav {
+    height: 56px;
+    gap: var(--space-sm);
+  }
+
+  .navMark {
+    font-size: 16px;
+  }
+
+  .navMark em {
+    display: none;
+  }
+
+  .pillNav button {
+    padding: 0 9px;
+    font-size: 12px;
+  }
+
+  .pillNav button::after {
+    left: 9px;
+    right: 9px;
+  }
+}

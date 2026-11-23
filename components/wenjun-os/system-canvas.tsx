@@ -14,6 +14,7 @@ import {
   teamAgentEvents
 } from "../../content/profile";
 import { useLanguage } from "../language-toggle";
+import { DetectiveMark } from "./detective-mark";
 import styles from "./system-canvas.module.css";
 
 const SPACE_WIDTH = 2300;
@@ -64,10 +65,10 @@ function getInitialCards(): CanvasCard[] {
   const deliveryZh = deliveryStageOrder.map((key) => deliveryStages.zh[key].short);
   const eventsEn = teamAgentEvents.map(([name, rule]) => `${name} ${rule}`);
   const eventsZh = teamAgentEvents.map(([, , , name, rule]) => `${name} ${rule}`);
-  const skillsEn = skillGroups.map(([title, stack]) => `${title}: ${stack.split(" · ").slice(0, 3).join(" · ")}`);
-  const skillsZh = skillGroups.map(([, , title, stack]) => `${title}：${stack.split(" · ").slice(0, 3).join(" · ")}`);
-  const timelineEn = experienceTimeline.map((item) => `${item.period} · ${item.title}`);
-  const timelineZh = experienceTimeline.map((item) => `${"periodZh" in item ? item.periodZh : item.period} · ${item.titleZh}`);
+  const skillsEn = skillGroups.map(([title, stack]) => `${title}: ${stack.split(" · ").slice(0, 3).join(" / ")}`);
+  const skillsZh = skillGroups.map(([, , title, stack]) => `${title}：${stack.split(" · ").slice(0, 3).join("、")}`);
+  const timelineEn = experienceTimeline.map((item) => `${item.period}, ${item.title}`);
+  const timelineZh = experienceTimeline.map((item) => `${"periodZh" in item ? item.periodZh : item.period}，${item.titleZh}`);
 
   return [
     {
@@ -228,7 +229,6 @@ function CanvasCardContent({ card, isZh }: { card: CanvasCard; isZh: boolean }) 
       <div className={styles.profileContent}>
         <div className={styles.profilePortrait}>
           <Image src="/profile/wenjun.png" alt={isZh ? "游文君个人照片" : "Portrait of Wenjun You"} width={106} height={142} draggable={false} priority />
-          <i aria-hidden="true">✦</i>
         </div>
         <div>
           <p>{isZh ? card.bodyZh : card.bodyEn}</p>
@@ -276,7 +276,6 @@ function CanvasCardContent({ card, isZh }: { card: CanvasCard; isZh: boolean }) 
                 <span>{item.kind === "code" ? (isZh ? "代码" : "CODE") : (isZh ? "文档" : "DOCS")}</span>
                 <strong>{item.repo}#{item.number}</strong>
                 <small>{isZh ? item.titleZh : item.title}</small>
-                <b>↗</b>
               </a>
             ))}
           </div>
@@ -289,7 +288,6 @@ function CanvasCardContent({ card, isZh }: { card: CanvasCard; isZh: boolean }) 
                 <span>{item.grade}</span>
                 <strong>{item.repo}#{item.number}</strong>
                 <small>{isZh ? item.statusZh : item.status}</small>
-                <b>↗</b>
               </a>
             ))}
           </div>
@@ -339,14 +337,15 @@ export function SystemCanvas() {
   const [history, setHistory] = useState<HistoryAction[]>([]);
 
   const copy = useMemo(() => ({
-    canvas: "WENJUN / CANVAS",
-    hint: isZh ? "滚轮缩放 · 拖拽移动画布" : "Scroll to zoom · Drag to move canvas",
+    canvas: "WENJUN / CASE BOARD",
+    canvasShort: isZh ? "案卷" : "Case board",
+    hint: isZh ? "滚轮缩放，拖拽移动画布" : "Scroll to zoom, drag to move canvas",
     newCard: isZh ? "新建卡片" : "New card",
     connect: isZh ? "连接" : "Connect",
     undo: isZh ? "撤销" : "Undo",
-    layers: isZh ? "图层" : "Layers",
-    cards: isZh ? `${cards.length} 张卡片` : `${cards.length} cards`,
-    minimap: isZh ? "小地图" : "Minimap",
+    layers: isZh ? "案卷图层" : "Case layers",
+    cards: isZh ? `${cards.length} 份证据` : `${cards.length} exhibits`,
+    minimap: isZh ? "现场地图" : "Scene map",
     minimapNav: isZh ? "点击小地图导航画布" : "Click minimap to navigate the canvas",
     zoomOut: isZh ? "缩小画布" : "Zoom out",
     zoomIn: isZh ? "放大画布" : "Zoom in",
@@ -355,7 +354,8 @@ export function SystemCanvas() {
     templateHelp: isZh ? "新卡片将出现在当前视口中央" : "The new card appears at the center of the current viewport",
     closeTemplates: isZh ? "关闭模板面板" : "Close template panel",
     connectionHelp: isZh ? "连接模式已开启：点击卡片可标记连接起点；再次点击工具栏按钮退出。" : "Connect mode is on: select a card as an anchor, then toggle the toolbar button to exit.",
-    help: isZh ? "空白处拖动 · 卡片可移动 · Ctrl/⌘ + Z 撤销" : "Drag empty space · Move cards · Ctrl/⌘ + Z to undo",
+    help: isZh ? "空白处拖动，卡片可移动，Ctrl/⌘ + Z 撤销" : "Drag empty space, move cards, Ctrl/⌘ + Z to undo",
+    helpTouch: isZh ? "拖动空白处平移，拖动卡片移动" : "Drag empty space to pan, drag cards to move",
     templateNames: {
       project: isZh ? "项目卡" : "Project card",
       note: isZh ? "便签" : "Note",
@@ -388,6 +388,20 @@ export function SystemCanvas() {
   }, [fitBounds]);
 
   const frameOpening = useCallback(() => {
+    const viewport = viewportRef.current;
+    if (viewport && viewport.clientWidth > 900) {
+      setTransform({ x: -18, y: -140, scale: 0.82 });
+      return;
+    }
+    if (viewport && viewport.clientWidth <= 720) {
+      const profile = { x: 70, y: 185, width: 330 };
+      setTransform({
+        x: (viewport.clientWidth - profile.width) / 2 - profile.x,
+        y: 24 - profile.y,
+        scale: 1
+      });
+      return;
+    }
     setTransform({ x: -20, y: -130, scale: 1 });
   }, []);
 
@@ -617,17 +631,18 @@ export function SystemCanvas() {
   return (
     <section className={styles.shell} aria-label={isZh ? "Wenjun 无限系统画布" : "Wenjun infinite system canvas"} tabIndex={0} onKeyDown={handleKeyDown}>
       <header className={styles.toolbar}>
-        <div className={styles.brand}><i aria-hidden="true" /><strong>{copy.canvas}</strong></div>
+        <div className={styles.brand}><DetectiveMark className={styles.brandMark} size={13} /><strong><span className={styles.brandLong}>{copy.canvas}</span><span className={styles.brandShort}>{copy.canvasShort}</span></strong></div>
         <div className={styles.stageRail} aria-label="交付信号阶段" title={copy.hint}>
-          {["BRIEF", "BUILD", "EVAL", "HANDOFF"].map((stage, index) => (
-            <span key={stage}>{stage}{index < 3 ? <i aria-hidden="true">→</i> : null}</span>
+          {["Brief", "Build", "Eval", "Handoff"].map((stage) => (
+            <span key={stage}>{stage}</span>
           ))}
+          <span className={styles.railInfinity}>∞ Progress</span>
         </div>
         <div className={styles.toolbarActions}>
-          <button type="button" className={styles.layersToggle} aria-label={copy.layers} aria-expanded={layersOpen} onClick={() => setLayersOpen((open) => !open)}><span aria-hidden="true">▤</span>{copy.layers}</button>
-          <button type="button" aria-label={copy.newCard} aria-expanded={templateOpen} onClick={() => setTemplateOpen((open) => !open)}><span aria-hidden="true">＋</span>{copy.newCard}</button>
-          <button type="button" aria-label={copy.connect} aria-pressed={connectionMode} onClick={() => { setConnectionMode((active) => !active); setConnectionAnchor(null); }}><span aria-hidden="true">⌁</span>{copy.connect}</button>
-          <button type="button" aria-label={copy.undo} aria-keyshortcuts="Control+Z Meta+Z" disabled={history.length === 0} onClick={undo}><span aria-hidden="true">↶</span>{copy.undo}</button>
+          <button type="button" className={styles.layersToggle} aria-label={copy.layers} aria-expanded={layersOpen} onClick={() => setLayersOpen((open) => !open)}>{copy.layers}</button>
+          <button type="button" aria-label={copy.newCard} aria-expanded={templateOpen} onClick={() => setTemplateOpen((open) => !open)}>{copy.newCard}</button>
+          <button type="button" aria-label={copy.connect} aria-pressed={connectionMode} onClick={() => { setConnectionMode((active) => !active); setConnectionAnchor(null); }}>{copy.connect}</button>
+          <button type="button" aria-label={copy.undo} aria-keyshortcuts="Control+Z Meta+Z" disabled={history.length === 0} onClick={undo}>{copy.undo}</button>
         </div>
       </header>
 
@@ -666,7 +681,6 @@ export function SystemCanvas() {
         >
           <div className={styles.world} style={{ transform: `translate3d(${transform.x}px, ${transform.y}px, 0) scale(${transform.scale})` }}>
             <svg className={styles.connections} viewBox={`0 0 ${SPACE_WIDTH} ${SPACE_HEIGHT}`} aria-hidden="true">
-              <defs><marker id="wenjun-canvas-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" /></marker></defs>
               {CONNECTIONS.map(([fromId, toId]) => {
                 const from = cardMap.get(fromId);
                 const to = cardMap.get(toId);
@@ -707,7 +721,8 @@ export function SystemCanvas() {
         )}
 
         {connectionMode && <div className={styles.connectionNotice} role="status"><i aria-hidden="true" />{copy.connectionHelp}</div>}
-        <p className={styles.helpHint}>{copy.help}</p>
+        <p className={`${styles.helpHint} ${styles.helpHintWide}`}>{copy.help}</p>
+        <p className={`${styles.helpHint} ${styles.helpHintTouch}`}>{copy.helpTouch}</p>
         <div className={styles.zoomControls} aria-label={isZh ? "画布缩放工具" : "Canvas zoom tools"}>
           <button type="button" aria-label={copy.zoomOut} aria-keyshortcuts="-" onClick={() => zoomAt(transform.scale - 0.1)}>−</button>
           <output aria-label={isZh ? "当前缩放比例" : "Current zoom level"} aria-live="polite">{Math.round(transform.scale * 100)}%</output>

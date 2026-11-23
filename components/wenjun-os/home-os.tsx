@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  type CSSProperties,
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
   forwardRef,
@@ -16,6 +15,7 @@ import type { IconType } from "react-icons";
 import { FaGithub } from "react-icons/fa";
 import { FiBriefcase, FiFileText, FiGrid, FiLayers, FiRepeat, FiTarget, FiUser, FiUsers } from "react-icons/fi";
 import { portfolioWork } from "../../content/portfolio";
+import { DetectiveMark } from "./detective-mark";
 import {
   deliveryStageOrder,
   deliveryStages,
@@ -84,42 +84,15 @@ const terminalScript = [
   { text: "$ whoami", kind: "command" },
   { text: "> 游文君 Wenjun You", kind: "output" },
   { text: "$ cat about.md", kind: "command" },
-  { text: "> AI 应用交付工程师（FDE）", kind: "output" },
+  { text: "> AI 应用交付工程师 / FDE", kind: "output" },
   { text: "  驻场负熵云，做企业智能客服、产品知识与数据迁移", kind: "output" },
   { text: "  把模糊需求变成可运行、可评测、可交接的 AI 应用", kind: "output" },
-  { text: '$ echo "1 person + AI = one delivery team"', kind: "command" },
-  { text: "> 1 person + AI = one delivery team", kind: "gold" },
-  { text: "$ open wenjun-os.app", kind: "command" }
+  { text: "$ cat motto.txt", kind: "command" },
+  { text: "> TOKEN IS OXYGEN!", kind: "gold" },
+  { text: "$ tail -f progress.log", kind: "command" },
+  { text: "> ∞ 无限进步 — keep shipping", kind: "output" },
+  { text: "$ open case-001.app", kind: "command" }
 ] as const;
-
-const deliverySignalPath = "M 60 580 C 170 580 150 380 250 380 C 360 380 430 580 620 580 C 770 580 790 250 900 250 C 1000 250 1050 220 1120 220";
-const deliverySignalNodes = [
-  { x: 60, y: 580, label: "BRIEF", anchor: "start", dx: 18, dy: 24 },
-  { x: 250, y: 380, label: "BUILD", anchor: "end", dx: -18, dy: -16 },
-  { x: 620, y: 580, label: "EVAL", anchor: "start", dx: 18, dy: 24 },
-  { x: 1120, y: 220, label: "HANDOFF", anchor: "end", dx: -18, dy: -16 }
-] as const;
-
-function DeliverySignal({ className = "", animated = false }: { className?: string; animated?: boolean }) {
-  return (
-    <svg
-      className={`${styles.deliverySignal} ${animated ? styles.deliverySignalAnimated : ""} ${className}`}
-      viewBox="0 0 1200 720"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-    >
-      <path className={styles.signalHalo} d={deliverySignalPath} />
-      <path className={styles.signalLine} d={deliverySignalPath} />
-      {deliverySignalNodes.map((node, index) => (
-        <g className={styles.signalNode} key={node.label} style={{ "--node-delay": `${index * 0.55}s` } as CSSProperties}>
-          <circle className={styles.signalNodeHalo} cx={node.x} cy={node.y} r="17" />
-          <circle className={styles.signalNodeDot} cx={node.x} cy={node.y} r="4.5" />
-          <text className={styles.signalNodeLabel} x={node.x + node.dx} y={node.y + node.dy} textAnchor={node.anchor}>{node.label}</text>
-        </g>
-      ))}
-    </svg>
-  );
-}
 
 const iconDefinitions: ReadonlyArray<{ id: WindowId; label: string; labelZh: string; action: string }> = [
   { id: "about", label: "about.md", labelZh: "about.md", action: "Open Profile" },
@@ -315,42 +288,61 @@ export function HomeOS({ onLaunchedChange, onIntroReadyChange }: HomeOSProps) {
   if (!launched) {
     return (
       <section className={styles.intro} aria-label="Wenjun OS 启动终端">
-        <DeliverySignal className={styles.introSignal} animated />
-        <div
-          className={`${styles.introDevice} ${zooming ? styles.introDeviceLaunching : ""}`}
-          role="button"
-          tabIndex={0}
-          aria-label={introReady ? "启动 Wenjun OS" : "跳过终端输入动画"}
-          onClick={activateIntro}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              activateIntro();
-            }
-          }}
-        >
-          <ConsoleShell>
-            <TerminalIntro
-              lineIndex={lineIndex}
-              characterIndex={characterIndex}
-              ready={introReady}
-              launching={launching}
-              progress={launchProgress}
-            />
-          </ConsoleShell>
+        <div className={`${styles.introDevice} ${zooming ? styles.introDeviceLaunching : ""}`}>
+          <div className={styles.introCover}>
+            <p className={styles.introKicker}>Forward-deployed engineer, Shanghai</p>
+            <h1 className={styles.introTitle}>Token is <span>oxygen!</span></h1>
+            <p className={styles.introLead}>
+              游文君，AI 应用交付工程师（FDE）。驻场负熵云，把模糊需求交付成可运行、可评测、可交接的 AI 应用。
+            </p>
+            <dl className={styles.introFacts}>
+              <div><dt>现在</dt><dd>负熵云，驻场交付</dd></div>
+              <div><dt>方法</dt><dd>Brief → Build → Eval → Handoff</dd></div>
+            </dl>
+            <div className={styles.introActions}>
+              <button
+                className={styles.launchCta}
+                type="button"
+                onClick={activateIntro}
+                aria-live="polite"
+                aria-label={introReady ? "启动 Wenjun OS" : "跳过终端输入动画"}
+              >
+                {launching ? (
+                  <span className={styles.launchProgress}>opening the record ({Math.round((launchProgress / 12) * 100)}%)</span>
+                ) : (
+                  <span>
+                    {introReady ? (
+                      <>
+                        <span className={styles.launchCtaDesktop}>Press Enter to open the case</span>
+                        <span className={styles.launchCtaMobile}>Tap to open the case</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className={styles.launchCtaDesktop}>跳过输入动画，查看案卷</span>
+                        <span className={styles.launchCtaMobile}>跳过输入动画</span>
+                      </>
+                    )}
+                  </span>
+                )}
+              </button>
+              <span className={styles.introAlt}>或按 Enter</span>
+            </div>
+          </div>
+          <div className={styles.introLog}>
+            <p className={styles.introLogLabel}>delivery.log</p>
+            <ConsoleShell>
+              <TerminalIntro
+                lineIndex={lineIndex}
+                characterIndex={characterIndex}
+                ready={introReady}
+                launching={launching}
+                progress={launchProgress}
+              />
+            </ConsoleShell>
+          </div>
           <div className={`${styles.launchWash} ${zooming ? styles.launchWashActive : ""}`} aria-hidden="true" />
         </div>
-        <button className={styles.launchCta} type="button" onClick={activateIntro} aria-live="polite">
-          {launching ? (
-            `loading wenjun-os · ${Math.round((launchProgress / 12) * 100)}%`
-          ) : (
-            <>
-              <span className={styles.launchCtaDesktop}>{introReady ? "Press Enter to Launch" : "Click to skip typing"}</span>
-              <span className={styles.launchCtaMobile}>{introReady ? "Tap to Enter" : "Tap to skip typing"}</span>
-            </>
-          )}
-        </button>
-        <p className={styles.introHint} aria-hidden="true">{introReady ? "↓" : ""}</p>
+        <p className={styles.introHint} aria-hidden="true">∞</p>
       </section>
     );
   }
@@ -379,9 +371,9 @@ function TerminalIntro({
   return (
     <div className={styles.terminal} aria-live="polite" aria-label="Wenjun OS terminal output">
       <div className={styles.terminalBar}>
-        <span className={styles.terminalBrand}><i aria-hidden="true" /> WENJUN / DELIVERY OS</span>
-        <span className={styles.terminalMode}>{launching ? "LAUNCH" : ready ? "READY" : "BOOT"}</span>
-        <span>UTF-8</span>
+        <span className={styles.terminalBrand}><DetectiveMark className={styles.terminalMark} size={12} /> 游文君 / delivery log</span>
+        <span className={styles.terminalMode}>{launching ? "Opening" : ready ? "Ready" : "Boot"}</span>
+        <span>2026</span>
       </div>
       <div className={styles.terminalBody}>
         {terminalScript.map((line, index) => {
@@ -399,9 +391,9 @@ function TerminalIntro({
           <>
             <div className={styles.terminal_output}>&gt; routing brief → build → eval → handoff...</div>
             <div className={styles.bootProgress} aria-label={`启动进度 ${progress} / 12`}>
-              <div className={styles.bootTrack} aria-hidden="true"><i style={{ width: `${Math.round((progress / 12) * 100)}%` }} /></div>
+              <div className={styles.bootTrack} aria-hidden="true"><i style={{ transform: `scaleX(${(progress / 12).toFixed(3)})` }} /></div>
               <div className={styles.bootStages}>
-                {["BRIEF", "BUILD", "EVAL", "HANDOFF"].map((stage, index) => (
+                {["Brief", "Build", "Eval", "Handoff"].map((stage, index) => (
                   <span
                     key={stage}
                     data-state={progress >= (index + 1) * 3 ? "done" : progress > index * 3 ? "active" : "pending"}
@@ -409,16 +401,18 @@ function TerminalIntro({
                     {stage}
                   </span>
                 ))}
+                <span className={styles.bootInfinity} data-state={progress >= 12 ? "done" : "pending"} aria-hidden="true">∞</span>
               </div>
             </div>
           </>
         ) : ready ? (
-          <div className={styles.bootProgress} aria-label="交付流程：BRIEF、BUILD、EVAL、HANDOFF">
-            <div className={styles.bootTrack} aria-hidden="true"><i style={{ width: "100%" }} /></div>
+          <div className={styles.bootProgress} aria-label="交付流程：Brief、Build、Eval、Handoff">
+            <div className={styles.bootTrack} aria-hidden="true"><i style={{ transform: "scaleX(1)" }} /></div>
             <div className={styles.bootStages}>
-              {["BRIEF", "BUILD", "EVAL", "HANDOFF"].map((stage) => (
+              {["Brief", "Build", "Eval", "Handoff"].map((stage) => (
                 <span key={stage} data-state="done">{stage}</span>
               ))}
+              <span className={styles.bootInfinity} data-state="done" aria-hidden="true">∞</span>
             </div>
           </div>
         ) : null}
@@ -430,14 +424,7 @@ function TerminalIntro({
 function ConsoleShell({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <div className={`${styles.console} ${className}`}>
-      <span className={styles.consolePort} data-side="in" aria-hidden="true">IN</span>
-      <span className={styles.consolePort} data-side="out" aria-hidden="true">OUT</span>
       <div className={styles.consoleScreen}>{children}</div>
-      <div className={styles.consoleFooter} aria-hidden="true">
-        <span><i /> SIGNAL LOCKED</span>
-        <span>DELIVERY CONSOLE · CH 01—04</span>
-        <span>UTC+8</span>
-      </div>
     </div>
   );
 }
@@ -489,9 +476,10 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
       if (existing) {
         return current.map((item) => item.id === id ? { ...item, z } : item);
       }
-      const cascade = current.length % 7;
-      const x = isMobile ? 10 : Math.min(110 + cascade * 30, Math.max(10, window.innerWidth - 760));
-      const y = isMobile ? 48 : 58 + cascade * 30;
+      const cascade = current.length % 5;
+      const width = id === "fde" ? 880 : 760;
+      const x = isMobile ? 12 : Math.max(12, Math.round((window.innerWidth - width) / 2) + cascade * 24);
+      const y = isMobile ? 80 : 124 + cascade * 24;
       return [...current, { id, x, y, z, minimized: false, maximized: false }];
     });
     setSelectedIcon(id);
@@ -571,19 +559,19 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
   };
 
   const labels = useMemo(() => Object.fromEntries(iconDefinitions.map((item) => [item.id, language === "zh" ? item.labelZh : item.label])) as Record<WindowId, string>, [language]);
+  const cover = profileCopy[language];
 
   return (
     <section className={styles.desktop} ref={forwardedRef} aria-label="Wenjun OS desktop">
       <header className={styles.menuBar}>
         <div className={styles.menuIdentity}>
-          <Image src="/profile/wenjun-avatar.png" alt="游文君 Wenjun You" width={22} height={22} />
-          <strong>Wenjun OS</strong>
+          <Image src="/profile/wenjun-avatar.png" alt="" width={24} height={24} />
+          <span className={styles.menuCase}>{language === "zh" ? "交付记录，2026" : "Delivery record, 2026"}</span>
           <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => openWindow("about")}>Profile</button>
           <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => { window.location.hash = "#works"; }}>Projects</button>
           <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => openWindow("fde")}>Delivery</button>
         </div>
         <div className={styles.menuStatus}>
-          <span className={styles.onlineDot} aria-label="Available" />
           <button type="button" onClick={() => setLanguage((value) => value === "zh" ? "en" : "zh")} aria-label="Switch desktop language">{language === "zh" ? "中 / EN" : "EN / 中"}</button>
           <time dateTime={time.toISOString()}>{formatClock(time, language)}</time>
         </div>
@@ -592,8 +580,28 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
         className={styles.wallpaper}
         onClick={() => setSelectedIcon(null)}
       >
-        <DeliverySignal className={styles.desktopSignal} />
+        <div className={styles.desktopMain}>
+        <div className={styles.desktopIntro}>
+          <p className={styles.desktopKicker}>{language === "zh" ? "AI 应用交付工程师，上海" : "AI application delivery, Shanghai"}</p>
+          <h1 className={styles.desktopTitle}>
+            {language === "zh" ? <>把模糊需求，<br />交付成可运行的系统。</> : <>Ambiguous needs,<br />delivered as working systems.</>}
+          </h1>
+          <p className={styles.desktopLead}>
+            {language === "zh"
+              ? "我是游文君，驻场负熵云。做企业智能客服、产品知识与数据迁移；从需求拆解一直走到验收和交接。"
+              : "I am Wenjun You, onsite at Negative Entropy Cloud: enterprise customer service, product knowledge, and data migration, from scoping through acceptance and handoff."}
+          </p>
+          <div className={styles.desktopActions}>
+            <a className={styles.desktopPrimary} href="#works">{language === "zh" ? "查看作品" : "See the work"}</a>
+            <button className={styles.desktopSecondary} type="button" onClick={() => openWindow("fde")}>{language === "zh" ? "看交付记录" : "Read the delivery record"}</button>
+          </div>
+          <dl className={styles.desktopFacts}>
+            <div><dt>{language === "zh" ? "三条交付主线" : "Three delivery threads"}</dt><dd>{language === "zh" ? "企业客服 / 产品知识 / 数据迁移" : "Service / knowledge / migration"}</dd></div>
+            <div><dt>{language === "zh" ? "工作方式" : "Working method"}</dt><dd>Brief → Build → Eval → Handoff</dd></div>
+          </dl>
+        </div>
         <div className={styles.iconLayer}>
+          <p className={styles.indexHeading}>{language === "zh" ? "打开一份证据" : "Open one piece of evidence"}</p>
           {iconDefinitions.map((icon) => {
             const position = iconPositions[icon.id];
             return (
@@ -631,6 +639,32 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
             );
           })}
         </div>
+        </div>
+        <aside className={styles.caseCover} aria-label={language === "zh" ? "个人肖像与联系方式" : "Portrait and contact"}>
+          <figure className={styles.coverFigure}>
+            <Image
+              src="/profile/wenjun.png"
+              alt="游文君 Wenjun You"
+              width={420}
+              height={560}
+              sizes="(max-width: 900px) 86vw, 440px"
+              priority
+            />
+            <figcaption>{language === "zh" ? "游文君，上海，2026" : "Wenjun You, Shanghai, 2026"}</figcaption>
+          </figure>
+          <div className={styles.caseCoverMeta}>
+            <span className={styles.caseCoverKicker}>Open to FDE</span>
+            <strong className={styles.caseCoverName}>
+              {cover.identity}
+              <em>{cover.chineseName}</em>
+            </strong>
+            <p className={styles.caseCoverRole}>{cover.role}</p>
+            <div className={styles.caseCoverStats}>
+              <span><b>3</b>{language === "zh" ? "条企业交付主线" : "delivery threads"}</span>
+              <span><b>0</b>{language === "zh" ? "项未解释差异" : "unexplained diffs"}</span>
+            </div>
+          </div>
+        </aside>
       </div>
       {windows.map((item) => (
           <article
@@ -642,7 +676,7 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
             data-window-state={item.minimized ? "minimized" : item.maximized ? "maximized" : "normal"}
           >
             <div
-              className={styles.windowTitleBar}
+              className={styles.panelHead}
               onPointerDown={(event) => startWindowDrag(event, item)}
               onPointerMove={moveDesktopWindow}
               onPointerUp={() => { windowDrag.current = null; }}
@@ -654,7 +688,7 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
                 toggleMaximizeWindow(item.id);
               }}
             >
-              <div className={styles.windowControls} role="group" aria-label={`窗口控制：${labels[item.id]}`}>
+              <div className={styles.panelActions} role="group" aria-label={`窗口控制：${labels[item.id]}`}>
                 <button
                   className={styles.windowClose}
                   type="button"
@@ -722,7 +756,7 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
     return (
       <div>
         <WindowHeading
-          kicker="fde.delivery · 2026.09—12"
+          kicker="FDE delivery, Sep–Dec 2026"
           title={isZh ? "三条企业 AI 交付主线" : "Three enterprise AI delivery threads"}
         />
         <p>
@@ -743,7 +777,7 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
                 ))}
               </div>
               <a className={styles.threadLink} href={`/work/${project.slug}/`}>
-                {isZh ? "阅读完整案例" : "Read the case"} ↗
+                {isZh ? "阅读完整案例" : "Read the case"}
               </a>
             </article>
           ))}
@@ -756,7 +790,7 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
     return (
       <div>
         <WindowHeading
-          kicker="timeline.app · 2022 → now"
+          kicker="Timeline, 2022 to now"
           title={isZh ? "从大一到 AI 交付现场" : "From freshman year to AI delivery"}
         />
         <div className={styles.timelineLegend} aria-label={isZh ? "时间轴类型" : "Timeline categories"}>
@@ -801,7 +835,7 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
             </article>
           ))}
         </div>
-        <a className={styles.windowLink} href="/resume">{copy.viewResume} ↗</a>
+        <a className={styles.windowLink} href="/resume">{copy.viewResume}</a>
       </div>
     );
   }
@@ -826,7 +860,7 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
     const project = featuredProjects[1];
     return (
       <div>
-        <span className={styles.practiceFlag}>模拟业务实践 · 实现中</span>
+        <span className={styles.practiceFlag}>模拟业务实践，实现中</span>
         <WindowHeading kicker={isZh ? project.labelZh : project.label} title={isZh ? project.titleZh : project.title} />
         <p>{isZh ? project.summaryZh : project.summary}</p>
         <div className={styles.eventGrid}>
@@ -871,8 +905,8 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
       </div>
       <p className={styles.snapshotNote}>
         {isZh
-          ? `GitHub 核验快照 · ${githubSnapshot.verifiedAt} · 只展示可追溯公开记录`
-          : `Verified GitHub snapshot · ${githubSnapshot.verifiedAt} · public evidence only`}
+          ? `GitHub 核验快照，${githubSnapshot.verifiedAt}，只展示可追溯公开记录`
+          : `Verified GitHub snapshot, ${githubSnapshot.verifiedAt}, public evidence only`}
       </p>
       <div className={styles.githubStats}>
         <article><strong>{githubSnapshot.mergedPullRequests}</strong><span>{isZh ? "外部仓库已合并 PR" : "merged upstream PRs"}</span></article>
@@ -898,7 +932,7 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
             </div>
             <h4>{isZh ? item.titleZh : item.title}</h4>
             <p>{isZh ? item.impactZh : item.impact}</p>
-            <small>{isZh ? item.proofZh : item.proof}<b>{isZh ? "已合并 ↗" : "MERGED ↗"}</b></small>
+            <small>{isZh ? item.proofZh : item.proof}<b>{isZh ? "已合并" : "MERGED"}</b></small>
           </a>
         ))}
       </div>
@@ -916,12 +950,12 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
             </div>
             <h4>{isZh ? item.titleZh : item.title}</h4>
             <p>{isZh ? item.outcomeZh : item.outcome}</p>
-            <small>{isZh ? item.statusZh : item.status}<b>ISSUE ↗</b></small>
+            <small>{isZh ? item.statusZh : item.status}<b>ISSUE</b></small>
           </a>
         ))}
       </div>
       <a className={styles.windowLink} href={githubSnapshot.profileUrl} target="_blank" rel="noreferrer">
-        {isZh ? "查看完整 GitHub" : "Open GitHub profile"} →
+        {isZh ? "查看完整 GitHub" : "Open GitHub profile"}
       </a>
     </div>
   );
@@ -948,37 +982,7 @@ function IconGlyph({ id }: { id: WindowId }) {
 }
 
 function ExitSequence({ reducedMotion, onReturnDesktop }: { reducedMotion: boolean; onReturnDesktop: () => void }) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [progress, setProgress] = useState(reducedMotion ? 0.65 : 0);
-  const [fillScale, setFillScale] = useState(1);
-
   useEffect(() => {
-    const update = () => {
-      const section = sectionRef.current;
-      if (!section) {
-        return;
-      }
-      const rect = section.getBoundingClientRect();
-      const maxScroll = Math.max(1, rect.height - window.innerHeight);
-      const raw = clamp(-rect.top / maxScroll, 0, 1);
-      setProgress(reducedMotion ? (raw > 0 ? 0.65 : 0.65) : raw);
-      const deviceWidth = Math.min(760, window.innerWidth * 0.92);
-      const deviceHeight = deviceWidth * (520 / 760);
-      setFillScale(Math.max(1, window.innerWidth / deviceWidth, window.innerHeight / deviceHeight));
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, [reducedMotion]);
-
-  useEffect(() => {
-    if (progress < 0.6) {
-      return;
-    }
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Enter" && !(event.target as HTMLElement)?.closest("a, button, input, textarea")) {
         event.preventDefault();
@@ -987,38 +991,28 @@ function ExitSequence({ reducedMotion, onReturnDesktop }: { reducedMotion: boole
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [onReturnDesktop, progress]);
-
-  const normalizedScale = reducedMotion ? 1 : fillScale - (fillScale - 1) * clamp(progress / 0.5, 0, 1);
-  const goodbyeOpacity = reducedMotion ? 1 : clamp((progress - 0.3) / 0.3, 0, 1);
-  const style = {
-    "--exit-scale": normalizedScale,
-    "--goodbye-opacity": goodbyeOpacity,
-    "--preview-opacity": 1 - goodbyeOpacity
-  } as CSSProperties;
+  }, [onReturnDesktop]);
 
   return (
-    <section className={styles.exitSection} ref={sectionRef} aria-label="Wenjun OS exit sequence">
-      <div className={styles.exitSticky} style={style}>
-        <div className={styles.exitCounter} aria-hidden="true">EXIT / {String(Math.round(progress * 100)).padStart(3, "0")}</div>
-        <ConsoleShell className={styles.exitLaptop}>
-          <div className={styles.exitDesktopPreview}>
-            <DeliverySignal className={styles.exitSignal} />
-            <div className={styles.exitPreviewBar}><span>Wenjun OS</span><span>Frontend × Agent × Delivery</span></div>
-            <span className={styles.exitPreviewStar}>✦</span>
-          </div>
-          <div className={styles.goodbyeTerminal}>
-            <div className={styles.goodbyeCommand}>$ contact --open-to-fde</div>
-            <h2>Let&apos;s ship the loop.</h2>
+    <section className={styles.exitSection} data-reduced-motion={reducedMotion ? "true" : "false"} aria-label="Wenjun OS exit sequence">
+      <div className={styles.exitSticky}>
+        <div className={styles.goodbyeTerminal}>
+          <p className={styles.goodbyeCommand}>Contact / open to FDE</p>
+          <h2>Let&apos;s ship the loop.</h2>
+          <div className={styles.goodbyeGrid}>
+            <div className={styles.goodbyePrimary}>
+              <a className={styles.goodbyeEmail} href="mailto:wenjunyou2002@outlook.com">
+                wenjunyou2002@outlook.com
+              </a>
+              <button className={styles.goodbyeRestart} type="button" onClick={onReturnDesktop}>重新启动 / Return to desktop</button>
+            </div>
             <dl>
-              <div><dt>EMAIL</dt><dd><a href="mailto:wenjunyou2002@outlook.com">wenjunyou2002@outlook.com</a></dd></div>
-              <div><dt>GITHUB</dt><dd><a href="https://github.com/Wenjunyun123" target="_blank" rel="noreferrer">github.com/Wenjunyun123</a></dd></div>
-              <div><dt>STATUS</dt><dd>Open to FDE</dd></div>
+              <div><dt>GitHub</dt><dd><a href="https://github.com/Wenjunyun123" target="_blank" rel="noreferrer">github.com/Wenjunyun123</a></dd></div>
+              <div><dt>Status</dt><dd>Open to FDE</dd></div>
             </dl>
-            <button type="button" onClick={onReturnDesktop}>重新启动 / Return to desktop ↵</button>
-            <p>Press Enter to return</p>
+            <p className={styles.goodbyeMotto}><span>∞</span> 无限进步</p>
           </div>
-        </ConsoleShell>
+        </div>
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { portfolioWork } from "../../content/portfolio";
 import {
@@ -18,7 +19,7 @@ const fdeProof = [
 const capabilityColumns = [
   {
     number: "01",
-    title: "BUSINESS MODELING",
+    title: "Business modeling",
     summary: "需求拆解 / 数据模型 / 权限 / 验收",
     items: [
       `${featuredProjects[1].titleZh}：把经营事件拆成可观测条件`,
@@ -28,7 +29,7 @@ const capabilityColumns = [
   },
   {
     number: "02",
-    title: "ENGINEERING DELIVERY",
+    title: "Engineering delivery",
     summary: "插件 / Agent / CLI / PR-CI / 发布验证",
     items: [
       `${featuredProjects[0].titleZh}：连接业务记录与工程交付`,
@@ -38,7 +39,7 @@ const capabilityColumns = [
   },
   {
     number: "03",
-    title: "TEAM AGENTS",
+    title: "Team agents",
     summary: "经验 → 规则 / 触发器 / 审计资产",
     items: [
       "把个人判断写成团队可复用的事件规则",
@@ -71,20 +72,36 @@ export function WorkReport() {
     <section className={styles.report} aria-labelledby="work-report-title">
       <div className={styles.inner}>
         <header className={styles.hero}>
-          <p className={styles.eyebrow}>WENJUN YOU / SELECTED WORK 2025—2026</p>
-          <h1 id="work-report-title">1 Person + AI = One Delivery Team</h1>
-          <p className={styles.positioning}>
-            我是一名 AI 应用交付工程师（FDE）。我在客户现场把模糊需求做成可运行、可评测、可交接的 AI 应用，
-            用响应时间、交付质量与业务产出证明效果，而不是只停留在功能演示。
-          </p>
-          <ol className={styles.deliveryRail} aria-label="交付流程">
-            {["BRIEF", "BUILD", "EVAL", "HANDOFF"].map((stage, index) => (
-              <li key={stage}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                {stage}
+          <div className={styles.heroMeta}>
+            <span>游文君 / Wenjun You</span>
+            <span>AI 应用交付工程师（FDE）</span>
+            <span>上海，2026</span>
+          </div>
+          <div className={styles.heroTitleRow}>
+            <h1 id="work-report-title">Token is oxygen!</h1>
+            <div className={styles.heroNote} aria-hidden="true">
+              <span>∞</span>
+              <p>无限进步<br />Keep shipping.</p>
+            </div>
+          </div>
+          <div className={styles.heroLower}>
+            <p className={styles.positioning}>
+              我是一名 AI 应用交付工程师（FDE）。我在客户现场把模糊需求做成可运行、可评测、可交接的 AI 应用，
+              用响应时间、交付质量与业务产出证明效果，而不是只停留在功能演示。
+            </p>
+            <ol className={styles.deliveryRail} aria-label="交付流程">
+              {["Brief", "Build", "Eval", "Handoff"].map((stage, index) => (
+                <li key={stage}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  {stage}
+                </li>
+              ))}
+              <li className={styles.railInfinity}>
+                <span aria-hidden="true">∞</span>
+                Progress
               </li>
-            ))}
-          </ol>
+            </ol>
+          </div>
         </header>
 
         <section className={styles.capabilities} aria-labelledby="capability-title">
@@ -95,7 +112,6 @@ export function WorkReport() {
                 <span>{column.number}</span>
                 <h3>{column.title}</h3>
               </div>
-              <div className={styles.yellowRule} aria-hidden="true" />
               <p>{column.summary}</p>
               <ul>
                 {column.items.map((item) => <li key={item}>{item}</li>)}
@@ -106,8 +122,8 @@ export function WorkReport() {
 
         <section className={styles.portfolio} aria-labelledby="fde-title">
           <div className={styles.sectionHeading}>
-            <p>FDE DELIVERY / 00</p>
             <h2 id="fde-title">企业 AI 交付主线</h2>
+            <p>三条线都从需求拆解走到验收与交接。数字来自客户现场记录，已脱敏。</p>
           </div>
 
           <div className={`${styles.stats} ${styles.fdeStats}`} aria-label="FDE 交付效果">
@@ -120,19 +136,31 @@ export function WorkReport() {
           </div>
 
           <div className={styles.projectGrid}>
-            {portfolioWork.map((project) => (
+            {portfolioWork.map((project, index) => (
               <article className={styles.projectCard} key={project.slug}>
                 <Link className={styles.projectLink} href={`/work/${project.slug}/`} prefetch={false}>
-                  <div className={styles.projectMeta}>
-                    <span>{project.period}</span>
-                    <strong>{project.categoryZh}</strong>
+                  <figure className={styles.projectFigure}>
+                    <Image
+                      src={project.image}
+                      alt={`${project.titleZh} 的界面记录`}
+                      width={1200}
+                      height={675}
+                      sizes="(max-width: 900px) 100vw, 56vw"
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                  </figure>
+                  <div className={styles.projectBody}>
+                    <div className={styles.projectMeta}>
+                      <span>{project.period}</span>
+                      <strong>{project.categoryZh}</strong>
+                    </div>
+                    <h3>{project.titleZh}</h3>
+                    <p className={styles.projectSummary}>{project.summaryZh}</p>
+                    <ul className={styles.proofList}>
+                      {project.metrics.map(([value, label]) => <li key={label}><b>{value}</b>{label}</li>)}
+                    </ul>
+                    <span className={styles.caseCta}>阅读完整案例</span>
                   </div>
-                  <h3>{project.titleZh}</h3>
-                  <p className={styles.projectSummary}>{project.summaryZh}</p>
-                  <ul className={styles.proofList}>
-                    {project.metrics.map(([value, label]) => <li key={label}>{value} · {label}</li>)}
-                  </ul>
-                  <span className={styles.caseCta}>阅读完整案例 <span aria-hidden="true">↗</span></span>
                 </Link>
               </article>
             ))}
@@ -141,8 +169,8 @@ export function WorkReport() {
 
         <section className={styles.portfolio} aria-labelledby="portfolio-title">
           <div className={styles.sectionHeading}>
-            <p>DELIVERY EVIDENCE / 01</p>
-            <h2 id="portfolio-title">作品集</h2>
+            <h2 id="portfolio-title">更多交付证据</h2>
+            <p>产品界面、发布治理与模拟业务系统，来自实习与个人实践。</p>
           </div>
 
           <div className={styles.stats} aria-label="简历支撑的量化成果">
@@ -160,24 +188,26 @@ export function WorkReport() {
 
               return (
                 <article
-                  className={`${styles.projectCard} ${isTeamAgent ? styles.teamAgentCard : ""}`}
+                  className={`${styles.projectCard} ${styles.projectCardCompact} ${isTeamAgent ? styles.teamAgentCard : ""}`}
                   key={project.slug}
                 >
-                  <Link className={styles.projectLink} href={`/cases/${project.slug}`} prefetch={false}>
-                    <div className={styles.projectMeta}>
-                      <span>{project.number}</span>
-                      <strong>{isTeamAgent ? "模拟业务实践 · 实现中" : project.labelZh}</strong>
+                  <Link className={`${styles.projectLink} ${styles.projectLinkCompact}`} href={`/cases/${project.slug}`} prefetch={false}>
+                    <div className={styles.projectBody}>
+                      <div className={styles.projectMeta}>
+                        <span>{project.number}</span>
+                        <strong>{isTeamAgent ? "模拟业务实践，实现中" : project.labelZh}</strong>
+                      </div>
+                      <h3>{project.titleZh}</h3>
+                      <p className={styles.projectSummary}>
+                        {isTeamAgent ? `拟验证：${project.summaryZh}` : project.summaryZh}
+                      </p>
+                      <ul className={styles.proofList}>
+                        {project.proofZh.map((proof) => (
+                          <li key={proof}><span>{isTeamAgent ? `观测目标 / ${proof}` : proof}</span></li>
+                        ))}
+                      </ul>
+                      <span className={styles.caseCta}>阅读完整案例</span>
                     </div>
-                    <h3>{project.titleZh}</h3>
-                    <p className={styles.projectSummary}>
-                      {isTeamAgent ? `拟验证：${project.summaryZh}` : project.summaryZh}
-                    </p>
-                    <ul className={styles.proofList}>
-                      {project.proofZh.map((proof) => (
-                        <li key={proof}>{isTeamAgent ? `观测目标 / ${proof}` : proof}</li>
-                      ))}
-                    </ul>
-                    <span className={styles.caseCta}>阅读完整案例 <span aria-hidden="true">↗</span></span>
                   </Link>
                 </article>
               );
@@ -186,14 +216,13 @@ export function WorkReport() {
         </section>
 
         <section className={styles.additional} aria-labelledby="additional-title">
-          <div className={styles.sectionHeadingCompact}>
-            <p>DELIVERY TRACKS / 02</p>
+          <div className={styles.sectionHeading}>
             <h2 id="additional-title">其他交付轨道</h2>
           </div>
           <div className={styles.additionalGrid}>
             {otherProjects.map(([, , titleZh, stackZh], index) => (
               <article key={titleZh}>
-                <span>0{index + 1}</span>
+                <span>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{titleZh}</h3>
                 <p>{stackZh}</p>
               </article>
@@ -202,8 +231,7 @@ export function WorkReport() {
         </section>
 
         <section className={styles.experience} aria-labelledby="experience-title">
-          <div className={styles.sectionHeadingCompact}>
-            <p>EXPERIENCE LEDGER / 03</p>
+          <div className={styles.sectionHeading}>
             <h2 id="experience-title">实践履历</h2>
           </div>
           <div className={styles.experienceList}>
@@ -224,6 +252,12 @@ export function WorkReport() {
             ))}
           </div>
         </section>
+
+        <footer className={styles.caseFooter} aria-label="工作信条">
+          <p className={styles.footerMotto}><span>∞</span> 无限进步</p>
+          <p className={styles.footerLine}>每份案卷都从一口氧气开始，以一条证据结束。</p>
+          <small>Wenjun You，Shanghai<br />真相只有一个</small>
+        </footer>
       </div>
     </section>
   );
