@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("移动端主要页面无横向溢出且可见图片均成功加载", async ({ page }) => {
   test.setTimeout(90_000);
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const path of ["/", "/selected/", "/explorations/", "/work/feishu-customer-service-gateway/", "/work/product-knowledge-ai-query/", "/work/enterprise-data-migration-dashboards/", "/work/customer-service-evaluation/", "/work/feishu-service-desk/", "/work/aily-knowledge-and-actions/"]) {
+  for (const path of ["/", "/selected/", "/explorations/", "/work/feishu-customer-service-gateway/", "/work/enterprise-data-migration-dashboards/", "/work/customer-service-evaluation/", "/work/feishu-service-desk/", "/work/aily-knowledge-and-actions/"]) {
     await page.goto(path);
     if (path === "/") {
       await expect(page.getByLabel("Wenjun OS 启动终端")).toBeVisible();

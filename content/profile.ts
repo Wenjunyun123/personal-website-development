@@ -12,12 +12,12 @@ export const profileCopy = {
     identity: "Wenjun You",
     chineseName: "游文君",
     role: "AI Application Delivery Engineer (FDE)",
-    thesis: "I turn ambiguous business needs into data and knowledge models, interfaces, agents, evaluations, and evidence-backed handoffs.",
+    thesis: "I turn ambiguous business needs into data and knowledge models, interfaces, agents, automation, and evaluation, then combine them into runnable, handover-ready enterprise systems with the Feishu ecosystem.",
     availability: "Open to AI application, FDE, Agent workflow, and plugin delivery opportunities.",
     launch: "Press Enter to inspect the delivery loop",
     viewResume: "View Resume",
     email: "Email Wenjun",
-    heroSignals: ["AI application delivery", "Knowledge & data modeling", "Evaluation & acceptance", "Agent workflows"],
+    heroSignals: ["AI application delivery", "Feishu ecosystem", "Knowledge & data modeling", "Evaluation & acceptance", "Agent workflows"],
     loopKicker: "Flagship system / user-confirmed practice",
     loopTitle: "Lark CLI × GitHub CLI Delivery Loop",
     loopIntro: "A six-stage operating loop that carries a business request from a Lark record into a GitHub implementation, then returns PR, CI, and acceptance evidence to the original record.",
@@ -28,7 +28,7 @@ export const profileCopy = {
     projectCta: "Inspect the full project system",
     profileKicker: "$ open profile.yaml",
     profileTitle: "I build the connective tissue between AI capability and real operations.",
-    profileIntro: "My work spans enterprise customer service, product knowledge engineering, data migration, product interfaces, Base automation, release governance, and the operational details that make Agent systems dependable.",
+    profileIntro: "My work is built around the Feishu ecosystem: enterprise service and product query, data migration, product interfaces, Base automation, release governance, and the operational details that make Agent systems dependable.",
     featuredTitle: "Flagship Systems",
     experienceTitle: "Experience Ledger",
     skillsTitle: "Capability Stack",
@@ -57,12 +57,12 @@ export const profileCopy = {
     identity: "游文君",
     chineseName: "Wenjun You",
     role: "AI 应用交付工程师（FDE）",
-    thesis: "我把模糊业务需求拆成数据与知识模型、界面、智能体、自动化与评测验收，再用证据闭环到真实业务。",
+    thesis: "我把模糊业务需求拆成数据与知识模型、界面、智能体、自动化与评测验收，再用飞书生态把它们组合成可运行、可交接的企业系统。",
     availability: "关注 AI 应用、FDE、Agent 工作流与插件交付机会。",
     launch: "按 Enter 检查交付闭环",
     viewResume: "查看简历",
     email: "邮件联系",
-    heroSignals: ["AI 应用交付", "知识与数据建模", "评测与验收", "Agent 工作流"],
+    heroSignals: ["AI 应用交付", "飞书生态组合", "知识与数据建模", "评测与验收", "Agent 工作流"],
     loopKicker: "旗舰系统 / 用户确认实践",
     loopTitle: "飞书 CLI × GitHub CLI 交付闭环",
     loopIntro: "一条六阶段操作链：让业务需求从飞书记录进入 GitHub 实现，再把 PR、CI 与验收证据回写到最初的业务记录。",
@@ -73,7 +73,7 @@ export const profileCopy = {
     projectCta: "查看完整项目系统",
     profileKicker: "$ open profile.yaml",
     profileTitle: "我构建 AI 能力与真实业务之间的连接层。",
-    profileIntro: "我的实践横跨企业智能客服、产品知识工程、数据迁移、产品界面、飞书 Base 自动化、发布治理，以及让 Agent 系统真正可靠的操作细节。",
+    profileIntro: "我的实践围绕飞书生态展开：企业智能客服与资料查询、数据迁移、产品界面、Base 自动化、发布治理，以及让 Agent 系统真正可靠的操作细节。",
     featuredTitle: "旗舰系统",
     experienceTitle: "经历账本",
     skillsTitle: "能力栈",
@@ -178,14 +178,13 @@ export const experienceItems = [
     companyZh: "广州市负熵云信息科技有限公司",
     role: "AI Application Delivery Engineer · FDE, client onsite",
     roleZh: "AI 应用交付工程师（FDE · 驻场客户现场）",
-    summary: "Owned enterprise AI delivery across customer service, product knowledge, data migration, and business dashboards: average customer-service response fell from 74–78s to 52–55s, product-knowledge A/B median from 37s to 27s, and 2,041 migrated production-order records read back with 0 unexplained differences.",
-    summaryZh: "驻场客户现场，交付企业智能客服、产品知识、数据迁移与业务看板：客服平均响应 74–78s 降到 52–55s，知识检索 A/B 中位 37→27s，2,041 条生产订单迁移后回读 0 项未解释差异。",
-    evidence: ["74–78→52–55s CS avg", "37→27s knowledge A/B", "9.96s query desk", "0 migration differences"],
+    summary: "Owned one enterprise service-and-query project from the Udesk middleware through product knowledge, then moved the query platform to Miaoda and rebuilt it as an AI query desk: average response fell from 74–78s to 52–55s, the chain median later reached the 30s range, and the delivered desk measured 9.96s average / 14.46s P95 across 225 UI questions—moving the project from 70+ seconds to about 10 seconds. Also migrated 2,041 production-order records with 0 unexplained differences.",
+    summaryZh: "驻场客户现场，负责企业智能客服与 AI 资料查询的同一条项目线：从 Udesk 中间层、评测体系到产品知识工程和妙搭资料查询台——平均响应从 74–78s 降到 52–55s，后续整链中位进入 30 多秒，最终查询台 225 题 UI 验收平均 9.96s、P95 14.46s，整体从 70 多秒进入 10 秒级；另完成 2,041 条生产订单迁移，回读 0 项未解释差异。",
+    evidence: ["70+→10s service & query", "74–78→52–55s service avg", "9.96s Miaoda query desk", "0 migration differences"],
     bullets: [
-      "驻场客户现场，负责企业协同、客服与知识管理场景的多个 AI 应用交付，覆盖智能客服、产品知识查询、证书查询、会议看板和多语言营销；与业务方对齐范围、验收标准和风险边界，从需求拆解、数据/知识建模、接口集成到评测验收和交接文档，独立推进项目落地。",
-      "建设并持续优化智能客服“小灰”的 Udesk 外部智能体中间层（NestJS + React + PostgreSQL），补齐 SSE 流式输出、人工转接、幂等、限流、脱敏和观测；把 Webhook 签名校验从 warn 切到 enforce，保留回滚 SQL 与日志核验；配合运行档案与检索顺序优化，把平均响应从 74–78s 降到 52–55s，262 题扩展集保持 99.2% 正确，10 路同题隔日复测中位差 0.4s。",
-      "先用逐题 JSONL、断点续跑和统一判定把平台成本与模型质量分开，再用 238 条 trace 定位入口排队（约 12.7–13.0s）、索引切片、46.5KB 上下文截断和二次回读；提出结构化索引、检索过滤、上下文裁剪与模板化文件交付，产品化查询台 UI 验收平均 9.96s、P95 14.46s，总耗时约为旧链路的 18.93%。",
-      "完成 889 份产品文档结构化，产出 235 条 QA 与 184 张参数知识卡；受控 A/B 中位 37→27s、P90 51→37s、每题候选文件 9.8→1.1，并用 805 条真实 FAQ 校准知识覆盖，把知识工程从“调提示词”推进到数据抽取、检索粒度和客户口径。",
+      "驻场客户现场，负责企业协同、客服与知识管理场景的多个 AI 应用交付，覆盖智能客服与产品资料查询、证书查询、会议看板和多语言营销；与业务方对齐范围、验收标准和风险边界，从需求拆解、数据/知识建模、接口集成到评测验收和交接文档，独立推进项目落地。",
+      "建设并持续优化智能客服“小灰”的 Udesk 外部智能体中间层（NestJS + React + PostgreSQL），补齐 SSE 流式输出、人工转接、幂等、限流、脱敏和观测；把 Webhook 签名校验从 warn 切到 enforce，保留回滚 SQL 与日志核验；配合运行档案与检索顺序优化，把平均响应从 74–78s 降到 52–55s，262 题扩展集保持 99.2% 正确，10 路同题隔日复测中位差 0.4s，后续整链中位继续进入 30 多秒。",
+      "把同一条项目从客服链路推进到产品资料查询：用逐题 JSONL、断点续跑和统一判定把平台成本与模型质量分开，再用 238 条 trace 定位入口排队（约 12.7–13.0s）、索引切片、46.5KB 上下文截断和二次回读；完成 889 份产品文档结构化，产出 235 条 QA 与 184 张参数知识卡，并用 805 条真实 FAQ 校准；最后把查询平台换到妙搭、重建 AI 资料查询台，225 题 UI 验收平均 9.96s、P95 14.46s，约为旧链路总耗时的 18.93%。",
       "把委外生产订单 9 张表、2,041 条记录、38,819 个单元格、51 个公式字段和 5 条工作流迁入多维表格，保留原表 #N/A/#DIV/0! 与业务口径，全量回读 0 项未解释差异；交付会议经营看板与证书查询智能体，典型证书查询从 68s/3 次调用降到 17–26s/1 次。"
     ]
   },
@@ -339,12 +338,12 @@ export const experienceTimeline = [
     titleZh: "AI 应用交付工程师 · FDE",
     organization: "Guangzhou Negative Entropy Cloud Information Technology",
     organizationZh: "广州市负熵云信息科技有限公司",
-    summary: "Onsite with the client, delivered enterprise customer service, product knowledge, data migration, and business dashboards from scoping and integration to evaluation, acceptance, and handoff.",
-    summaryZh: "驻场客户现场，交付企业智能客服、产品知识工程、数据迁移与业务看板，覆盖需求拆解、接口集成、评测验收与交接。",
+    summary: "Onsite with the client, delivered one enterprise service-and-query project plus data migration and business dashboards, from scoping and integration through evaluation, acceptance, and handoff.",
+    summaryZh: "驻场客户现场，交付企业智能客服与 AI 资料查询的同一条项目线，以及数据迁移与业务看板，覆盖需求拆解、接口集成、评测验收与交接。",
     evidence: [
-      ["9.96s avg / 14.46s P95", "9.96s 平均 / 14.46s P95"],
-      ["18.93% of old chain", "旧链路总耗时 18.93%"],
-      ["37→27s knowledge A/B", "知识查询 A/B 37→27s"],
+      ["70+→10s service & query", "客服与资料查询 70+→10s"],
+      ["74–78→52–55s first optimization", "首轮优化 74–78→52–55s"],
+      ["9.96s / 14.46s Miaoda desk", "妙搭查询台 9.96s / P95 14.46s"],
       ["0 migration differences", "迁移 0 项未解释差异"]
     ]
   }
@@ -511,8 +510,56 @@ export const githubVerifiedBugs = [
   }
 ] as const;
 
+export const feishuLayers = [
+  {
+    number: "01",
+    title: "Business surface",
+    titleZh: "业务界面",
+    products: "Base / Forms / Dashboards",
+    productsZh: "Base / 表单 / 仪表盘",
+    method: "Turn scattered spreadsheets into a queryable, alertable, operating system.",
+    methodZh: "把散落在表格里的业务，变成可查询、可提醒、可运营的系统。",
+    proof: "9 tables / 2,041 records / 0 unexplained differences",
+    proofZh: "9 表 / 2,041 条记录 / 0 项未解释差异"
+  },
+  {
+    number: "02",
+    title: "Intelligence",
+    titleZh: "智能能力",
+    products: "Aily / Miaoda / Docs / Knowledge base",
+    productsZh: "Aily / 妙搭 / 云文档 / 知识库",
+    method: "Turn documents, Q&A, and file delivery into evaluated AI applications, not demos.",
+    methodZh: "把资料、问答和文件交付做成可评测的 AI 应用，而不是只做演示。",
+    proof: "2,245-question run / 225-question UI acceptance / 9.96s",
+    proofZh: "2,245 题评测 / 225 题 UI 验收 / 9.96s"
+  },
+  {
+    number: "03",
+    title: "Connection & automation",
+    titleZh: "连接与自动化",
+    products: "Bots / Webhook / OpenAPI / CLI",
+    productsZh: "机器人 / Webhook / 开放平台 / CLI",
+    method: "Connect Feishu actions to external systems, then write results and evidence back to the source record.",
+    methodZh: "让飞书里的动作连到外部系统，再把结果和证据回写到原记录。",
+    proof: "Udesk gateway / 816-question OpenAPI run / Lark CLI loop",
+    proofZh: "Udesk 网关 / 816 题 OpenAPI 跑测 / 飞书 CLI 闭环"
+  },
+  {
+    number: "04",
+    title: "Governance & handoff",
+    titleZh: "治理与交付",
+    products: "Permissions / Approval / Logs / Rollback",
+    productsZh: "权限 / 审批 / 日志 / 回滚",
+    method: "Deliver permissions, approvals, rollback, and acceptance evidence together, not just a demo.",
+    methodZh: "权限、审批、回滚和验收证据一起交付，而不是只交一个 demo。",
+    proof: "238 traces / enforce signatures / rollback SQL",
+    proofZh: "238 条 trace / enforce 验签 / 回滚 SQL"
+  }
+] as const;
+
 export const skillGroups = [
   ["Delivery method", "Discovery · solution design · acceptance criteria · prioritization · delivery docs · SOP / handoff · client communication · risk management", "交付方法", "需求调研 · 方案设计 · 验收标准 · 优先级 · 交付文档 · SOP/交接 · 客户沟通 · 风险管理"],
+  ["Feishu ecosystem", "Base / Aily / Miaoda / Bots / Webhook / OpenAPI / Approval / Docs / Wiki / CLI", "飞书生态", "Base / Aily / 妙搭 / 机器人 / Webhook / 开放平台 / 审批 / 云文档 / 知识库 / CLI"],
   ["AI applications", "RAG · Agent / Workflow · Function Calling · Prompt Engineering · eval design · A/B · trace diagnosis · regression", "AI 应用", "RAG · Agent/Workflow · Function Calling · Prompt Engineering · 评测集设计 · A/B · trace 诊断 · 回归"],
   ["Backend & integration", "Node.js / NestJS · Python / FastAPI · REST / Webhook / SSE · PostgreSQL / Drizzle · SQL · ETL · Docker · n8n", "后端与集成", "Node.js/NestJS · Python/FastAPI · REST/Webhook/SSE · PostgreSQL/Drizzle · SQL · ETL · Docker · n8n"],
   ["Frontend & platforms", "React · TypeScript · JavaScript · low-code (Miaoda / Aily) · Base · Feishu · OpenAPI", "前端与平台", "React · TypeScript · JavaScript · 低代码平台（妙搭/Aily）· 多维表格/Base · 飞书生态 · OpenAPI"],

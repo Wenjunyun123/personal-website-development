@@ -495,7 +495,6 @@
   height: 126px;
   object-fit: cover;
   object-position: center top;
-  filter: grayscale(1);
   outline: var(--rule-hair) solid var(--color-rule);
   outline-offset: -1px;
 }

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { experienceItems } from "../../content/profile";
 import { portfolioNotes, portfolioWork, publicContributions, otherDeliveries, type PortfolioStory } from "../../content/portfolio";
 import { useLanguage } from "../language-toggle";
-import { ArchitecturePreview, DataMigrationPreview, EvaluationPreview, GatewayPreview, KnowledgePreview, ReleasePreview, ServiceDemo } from "./service-demo";
+import { ArchitecturePreview, DataMigrationPreview, EvaluationPreview, GatewayPreview, ReleasePreview, ServiceDemo } from "./service-demo";
 import { OfficeFigure } from "./company-reference";
 import styles from "./portfolio.module.css";
 
@@ -44,7 +44,7 @@ export function SelectedWork() {
   return <div className={styles.surface}><main className={styles.page}>
     <PortfolioNav />
     <h1 className={styles.pageTitle}>{zh ? "精选项目" : "Selected work"}</h1>
-    <p className={styles.pageIntro}>{zh ? "三条 FDE 交付主线：企业智能客服、产品知识工程、数据迁移与业务看板。每一项都从问题、接口走到验收和交接。" : "Three FDE delivery threads: enterprise customer service, product knowledge engineering, and data migration with business dashboards. Each runs from problem and integration through acceptance and handoff."}</p>
+    <p className={styles.pageIntro}>{zh ? "两条 FDE 交付主线：企业智能客服与 AI 资料查询、数据迁移与业务看板。前者从 70 多秒降到 9.96 秒，后者 2,041 条记录迁移回读 0 项未解释差异；每一项都从问题、接口走到验收和交接。" : "Two FDE delivery threads: enterprise service and AI product query, and data migration with business dashboards. The first moved from 70+ seconds to a 9.96s average; the second migrated 2,041 records with 0 unexplained differences. Each runs from problem and integration through acceptance and handoff."}</p>
     <div className={styles.workList}>{portfolioWork.map(story => <WorkItem key={story.slug} story={story} zh={zh} />)}</div>
     <p className={styles.articleFooter}><Link href="/explorations/">{zh ? "更多实践与经历" : "More explorations & experience"}</Link></p>
   </main></div>;
@@ -78,7 +78,7 @@ export function PortfolioArticle({ story }: { story: PortfolioStory }) {
     <h1 className={styles.pageTitle}>{zh ? story.titleZh : story.title}</h1>
     <div className={styles.articleMeta}><span>{story.period}</span><span>{zh ? story.categoryZh : story.category}</span></div>
     {"metrics" in story && story.metrics ? <ul className={styles.articleMetrics}>{story.metrics.map(([value, label]) => <li key={label}><strong>{value}</strong><span>{label}</span></li>)}</ul> : null}
-    {story.slug === "feishu-customer-service-gateway" ? <GatewayPreview zh={zh} /> : story.slug === "product-knowledge-ai-query" ? <KnowledgePreview zh={zh} /> : story.slug === "enterprise-data-migration-dashboards" ? <DataMigrationPreview zh={zh} /> : story.slug === "customer-service-evaluation" ? <EvaluationPreview zh={zh} /> : story.slug === "feishu-service-desk" ? <ServiceDemo /> : story.slug === "aily-knowledge-and-actions" ? <ArchitecturePreview /> : <ReleasePreview />}
+    {story.slug === "feishu-customer-service-gateway" ? <GatewayPreview zh={zh} /> : story.slug === "enterprise-data-migration-dashboards" ? <DataMigrationPreview zh={zh} /> : story.slug === "customer-service-evaluation" ? <EvaluationPreview zh={zh} /> : story.slug === "feishu-service-desk" ? <ServiceDemo /> : story.slug === "aily-knowledge-and-actions" ? <ArchitecturePreview /> : <ReleasePreview />}
     {story.sections.map(section => <section className={styles.articleSection} key={section.title}><h2>{zh ? section.titleZh : section.title}</h2><p>{zh ? section.textZh : section.text}</p></section>)}
     {"sources" in story ? <section className={styles.articleSection}><h2>{zh ? "公开实现" : "Public implementation"}</h2><ul className={styles.evidenceList}>{story.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.label}</a></li>)}</ul></section> : null}
     <div className={styles.articleMeta}>{story.tags.map(tag => <span key={tag}>{tag}</span>)}</div>

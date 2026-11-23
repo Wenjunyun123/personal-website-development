@@ -42,13 +42,13 @@ export function ArchitecturePreview() {
 
 export function GatewayPreview({ zh }: { zh: boolean }) {
   const steps = zh
-    ? [["01 / CHANNEL", "Udesk", "客户消息与前台展示"], ["02 / GATEWAY", "接入中间件", "鉴权、去重与日志"], ["03 / AGENT", "飞书 Aily", "知识与工具调用"], ["04 / RESPONSE", "结果回传", "正文、链接与等待提示"]]
-    : [["01 / CHANNEL", "Udesk", "Messages and presentation"], ["02 / GATEWAY", "Middleware", "Verification, deduplication, logs"], ["03 / AGENT", "Feishu Aily", "Knowledge and tools"], ["04 / RESPONSE", "Delivery", "Answers, links, waiting states"]];
-  return <section className={styles.demo} data-demo="gateway" aria-label={zh ? "智能客服接入结构示意" : "Customer service integration diagram"}>
-    <header className={styles.header}><span>Customer service integration</span><span className={styles.demoTag}>{zh ? "结构示意 / 已脱敏" : "Illustration / anonymized"}</span></header>
-    <div className={styles.releaseBody}><span className={styles.eyebrow}>CONNECT / TRACE / DELIVER</span><h2>{zh ? "答案到达客户，才算走完链路。" : "The answer has to reach the customer."}</h2><p>{zh ? "沿每一层找证据，让接入、排障与交付对应起来。" : "Trace each layer and connect the fix to a verified release."}</p>
+    ? [["01 / CHANNEL", "Udesk", "客户消息与前台展示"], ["02 / GATEWAY", "接入中间件", "鉴权、去重、日志与 238 条 trace"], ["03 / KNOWLEDGE", "产品知识", "889 文档 → 235 条 QA + 184 张卡"], ["04 / QUERY DESK", "妙搭查询台", "225 题 UI 验收 · 平均 9.96s"]]
+    : [["01 / CHANNEL", "Udesk", "Messages and presentation"], ["02 / GATEWAY", "Middleware", "Verification, dedupe, logs, 238 traces"], ["03 / KNOWLEDGE", "Product knowledge", "889 docs → 235 QA + 184 cards"], ["04 / QUERY DESK", "Miaoda desk", "225 UI questions · 9.96s average"]];
+  return <section className={styles.demo} data-demo="gateway" aria-label={zh ? "企业智能客服与资料查询链路示意" : "Service and query delivery diagram"}>
+    <header className={styles.header}><span>{zh ? "企业客服与资料查询" : "Service & product query"}</span><span className={styles.demoTag}>{zh ? "结构示意 / 已脱敏" : "Illustration / anonymized"}</span></header>
+    <div className={styles.releaseBody}><span className={styles.eyebrow}>CONNECT / TRACE / DELIVER</span><h2>{zh ? "从消息进入到 9.96 秒，同一条项目链路。" : "One project, from message intake to 9.96 seconds."}</h2><p>{zh ? "先让答案稳定送达，再把产品资料变成可查询、可交付的知识，最后用妙搭查询台把平均响应压到 10 秒以内。" : "First make delivery reliable, then turn product documents into queryable knowledge, and finally bring the average below 10 seconds with the Miaoda query desk."}</p>
       <div className={styles.platforms}>{steps.map(([label, title, detail]) => <div key={label}><span>{label}</span><strong>{title}</strong><small>{detail}</small></div>)}</div>
-      <div className={styles.releaseFlow}><span>{zh ? "消息进入" : "Message in"}</span><span>{zh ? "日志定位" : "Trace"}</span><span>{zh ? "修复与复测" : "Fix & retest"}</span><span>{zh ? "发布交接" : "Release"}</span></div>
+      <div className={styles.releaseFlow}><span>{zh ? "消息进入" : "Message in"}</span><span>{zh ? "诊断优化" : "Diagnose"}</span><span>{zh ? "知识产品化" : "Productize knowledge"}</span><span>{zh ? "9.96s 查询台" : "9.96s query desk"}</span></div>
       <small className={styles.legend}>{zh ? "依据实际项目材料绘制的结构示意，不包含客户数据或真实运行状态" : "Illustrated from project records; no client data or live status"}</small>
     </div>
   </section>;

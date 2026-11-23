@@ -13,7 +13,7 @@ import {
 import Image from "next/image";
 import type { IconType } from "react-icons";
 import { FaGithub } from "react-icons/fa";
-import { FiBriefcase, FiFileText, FiGrid, FiLayers, FiRepeat, FiTarget, FiUser, FiUsers } from "react-icons/fi";
+import { FiBriefcase, FiFileText, FiGrid, FiLayers, FiRepeat, FiShare2, FiTarget, FiUser, FiUsers } from "react-icons/fi";
 import { portfolioWork } from "../../content/portfolio";
 import { DetectiveMark } from "./detective-mark";
 import {
@@ -22,6 +22,7 @@ import {
   experienceItems,
   experienceTimeline,
   featuredProjects,
+  feishuLayers,
   githubMergedContributions,
   githubSnapshot,
   githubVerifiedBugs,
@@ -39,6 +40,7 @@ type HomeOSProps = {
 
 type WindowId =
   | "about"
+  | "feishu"
   | "fde"
   | "experience"
   | "delivery-loop"
@@ -66,14 +68,10 @@ type Point = { x: number; y: number };
 const VISITED_KEY = "wenjun-os-visited";
 
 const metricLabelEn: Record<string, string> = {
-  "平均响应": "avg response",
-  "去长尾平均": "trimmed avg",
-  "中位响应": "median",
-  "隔日复测中位差": "rerun median delta",
-  "A/B 中位耗时": "A/B median",
-  "A/B P90": "A/B P90",
-  "每题候选文件": "candidate files / question",
-  "查询台平均响应": "query desk avg",
+  "整体响应": "overall response",
+  "首轮优化平均": "first-pass average",
+  "后续整链中位": "later chain median",
+  "妙搭平均 / P95": "Miaoda avg / P95",
   "项未解释差异": "unexplained diffs",
   "迁移规模": "migration scale",
   "证书查询": "certificate query",
@@ -85,7 +83,7 @@ const terminalScript = [
   { text: "> 游文君 Wenjun You", kind: "output" },
   { text: "$ cat about.md", kind: "command" },
   { text: "> AI 应用交付工程师 / FDE", kind: "output" },
-  { text: "  驻场负熵云，做企业智能客服、产品知识与数据迁移", kind: "output" },
+  { text: "  驻场负熵云，做企业智能客服与资料查询、数据迁移", kind: "output" },
   { text: "  把模糊需求变成可运行、可评测、可交接的 AI 应用", kind: "output" },
   { text: "$ cat motto.txt", kind: "command" },
   { text: "> TOKEN IS OXYGEN!", kind: "gold" },
@@ -95,6 +93,7 @@ const terminalScript = [
 ] as const;
 
 const iconDefinitions: ReadonlyArray<{ id: WindowId; label: string; labelZh: string; action: string }> = [
+  { id: "feishu", label: "feishu-ecosystem", labelZh: "飞书生态", action: "Open Ecosystem" },
   { id: "about", label: "about.md", labelZh: "about.md", action: "Open Profile" },
   { id: "fde", label: "fde-delivery", labelZh: "FDE 交付", action: "Open Delivery Threads" },
   { id: "experience", label: "timeline", labelZh: "经历时间轴", action: "View Timeline" },
@@ -107,6 +106,7 @@ const iconDefinitions: ReadonlyArray<{ id: WindowId; label: string; labelZh: str
 ];
 
 const initialIconPositions: Record<WindowId, Point> = {
+  feishu: { x: 22, y: 370 },
   about: { x: 22, y: 52 },
   fde: { x: 142, y: 52 },
   experience: { x: 262, y: 52 },
@@ -588,16 +588,17 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
           </h1>
           <p className={styles.desktopLead}>
             {language === "zh"
-              ? "我是游文君，驻场负熵云。做企业智能客服、产品知识与数据迁移；从需求拆解一直走到验收和交接。"
-              : "I am Wenjun You, onsite at Negative Entropy Cloud: enterprise customer service, product knowledge, and data migration, from scoping through acceptance and handoff."}
+              ? "我是游文君，驻场负熵云。用飞书生态做企业智能客服与资料查询、数据迁移；从需求拆解一直走到验收和交接。"
+              : "I am Wenjun You, onsite at Negative Entropy Cloud: using the Feishu ecosystem for enterprise service and product query, plus data migration, from scoping through acceptance and handoff."}
           </p>
           <div className={styles.desktopActions}>
             <a className={styles.desktopPrimary} href="#works">{language === "zh" ? "查看作品" : "See the work"}</a>
             <button className={styles.desktopSecondary} type="button" onClick={() => openWindow("fde")}>{language === "zh" ? "看交付记录" : "Read the delivery record"}</button>
           </div>
           <dl className={styles.desktopFacts}>
-            <div><dt>{language === "zh" ? "三条交付主线" : "Three delivery threads"}</dt><dd>{language === "zh" ? "企业客服 / 产品知识 / 数据迁移" : "Service / knowledge / migration"}</dd></div>
+            <div><dt>{language === "zh" ? "两条交付主线" : "Two delivery threads"}</dt><dd>{language === "zh" ? "企业客服与资料查询 / 数据迁移" : "Service & query / Migration"}</dd></div>
             <div><dt>{language === "zh" ? "工作方式" : "Working method"}</dt><dd>Brief → Build → Eval → Handoff</dd></div>
+            <div className={styles.desktopFactWide}><dt>{language === "zh" ? "飞书生态" : "Feishu ecosystem"}</dt><dd>{language === "zh" ? "Base / Aily / 妙搭 / 机器人 / 开放平台 / 审批" : "Base / Aily / Miaoda / Bots / Open Platform / Approval"}</dd></div>
           </dl>
         </div>
         <div className={styles.iconLayer}>
@@ -660,7 +661,7 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
             </strong>
             <p className={styles.caseCoverRole}>{cover.role}</p>
             <div className={styles.caseCoverStats}>
-              <span><b>3</b>{language === "zh" ? "条企业交付主线" : "delivery threads"}</span>
+              <span><b>2</b>{language === "zh" ? "条企业交付主线" : "delivery threads"}</span>
               <span><b>0</b>{language === "zh" ? "项未解释差异" : "unexplained diffs"}</span>
             </div>
           </div>
@@ -752,17 +753,46 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
     );
   }
 
+  if (id === "feishu") {
+    return (
+      <div>
+        <WindowHeading
+          kicker="Feishu ecosystem"
+          title={isZh ? "把飞书组合成企业提效方案" : "Composing Feishu into enterprise efficiency"}
+        />
+        <p>
+          {isZh
+            ? "我熟悉飞书生态里的产品边界，也知道怎么把它们组合成企业提效链路：先在 Base 里把业务数据变成真源，再用 Aily/妙搭做知识与问答，用机器人、Webhook、开放平台连接外部系统，最后用权限、审批和评测把交付闭环。"
+            : "I know the product boundaries inside the Feishu ecosystem, and how to compose them into an enterprise efficiency chain: make Base the source of truth, use Aily and Miaoda for knowledge and Q&A, connect external systems through bots, Webhooks, and OpenAPI, then close the loop with permissions, approvals, and evaluation."}
+        </p>
+        <div className={styles.deliveryFlow}>
+          {feishuLayers.map((layer) => (
+            <article key={layer.number}>
+              <b>{layer.number}</b>
+              <span>{isZh ? layer.titleZh : layer.title}</span>
+              <small>{isZh ? layer.productsZh : layer.products}</small>
+              <p>{isZh ? layer.methodZh : layer.method}</p>
+              <div className={styles.evidenceList}>
+                <small>{isZh ? layer.proofZh : layer.proof}</small>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (id === "fde") {
     return (
       <div>
         <WindowHeading
           kicker="FDE delivery, Sep–Dec 2026"
-          title={isZh ? "三条企业 AI 交付主线" : "Three enterprise AI delivery threads"}
+          title={isZh ? "两条企业 AI 交付主线" : "Two enterprise AI delivery threads"}
         />
         <p>
           {isZh
-            ? "驻场负熵云客户现场：先把客服链路从“能回答”做到“稳定送达”，再把 889 份产品资料变成可检索、可交付的知识库，最后把 2,041 条生产订单和会议/证书数据搬进可运营的 Base。三条线都从需求拆解走到验收与交接。"
-            : "Onsite at Negative Entropy Cloud, I first moved customer service from “can answer” to “reliably delivered,” then turned 889 product documents into a queryable, handover-ready knowledge base, and finally moved 2,041 production-order records plus meeting and certificate data into an operating Base. Each thread runs from scoping through acceptance and handoff."}
+            ? "驻场负熵云客户现场：把企业智能客服与资料查询作为同一条项目线，从 70 多秒一路做到平均 9.96 秒；再把 2,041 条生产订单和会议/证书数据搬进可运营的 Base。两条线都从需求拆解走到验收与交接。"
+            : "Onsite at Negative Entropy Cloud, I treated enterprise service and product query as one project line, moving it from 70+ seconds to a 9.96s average, then moved 2,041 production-order records plus meeting and certificate data into an operating Base. Both threads run from scoping through acceptance and handoff."}
         </p>
         <div className={styles.deliveryFlow}>
           {portfolioWork.map((project, index) => (
@@ -970,6 +1000,7 @@ function IconGlyph({ id }: { id: WindowId }) {
     about: FiUser,
     fde: FiTarget,
     experience: FiBriefcase,
+    feishu: FiShare2,
     "delivery-loop": FiRepeat,
     "team-agent": FiUsers,
     "release-matrix": FiGrid,

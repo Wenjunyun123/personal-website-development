@@ -21,11 +21,11 @@ test("首页按终端启动、个人桌面、FDE 交付窗口的逻辑工作", a
 
   await page.getByRole("button", { name: /FDE 交付/ }).dblclick();
   const fdeWindow = page.getByLabel("FDE 交付 window");
-  await expect(fdeWindow.getByRole("heading", { name: "三条企业 AI 交付主线" })).toBeVisible();
+  await expect(fdeWindow.getByRole("heading", { name: "两条企业 AI 交付主线" })).toBeVisible();
   await expect(fdeWindow.getByText(/74–78s 降到 52–55s/)).toBeVisible();
-  await expect(fdeWindow.getByText("37→27s A/B 中位耗时", { exact: true })).toBeVisible();
+  await expect(fdeWindow.getByText("70+→9.96s 整体响应", { exact: true })).toBeVisible();
   await expect(fdeWindow.getByText("0 项未解释差异", { exact: true })).toBeVisible();
-  await expect(fdeWindow.getByRole("link", { name: /阅读完整案例/ })).toHaveCount(3);
+  await expect(fdeWindow.getByRole("link", { name: /阅读完整案例/ })).toHaveCount(2);
   await fdeWindow.getByRole("button", { name: "关闭窗口：FDE 交付" }).click();
   await expect(fdeWindow).toHaveCount(0);
 
@@ -80,10 +80,30 @@ test("桌面支持语言切换，FDE 窗口可切换为英文", async ({ page })
 
   await page.getByRole("button", { name: /FDE 交付/ }).dblclick();
   const fdeWindow = page.getByLabel("FDE 交付 window");
-  await expect(fdeWindow.getByRole("heading", { name: "三条企业 AI 交付主线" })).toBeVisible();
+  await expect(fdeWindow.getByRole("heading", { name: "两条企业 AI 交付主线" })).toBeVisible();
 
   await page.getByRole("button", { name: "Switch desktop language" }).click();
-  await expect(page.getByRole("heading", { name: "Three enterprise AI delivery threads" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Two enterprise AI delivery threads" })).toBeVisible();
   await expect(page.getByLabel("fde-delivery window").getByText(/74–78s to 52–55s/)).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
+});
+
+test("飞书生态窗口与作品集章节展示平台组合", async ({ page }) => {
+  await page.addInitScript(() => localStorage.removeItem("wenjun-os-visited"));
+  await page.goto("/");
+  await page.getByRole("button", { name: /跳过终端输入动画/ }).click();
+  await page.keyboard.press("Enter");
+  await expect(page.getByLabel("Wenjun OS desktop")).toBeVisible({ timeout: 5_000 });
+
+  await page.getByRole("button", { name: /飞书生态/ }).dblclick();
+  const feishuWindow = page.getByLabel("飞书生态 window");
+  await expect(feishuWindow.getByRole("heading", { name: "把飞书组合成企业提效方案" })).toBeVisible();
+  await expect(feishuWindow.getByText("Base / 表单 / 仪表盘", { exact: true })).toBeVisible();
+  await expect(feishuWindow.getByText(/2,041 条记录/)).toBeVisible();
+  await page.getByRole("button", { name: "关闭窗口：飞书生态" }).click();
+
+  await page.goto("/#works");
+  await expect(page.getByRole("heading", { name: "飞书生态" })).toBeVisible();
+  await expect(page.getByText("9 表 / 2,041 条记录 / 0 项未解释差异", { exact: true })).toBeVisible();
+  await expect(page.getByText("Aily / 妙搭 / 云文档 / 知识库", { exact: true })).toBeVisible();
 });

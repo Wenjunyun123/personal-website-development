@@ -20,15 +20,12 @@ test("项目说明保留培训与实习证据边界，流程演示可走完", as
 
 test("精选项目优先展示当前交付，案例区分真实记录与示意", async ({ page }) => {
   await page.goto("/selected/");
-  await page.getByRole("link", { name: /企业级智能客服：从能回答到稳定送达/ }).click();
-  await expect(page.getByRole("heading", { level: 1, name: "企业级智能客服：从能回答到稳定送达" })).toBeVisible();
+  await page.getByRole("link", { name: /企业智能客服与 AI 资料查询：从 70\+ 秒到 10 秒/ }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "企业智能客服与 AI 资料查询：从 70+ 秒到 10 秒" })).toBeVisible();
   await expect(page.getByText("客户交付 · 脱敏展示", { exact: true })).toBeVisible();
-  await expect(page.getByRole("region", { name: "智能客服接入结构示意" })).toBeVisible();
+  await expect(page.getByRole("region", { name: "企业智能客服与资料查询链路示意" })).toBeVisible();
   await page.getByRole("link", { name: "返回", exact: true }).click();
   await expect(page).toHaveURL(/\/selected\//);
-  await page.getByRole("link", { name: /产品知识工程与 AI 资料查询台/ }).click();
-  await expect(page.getByRole("region", { name: "产品知识工程结构示意" })).toBeVisible();
-  await page.getByRole("link", { name: "返回", exact: true }).click();
   await page.getByRole("link", { name: /企业数据迁移与业务看板/ }).click();
   await expect(page.getByRole("region", { name: "企业数据迁移与业务看板结构示意" })).toBeVisible();
   await page.goto("/explorations/");

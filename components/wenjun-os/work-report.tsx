@@ -4,15 +4,16 @@ import { portfolioWork } from "../../content/portfolio";
 import {
   experienceItems,
   featuredProjects,
+  feishuLayers,
   otherProjects,
   profileStats
 } from "../../content/profile";
 import styles from "./work-report.module.css";
 
 const fdeProof = [
-  ["74–78→52–55s", "智能客服平均响应"],
-  ["9.96s", "资料查询台平均响应"],
-  ["37→27s", "知识检索 A/B 中位"],
+  ["70+→10s", "客服与资料查询"],
+  ["74–78→52–55s", "首轮优化后平均"],
+  ["9.96s", "妙搭查询台平均"],
   ["0", "迁移未解释差异"]
 ] as const;
 
@@ -50,9 +51,9 @@ const capabilityColumns = [
 ] as const;
 
 const experienceEvidenceZh: Record<string, string> = {
-  "74–78→52–55s CS avg": "客服平均响应 74–78→52–55s",
-  "37→27s knowledge A/B": "知识检索 A/B 37→27s",
-  "9.96s query desk": "查询台平均响应 9.96s",
+  "70+→10s service & query": "客服与资料查询 70+→10s",
+  "74–78→52–55s service avg": "首轮优化后平均 74–78→52–55s",
+  "9.96s Miaoda query desk": "妙搭查询台平均响应 9.96s",
   "0 migration differences": "迁移 0 项未解释差异",
   "60 public add-ons": "60 个公开 add-ons 核验",
   "62 packages audited": "62 个包体审计",
@@ -120,10 +121,36 @@ export function WorkReport() {
           ))}
         </section>
 
+        <section className={styles.feishu} aria-labelledby="feishu-title">
+          <div className={styles.sectionHeading}>
+            <h2 id="feishu-title">飞书生态</h2>
+            <p>不是工具清单，而是把飞书组合成企业提效方案的能力。</p>
+          </div>
+          <p className={styles.feishuThesis}>
+            我熟悉飞书生态里的产品边界，也知道怎么把它们组合成企业提效链路：先在 Base 里把业务数据变成真源，再用 Aily/妙搭做知识与问答，用机器人、Webhook、开放平台连接外部系统，最后用权限、审批和评测把交付闭环。
+          </p>
+          <div className={styles.feishuLedger}>
+            {feishuLayers.map((layer) => (
+              <article className={styles.feishuRow} key={layer.number}>
+                <b>{layer.number}</b>
+                <div className={styles.feishuLayer}>
+                  <h3>{layer.titleZh}</h3>
+                  <span>{layer.productsZh}</span>
+                </div>
+                <p>{layer.methodZh}</p>
+                <small>{layer.proofZh}</small>
+              </article>
+            ))}
+          </div>
+          <p className={styles.feishuNote}>
+            从 Base 的业务数据，到 Aily/妙搭的智能能力，再到机器人、开放平台与审批的连接和治理——每一层都走到验收与交接，而不是停在功能演示。
+          </p>
+        </section>
+
         <section className={styles.portfolio} aria-labelledby="fde-title">
           <div className={styles.sectionHeading}>
             <h2 id="fde-title">企业 AI 交付主线</h2>
-            <p>三条线都从需求拆解走到验收与交接。数字来自客户现场记录，已脱敏。</p>
+            <p>两条线都从需求拆解走到验收与交接。数字来自客户现场记录，已脱敏。</p>
           </div>
 
           <div className={`${styles.stats} ${styles.fdeStats}`} aria-label="FDE 交付效果">

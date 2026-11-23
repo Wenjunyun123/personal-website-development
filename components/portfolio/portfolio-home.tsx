@@ -35,9 +35,9 @@ export function PortfolioHome() {
 
         <div className={styles.introduction}>
           <p>{zh ? <>
-            我在业务现场把模糊需求落成可运行、可评测、可交接的<Link href="/selected/" className={styles.inlineLink}>AI 应用</Link>。最近在负熵云驻场：把<Link href="/work/feishu-customer-service-gateway/" className={styles.inlineLink} style={{ "--link-color": "#198348" } as React.CSSProperties}>企业智能客服</Link>的平均响应从 74–78 秒压到 52–55 秒，把产品知识查询中位从 37 秒降到 27 秒，并把 2,041 条生产订单迁进多维表格、全量回读 0 项未解释差异。
+            我在业务现场把模糊需求落成可运行、可评测、可交接的<Link href="/selected/" className={styles.inlineLink}>AI 应用</Link>。最近在负熵云驻场：用飞书生态把<Link href="/work/feishu-customer-service-gateway/" className={styles.inlineLink} style={{ "--link-color": "#198348" } as React.CSSProperties}>企业智能客服与产品资料查询</Link>作为同一条项目线，从 70 多秒一路降到 9.96 秒；并把 2,041 条生产订单迁进多维表格、全量回读 0 项未解释差异。
           </> : <>
-            I turn ambiguous business needs into <Link href="/selected/" className={styles.inlineLink}>AI applications</Link> that run, can be evaluated, and can be handed over. Lately I’ve been onsite at Negative Entropy Cloud: cutting <Link href="/work/feishu-customer-service-gateway/" className={styles.inlineLink} style={{ "--link-color": "#198348" } as React.CSSProperties}>enterprise customer service</Link> average response from 74–78s to 52–55s, product-knowledge median from 37s to 27s, and migrating 2,041 production-order records into Base with zero unexplained differences.
+            I turn ambiguous business needs into <Link href="/selected/" className={styles.inlineLink}>AI applications</Link> that run, can be evaluated, and can be handed over. Lately I’ve been onsite at Negative Entropy Cloud, using the Feishu ecosystem to move one <Link href="/work/feishu-customer-service-gateway/" className={styles.inlineLink} style={{ "--link-color": "#198348" } as React.CSSProperties}>enterprise service and product-query</Link> project from 70+ seconds down to a 9.96s average, and migrating 2,041 production-order records into Base with zero unexplained differences.
           </>}</p>
           <p>{zh ? <>
             此前在<CompanyReference officeKey="yichong" zh={zh} />、<CompanyReference officeKey="yimu" zh={zh} />和<CompanyReference officeKey="kaytune" zh={zh} />实习，做过插件开发、AI 商品图工作流与数据管道。喜欢把复杂问题变成简单、可靠的工具。
@@ -47,8 +47,8 @@ export function PortfolioHome() {
         </div>
 
         <dl className={styles.proofStrip}>
-          <div><dt>52–55s</dt><dd>{zh ? "客服平均响应" : "service avg response"}</dd></div>
-          <div><dt>37→27s</dt><dd>{zh ? "知识查询 A/B 中位" : "knowledge A/B median"}</dd></div>
+          <div><dt>70+→9.96s</dt><dd>{zh ? "客服与资料查询整体" : "service & query"}</dd></div>
+          <div><dt>9.96s</dt><dd>{zh ? "妙搭查询台平均" : "Miaoda query desk"}</dd></div>
           <div><dt>0</dt><dd>{zh ? "迁移未解释差异" : "migration diffs"}</dd></div>
         </dl>
 
