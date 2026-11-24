@@ -1,0 +1,395 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T11:50:33.017Z",
+  "title": "Design System: Wenjun OS",
+  "extensions": {
+    "colorMeta": {
+      "oat-paper": {
+        "role": "neutral",
+        "displayName": "Oat Paper",
+        "canonical": "oklch(96.5% 0.014 82)",
+        "tonalRamp": [
+          "oklch(15% 0.011 82)",
+          "oklch(27% 0.012 82)",
+          "oklch(39% 0.014 82)",
+          "oklch(51% 0.014 82)",
+          "oklch(63% 0.013 82)",
+          "oklch(75% 0.012 82)",
+          "oklch(85% 0.011 82)",
+          "oklch(95% 0.009 82)"
+        ]
+      },
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "oklch(93.5% 0.018 80)",
+        "tonalRamp": [
+          "oklch(15% 0.014 80)",
+          "oklch(27% 0.016 80)",
+          "oklch(39% 0.018 80)",
+          "oklch(51% 0.018 80)",
+          "oklch(63% 0.017 80)",
+          "oklch(75% 0.016 80)",
+          "oklch(85% 0.014 80)",
+          "oklch(95% 0.011 80)"
+        ]
+      },
+      "deep-paper": {
+        "role": "neutral",
+        "displayName": "Deep Paper",
+        "canonical": "oklch(89% 0.022 78)",
+        "tonalRamp": [
+          "oklch(15% 0.017 78)",
+          "oklch(27% 0.020 78)",
+          "oklch(39% 0.021 78)",
+          "oklch(51% 0.022 78)",
+          "oklch(63% 0.021 78)",
+          "oklch(75% 0.019 78)",
+          "oklch(85% 0.017 78)",
+          "oklch(95% 0.014 78)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(18% 0.012 60)",
+        "tonalRamp": [
+          "oklch(15% 0.009 60)",
+          "oklch(27% 0.011 60)",
+          "oklch(39% 0.012 60)",
+          "oklch(51% 0.012 60)",
+          "oklch(63% 0.012 60)",
+          "oklch(75% 0.010 60)",
+          "oklch(85% 0.009 60)",
+          "oklch(95% 0.007 60)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "oklch(29% 0.012 60)",
+        "tonalRamp": [
+          "oklch(15% 0.009 60)",
+          "oklch(27% 0.011 60)",
+          "oklch(39% 0.012 60)",
+          "oklch(51% 0.012 60)",
+          "oklch(63% 0.012 60)",
+          "oklch(75% 0.010 60)",
+          "oklch(85% 0.009 60)",
+          "oklch(95% 0.007 60)"
+        ]
+      },
+      "muted-ink": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "canonical": "oklch(47% 0.014 65)",
+        "tonalRamp": [
+          "oklch(15% 0.011 65)",
+          "oklch(27% 0.012 65)",
+          "oklch(39% 0.014 65)",
+          "oklch(51% 0.014 65)",
+          "oklch(63% 0.013 65)",
+          "oklch(75% 0.012 65)",
+          "oklch(85% 0.011 65)",
+          "oklch(95% 0.009 65)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(81% 0.016 75)",
+        "tonalRamp": [
+          "oklch(15% 0.012 75)",
+          "oklch(27% 0.014 75)",
+          "oklch(39% 0.016 75)",
+          "oklch(51% 0.016 75)",
+          "oklch(63% 0.015 75)",
+          "oklch(75% 0.014 75)",
+          "oklch(85% 0.012 75)",
+          "oklch(95% 0.010 75)"
+        ]
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "oklch(62% 0.018 72)",
+        "tonalRamp": [
+          "oklch(15% 0.014 72)",
+          "oklch(27% 0.016 72)",
+          "oklch(39% 0.018 72)",
+          "oklch(51% 0.018 72)",
+          "oklch(63% 0.017 72)",
+          "oklch(75% 0.016 72)",
+          "oklch(85% 0.014 72)",
+          "oklch(95% 0.011 72)"
+        ]
+      },
+      "signal-blue": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "oklch(44% 0.16 262)",
+        "tonalRamp": [
+          "oklch(15% 0.121 262)",
+          "oklch(27% 0.142 262)",
+          "oklch(39% 0.156 262)",
+          "oklch(51% 0.160 262)",
+          "oklch(63% 0.154 262)",
+          "oklch(75% 0.139 262)",
+          "oklch(85% 0.121 262)",
+          "oklch(95% 0.099 262)"
+        ]
+      },
+      "focus-blue": {
+        "role": "primary",
+        "displayName": "Focus Blue",
+        "canonical": "oklch(50% 0.16 262)",
+        "tonalRamp": [
+          "oklch(15% 0.121 262)",
+          "oklch(27% 0.142 262)",
+          "oklch(39% 0.156 262)",
+          "oklch(51% 0.160 262)",
+          "oklch(63% 0.154 262)",
+          "oklch(75% 0.139 262)",
+          "oklch(85% 0.121 262)",
+          "oklch(95% 0.099 262)"
+        ]
+      },
+      "paper-on-ink": {
+        "role": "neutral",
+        "displayName": "Paper on Ink",
+        "canonical": "oklch(97% 0.012 82)",
+        "tonalRamp": [
+          "oklch(15% 0.009 82)",
+          "oklch(27% 0.011 82)",
+          "oklch(39% 0.012 82)",
+          "oklch(51% 0.012 82)",
+          "oklch(63% 0.012 82)",
+          "oklch(75% 0.010 82)",
+          "oklch(85% 0.009 82)",
+          "oklch(95% 0.007 82)"
+        ]
+      },
+      "ledger-red": {
+        "role": "tertiary",
+        "displayName": "Ledger Red",
+        "canonical": "oklch(45% 0.16 28)",
+        "tonalRamp": [
+          "oklch(15% 0.121 28)",
+          "oklch(27% 0.142 28)",
+          "oklch(39% 0.156 28)",
+          "oklch(51% 0.160 28)",
+          "oklch(63% 0.154 28)",
+          "oklch(75% 0.139 28)",
+          "oklch(85% 0.121 28)",
+          "oklch(95% 0.099 28)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero statements, case names, and the exit line."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Dossier window titles and section openers."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Case rows, list entries, and subheads."
+      },
+      "file": {
+        "displayName": "File",
+        "purpose": "Desktop file names and icon labels."
+      },
+      "stat": {
+        "displayName": "Stat",
+        "purpose": "Case-cover numbers and compact evidence figures."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading copy and interface text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Captions, status, and navigation."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Terminal output, metrics, dates, and file names."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "state",
+        "value": "160ms ease-out",
+        "purpose": "Hover and focus color/underline transitions."
+      },
+      {
+        "name": "nav",
+        "value": "240ms ease",
+        "purpose": "Masthead visibility transition."
+      },
+      {
+        "name": "launch",
+        "value": "80ms tick + 1800ms settle",
+        "purpose": "Terminal launch progress and page wash."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1100px"
+      },
+      {
+        "name": "stack",
+        "value": "900px"
+      },
+      {
+        "name": "mobile",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one filled action; ink at rest, Signal Blue on hover.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#works\">查看作品</a>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; min-height:44px; padding:0 20px; border:1px solid var(--color-ink,oklch(18% 0.012 60)); border-radius:0; background:var(--color-ink,oklch(18% 0.012 60)); color:var(--color-paper,oklch(96.5% 0.014 82)); font-family:var(--font-body,sans-serif); font-size:13px; font-weight:500; text-decoration:none; transition:background 160ms ease-out; } .ds-btn-primary:hover { background:var(--color-accent,oklch(44% 0.16 262)); border-color:var(--color-accent,oklch(44% 0.16 262)); } .ds-btn-primary:focus-visible { outline:2px solid var(--color-focus,oklch(50% 0.16 262)); outline-offset:3px; }"
+    },
+    {
+      "name": "Text Button",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "A secondary action carried by type and an underline, not a container.",
+      "html": "<button class=\"ds-btn-text\" type=\"button\">看交付记录</button>",
+      "css": ".ds-btn-text { padding:0; border:0; background:none; color:var(--color-ink-2,oklch(29% 0.012 60)); font-family:var(--font-body,sans-serif); font-size:12px; text-decoration:underline; text-decoration-color:var(--color-rule-2,oklch(62% 0.018 72)); text-underline-offset:.2em; cursor:pointer; transition:color 160ms ease-out, text-decoration-color 160ms ease-out; } .ds-btn-text:hover { color:var(--color-accent,oklch(44% 0.16 262)); text-decoration-color:var(--color-accent,oklch(44% 0.16 262)); } .ds-btn-text:focus-visible { outline:2px solid var(--color-focus,oklch(50% 0.16 262)); outline-offset:3px; }"
+    },
+    {
+      "name": "Masthead Tab",
+      "kind": "nav",
+      "refersTo": "nav-tab",
+      "description": "Sentence-case tabs on a fixed 64px paper masthead; active state is ink plus a 2px underline.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary\"><a class=\"ds-nav-link is-active\" href=\"#\">首页</a><a class=\"ds-nav-link\" href=\"#\">作品集</a><a class=\"ds-nav-link\" href=\"#\">我的OS</a></nav>",
+      "css": ".ds-nav { display:flex; gap:4px; height:64px; padding:0 32px; background:var(--color-paper,oklch(96.5% 0.014 82)); border-bottom:1px solid var(--color-rule,oklch(81% 0.016 75)); font-family:var(--font-body,sans-serif); } .ds-nav-link { position:relative; display:inline-flex; align-items:center; padding:0 14px; color:var(--color-muted,oklch(47% 0.014 65)); font-size:13px; font-weight:500; text-decoration:none; white-space:nowrap; } .ds-nav-link:hover { color:var(--color-ink,oklch(18% 0.012 60)); } .ds-nav-link.is-active { color:var(--color-ink,oklch(18% 0.012 60)); } .ds-nav-link.is-active::after { content:\"\"; position:absolute; left:14px; right:14px; bottom:-1px; height:2px; background:var(--color-ink,oklch(18% 0.012 60)); } .ds-nav-link:focus-visible { outline:2px solid var(--color-focus,oklch(50% 0.16 262)); outline-offset:-6px; }"
+    },
+    {
+      "name": "File Row",
+      "kind": "custom",
+      "refersTo": "file-row",
+      "description": "A dossier file index row: icon, serif name, mono-quiet action, hairline base.",
+      "html": "<button class=\"ds-file-row\" type=\"button\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M5 3h7l3 3v11H5z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/><path d=\"M12 3v3h3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg><span><strong>飞书生态</strong><small>Open Ecosystem</small></span></button>",
+      "css": ".ds-file-row { display:grid; grid-template-columns:20px minmax(0,1fr); column-gap:12px; row-gap:2px; align-items:center; padding:15px 10px; border:0; border-bottom:1px solid var(--color-rule,oklch(81% 0.016 75)); border-left:2px solid transparent; background:transparent; color:var(--color-ink,oklch(18% 0.012 60)); text-align:left; cursor:pointer; } .ds-file-row svg { grid-row:1 / span 2; width:18px; height:18px; color:var(--color-accent,oklch(44% 0.16 262)); } .ds-file-row strong { font-family:var(--font-display,\"DM Serif Display\",serif); font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-.01em; } .ds-file-row small { color:var(--color-muted,oklch(47% 0.014 65)); font-family:var(--font-body,sans-serif); font-size:10.5px; } .ds-file-row:hover { border-left-color:var(--color-accent,oklch(44% 0.16 262)); background:color-mix(in oklab,var(--color-paper-2,oklch(93.5% 0.018 80)) 52%,transparent); } .ds-file-row:focus-visible { outline:2px solid var(--color-focus,oklch(50% 0.16 262)); outline-offset:3px; }"
+    },
+    {
+      "name": "Dossier Window",
+      "kind": "custom",
+      "refersTo": "dossier-window",
+      "description": "The fixed paper window: square, 1px ink border, warm header, mono file label.",
+      "html": "<section class=\"ds-window\"><header class=\"ds-window-bar\"><div class=\"ds-window-controls\"><span>×</span><span>−</span><span>+</span></div><strong>about.md</strong></header><div class=\"ds-window-body\"><h3>游文君</h3><p>AI 应用交付工程师（FDE）</p></div></section>",
+      "css": ".ds-window { display:flex; flex-direction:column; width:min(760px,100%); max-height:78vh; overflow:hidden; background:var(--color-paper,oklch(96.5% 0.014 82)); color:var(--color-ink,oklch(18% 0.012 60)); border:1px solid var(--color-ink,oklch(18% 0.012 60)); box-shadow:none; font-family:var(--font-body,sans-serif); } .ds-window-bar { display:flex; align-items:center; gap:14px; min-height:48px; padding:0 14px; background:var(--color-paper-2,oklch(93.5% 0.018 80)); border-bottom:1px solid var(--color-ink,oklch(18% 0.012 60)); } .ds-window-controls { display:flex; gap:4px; } .ds-window-controls span { display:grid; place-items:center; width:26px; height:26px; border:1px solid var(--color-rule,oklch(81% 0.016 75)); color:var(--color-ink-2,oklch(29% 0.012 60)); font-family:var(--font-outlier,monospace); font-size:13px; line-height:1; } .ds-window-bar strong { overflow:hidden; color:var(--color-muted,oklch(47% 0.014 65)); font-family:var(--font-outlier,monospace); font-size:11px; font-weight:400; white-space:nowrap; text-overflow:ellipsis; } .ds-window-body { padding:30px 34px 40px; overflow-y:auto; } .ds-window-body h3 { margin:0 0 8px; font-family:var(--font-display,\"DM Serif Display\",serif); font-size:21px; font-weight:400; line-height:1.18; } .ds-window-body p { margin:0; color:var(--color-ink-2,oklch(29% 0.012 60)); font-size:14.5px; line-height:1.7; }"
+    },
+    {
+      "name": "Case Cover",
+      "kind": "card",
+      "description": "Portrait, identity, role, and two evidence numbers; the personal margin sits below the stats.",
+      "html": "<div class=\"ds-cover\"><div class=\"ds-cover-img\" aria-hidden=\"true\"></div><div class=\"ds-cover-caption\"><span>游文君，上海，2026</span></div></div><div class=\"ds-cover-meta\"><span class=\"ds-cover-kicker\">Open to FDE</span><strong class=\"ds-cover-name\">游文君<em>Wenjun You</em></strong><p class=\"ds-cover-role\">AI 应用交付工程师（FDE）</p><div class=\"ds-cover-stats\"><span><b>2</b>条企业交付主线</span><span><b>0</b>项未解释差异</span></div></div>",
+      "css": ".ds-cover-img { width:100%; height:280px; background:var(--color-paper-3,oklch(89% 0.022 78)); outline:1px solid var(--color-rule,oklch(81% 0.016 75)); outline-offset:-1px; } .ds-cover-caption { margin-top:10px; color:var(--color-muted,oklch(47% 0.014 65)); font-family:var(--font-body,sans-serif); font-size:10.5px; } .ds-cover-meta { margin-top:18px; padding-top:16px; border-top:1px solid var(--color-ink,oklch(18% 0.012 60)); font-family:var(--font-body,sans-serif); } .ds-cover-kicker { display:block; color:var(--color-muted,oklch(47% 0.014 65)); font-size:12px; font-weight:500; } .ds-cover-name { display:block; margin:6px 0; color:var(--color-ink,oklch(18% 0.012 60)); font-family:var(--font-display,\"DM Serif Display\",serif); font-size:42px; font-weight:400; line-height:1.02; letter-spacing:-.02em; } .ds-cover-name em { display:block; margin-top:6px; color:var(--color-muted,oklch(47% 0.014 65)); font-family:var(--font-body,sans-serif); font-size:11px; font-style:normal; } .ds-cover-role { margin:8px 0; color:var(--color-ink-2,oklch(29% 0.012 60)); font-size:12px; } .ds-cover-stats { display:flex; gap:28px; padding-top:12px; border-top:1px solid var(--color-rule,oklch(81% 0.016 75)); color:var(--color-muted,oklch(47% 0.014 65)); font-size:10.5px; } .ds-cover-stats b { display:block; margin-bottom:4px; color:var(--color-ink,oklch(18% 0.012 60)); font-family:var(--font-display,\"DM Serif Display\",serif); font-size:30px; font-weight:400; line-height:1; }"
+    },
+    {
+      "name": "Dossier Row",
+      "kind": "custom",
+      "description": "A numbered evidence row in the delivery thread; no card, only rules and type.",
+      "html": "<article class=\"ds-row\"><b>01</b><span>企业智能客服与 AI 资料查询</span><small>企业 AI 交付</small><p>把模糊需求拆成数据、知识、界面与评测，再把客服与资料查询合并成一条可交接的交付线。</p></article>",
+      "css": ".ds-row { padding:18px 0; border-top:1px solid var(--color-rule,oklch(81% 0.016 75)); font-family:var(--font-body,sans-serif); } .ds-row > b { color:var(--color-accent,oklch(44% 0.16 262)); font-family:var(--font-outlier,monospace); font-size:11px; font-weight:400; } .ds-row > span { display:block; margin:4px 0 2px; color:var(--color-ink,oklch(18% 0.012 60)); font-family:var(--font-display,\"DM Serif Display\",serif); font-size:21px; line-height:1.16; } .ds-row > small { display:block; margin-bottom:8px; color:var(--color-muted,oklch(47% 0.014 65)); font-size:10.5px; } .ds-row > p { margin:0; color:var(--color-ink-2,oklch(29% 0.012 60)); font-size:14.5px; line-height:1.7; }"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "A hairline tag for skills and evidence signals; never a filled filter chip.",
+      "html": "<span class=\"ds-tag\">AI 应用交付</span>",
+      "css": ".ds-tag { display:inline-block; padding:5px 8px; border:1px solid var(--color-rule,oklch(81% 0.016 75)); border-radius:0; background:transparent; color:var(--color-ink-2,oklch(29% 0.012 60)); font-family:var(--font-body,sans-serif); font-size:10.5px; line-height:1.3; }"
+    },
+    {
+      "name": "Delivery Terminal",
+      "kind": "custom",
+      "description": "The signature launch console: mono command log, working progress, and an ink-chip motto.",
+      "html": "<div class=\"ds-terminal\"><div class=\"ds-terminal-bar\"><span>游文君 / delivery log</span><span>Ready</span><span>2026</span></div><div class=\"ds-terminal-body\"><div class=\"ds-terminal-command\">$ whoami</div><div>&gt; 游文君 Wenjun You</div><div class=\"ds-terminal-command\">$ cat motto.txt</div><div class=\"ds-terminal-motto\">&gt; TOKEN IS OXYGEN!</div></div></div>",
+      "css": ".ds-terminal { border:1px solid var(--color-ink,oklch(18% 0.012 60)); background:var(--color-paper,oklch(96.5% 0.014 82)); color:var(--color-ink-2,oklch(29% 0.012 60)); font-family:var(--font-outlier,monospace); } .ds-terminal-bar { display:flex; justify-content:space-between; gap:12px; padding:10px 14px; border-bottom:1px solid var(--color-rule,oklch(81% 0.016 75)); color:var(--color-muted,oklch(47% 0.014 65)); font-size:10px; } .ds-terminal-body { min-height:180px; padding:20px; font-size:11px; line-height:1.9; } .ds-terminal-command { margin-top:6px; color:var(--color-muted,oklch(47% 0.014 65)); } .ds-terminal-motto { display:inline-block; margin-top:6px; padding:2px 6px; background:var(--color-ink,oklch(18% 0.012 60)); color:var(--color-paper,oklch(96.5% 0.014 82)); font-weight:500; letter-spacing:.02em; }"
+    },
+    {
+      "name": "Exit Band",
+      "kind": "custom",
+      "refersTo": "exit-band",
+      "description": "The dark colophon that closes the dossier; huge serif invitation, paper-on-ink rules.",
+      "html": "<section class=\"ds-exit\"><p class=\"ds-exit-kicker\">Contact / open to FDE</p><h2>Let&#39;s ship the loop.</h2><a class=\"ds-exit-email\" href=\"mailto:wenjunyou2002@outlook.com\">wenjunyou2002@outlook.com</a></section>",
+      "css": ".ds-exit { padding:clamp(64px,10vw,120px) clamp(20px,4.5vw,64px); background:var(--color-ink,oklch(18% 0.012 60)); color:var(--color-paper,oklch(96.5% 0.014 82)); font-family:var(--font-body,sans-serif); } .ds-exit-kicker { margin:0 0 16px; color:color-mix(in oklab,var(--color-paper,oklch(96.5% 0.014 82)) 62%,transparent); font-size:12px; } .ds-exit h2 { margin:0 0 32px; color:var(--color-paper,oklch(96.5% 0.014 82)); font-family:var(--font-display,\"DM Serif Display\",serif); font-size:clamp(48px,6.4vw,96px); font-weight:400; line-height:.98; letter-spacing:-.03em; } .ds-exit-email { color:var(--color-paper,oklch(96.5% 0.014 82)); font-family:var(--font-display,\"DM Serif Display\",serif); font-size:clamp(20px,2.2vw,30px); line-height:1.1; text-underline-offset:.2em; } .ds-exit-email:hover { text-decoration-thickness:2px; } .ds-exit-email:focus-visible { outline:2px solid var(--color-paper,oklch(96.5% 0.014 82)); outline-offset:4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Editorial Dossier",
+    "overview": "Wenjun OS is a personal delivery record set as an editorial case file. It treats a career as evidence: projects arrive as numbered dossiers, metrics sit beside the claim they support, and the interface borrows the grammar of a printed index — warm paper, razor serif, hairline rules, one ink-blue signal. The person is present, but never as decoration: a portrait, a margin note, a motto, and a working terminal are enough.\n\nThe system is deliberately flat. There are no floating cards, shadows, glows, glass, or gradient type. Depth comes from overlap: fixed dossier windows stack over the paper desktop, the dark exit band closes the record, and a single blue accent marks the live path. The older detective costume — navy board, red string, stamps, a fake laptop — is the explicit anti-reference; the current site keeps the case-file idea but sets it as an editorial system rather than a prop.\n\nChinese and English share one voice. Display lines use DM Serif Display for Latin and Noto Serif SC for Chinese; body text uses Geist with PingFang SC / Noto Sans SC fallbacks; data, terminal output, and file names use Geist Mono. The mix should read as one publication, not two translations.",
+    "keyCharacteristics": [
+      "Warm paper and dark ink carry the page; blue is a signal, never a surface.",
+      "Display serif at one weight, with tight, controlled tracking.",
+      "Square geometry, one-pixel rules, and no shadows.",
+      "Evidence is edited like content: numbers, screenshots, and case rows, not dashboard cards.",
+      "The human margin — portrait, off-duty note, mottos — keeps the record personal."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Rule",
+        "body": "Signal Blue occupies roughly a tenth of any screen at most. It appears as a link, an active mark, one word, or a key number. A page with two competing blues is a page with no signal.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper Surface Rule",
+        "body": "Backgrounds are warm paper, not pure white. Pure white belongs to the printable resume and to image highlights; using it for the site surface breaks the archive metaphor.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Serif Voice Rule",
+        "body": "Display serif is always weight 400. Do not bold it, italicise one word inside a roman heading, or mix a second display face. Emphasis comes from size, space, and the single blue word.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sentence-Case Label Rule",
+        "body": "Labels are set in the body face at 10.5–11px, sentence case, untracked. Uppercase is reserved for literal status or ledger tokens, never for decorative eyebrows.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Dossier Rule",
+        "body": "Surfaces are flat at rest and in every state. If an element needs separation, use a 1px rule, a paper tone, or a change of ink — never a shadow, halo, or backdrop blur.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Right Angle Rule",
+        "body": "Do not round a control, card, image, or window. If a shape feels too hard, reduce its weight with a hairline or more space, not with a radius.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do use the declared tokens for every new color, font, spacing step, and radius; no literal values in new components.",
+      "Do keep structural borders at 1px Ink and internal divisions at 1px Hairline.",
+      "Do set display copy at 400 weight with tracking between -0.02em and -0.03em.",
+      "Do keep Signal Blue rare: links, active marks, one opening word, key numbers.",
+      "Do show real screenshots, real metrics, and the portrait in color.",
+      "Do let the dossier metaphor live in structure (case rows, evidence, terminal), not in decorative props.",
+      "Do keep the first screen at 1280 × 800 to a headline, one sentence, and one primary action."
+    ],
+    "donts": [
+      "Don't add shadows, rounded cards, pills, glass, blur, glow, or gradient text.",
+      "Don't set labels in tracked uppercase; use sentence case at 10.5–11px.",
+      "Don't use mono for headings or body copy; it is for data, terminal, file names, and timestamps.",
+      "Don't invent metrics, testimonials, client names, logos, or personal hobbies.",
+      "Don't use grayscale portraits.",
+      "Don't let the legacy portfolio skin or the printable resume define a new brand surface.",
+      "Don't join unrelated metadata with middle dots in new copy; use slashes, commas, or separate rows."
+    ]
+  }
+}
