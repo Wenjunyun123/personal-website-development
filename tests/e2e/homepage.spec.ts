@@ -37,3 +37,36 @@ test("移动端首页无横向溢出，标题和主 CTA 可见", async ({ page }
   await expect(page.getByRole("button", { name: "打开目录" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
+
+test("移动端精选案例纵向排列，不需要横向滑动", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const track = page.locator("#work").locator('[class*="galleryTrack"]');
+  await expect(track).toBeVisible();
+  const metrics = await track.evaluate((element) => ({
+    display: getComputedStyle(element).display,
+    overflowX: getComputedStyle(element).overflowX,
+    scrollWidth: element.scrollWidth,
+    clientWidth: element.clientWidth,
+    columns: getComputedStyle(element).gridTemplateColumns.split(" ").length
+  }));
+  expect(metrics.display).toBe("grid");
+  expect(metrics.overflowX).toBe("visible");
+  expect(metrics.columns).toBe(1);
+  expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth + 1);
+
+  const cards = page.locator("[data-gallery-card]");
+  expect(await cards.count()).toBe(3);
+  const tops = await cards.evaluateAll((elements) =>
+    elements.map((element) => Math.round(element.getBoundingClientRect().top + window.scrollY))
+  );
+  expect(new Set(tops).size).toBe(tops.length);
+});
+
+test("桌面端精选案例仍保持横向钉住", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+
+  await expect(page.locator("#work [data-pinned]")).toHaveAttribute("data-pinned", "true");
+});

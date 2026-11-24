@@ -909,6 +909,15 @@
   text-transform: uppercase;
 }
 
+.galleryVerticalHint {
+  display: none;
+  color: var(--r-muted);
+  font-family: var(--r-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .galleryProgress {
   display: flex;
   flex: 1;
@@ -4714,6 +4723,47 @@
 
   .resumeBannerArrow {
     font-size: 28px;
+  }
+}
+
+/* Mobile gallery: stack the cases so the page only scrolls vertically.
+   The pinned horizontal presentation stays exclusive to desktop. */
+@media (max-width: 1023px), (hover: none) and (pointer: coarse) {
+  .galleryTrack {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(32px, 5vw, 56px) clamp(18px, 3vw, 32px);
+    overflow: visible;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+  }
+
+  .galleryCard {
+    flex: none;
+    width: 100%;
+    scroll-snap-align: none;
+  }
+
+  .galleryHint,
+  .galleryProgress {
+    display: none;
+  }
+
+  .galleryVerticalHint {
+    display: inline-flex;
+  }
+
+  .galleryFoot {
+    order: -1;
+    justify-content: flex-start;
+    padding-top: 0;
+    padding-bottom: 2px;
+  }
+}
+
+@media (max-width: 640px) {
+  .galleryTrack {
+    grid-template-columns: 1fr;
   }
 }
 

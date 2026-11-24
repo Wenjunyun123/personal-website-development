@@ -210,6 +210,9 @@ export function WorkGallery({
               </span>
             </div>
             <span className={styles.galleryHint}>{pinned ? "PINNED / SCROLL" : "SWIPE / DRAG"}</span>
+            <span className={styles.galleryVerticalHint}>
+              {String(records.length).padStart(2, "0")} / {isZh ? "向下查看" : "SCROLL"}
+            </span>
           </div>
         </div>
       </div>
