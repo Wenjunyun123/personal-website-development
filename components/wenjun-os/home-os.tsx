@@ -13,7 +13,7 @@ import {
 import Image from "next/image";
 import type { IconType } from "react-icons";
 import { FaGithub } from "react-icons/fa";
-import { FiBriefcase, FiFileText, FiGrid, FiLayers, FiRepeat, FiShare2, FiTarget, FiUser, FiUsers } from "react-icons/fi";
+import { FiBriefcase, FiFileText, FiGrid, FiLayers, FiRepeat, FiSearch, FiShare2, FiTarget, FiUser, FiUsers } from "react-icons/fi";
 import { portfolioWork } from "../../content/portfolio";
 import { DetectiveMark } from "./detective-mark";
 import {
@@ -48,7 +48,8 @@ type WindowId =
   | "release-matrix"
   | "skills"
   | "resume"
-  | "github";
+  | "github"
+  | "off-duty";
 
 type DesktopWindow = {
   id: WindowId;
@@ -115,7 +116,8 @@ const initialIconPositions: Record<WindowId, Point> = {
   "release-matrix": { x: 262, y: 158 },
   skills: { x: 22, y: 264 },
   resume: { x: 142, y: 264 },
-  github: { x: 262, y: 264 }
+  github: { x: 262, y: 264 },
+  "off-duty": { x: 142, y: 370 }
 };
 
 export function HomeOS({ onLaunchedChange, onIntroReadyChange }: HomeOSProps) {
@@ -558,7 +560,11 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
     setWindows((current) => current.map((item) => item.id === drag.id ? { ...item, x, y } : item));
   };
 
-  const labels = useMemo(() => Object.fromEntries(iconDefinitions.map((item) => [item.id, language === "zh" ? item.labelZh : item.label])) as Record<WindowId, string>, [language]);
+  const labels = useMemo(() => {
+    const map = Object.fromEntries(iconDefinitions.map((item) => [item.id, language === "zh" ? item.labelZh : item.label])) as Record<string, string>;
+    map["off-duty"] = language === "zh" ? "工作之外" : "Off the clock";
+    return map as Record<WindowId, string>;
+  }, [language]);
   const cover = profileCopy[language];
 
   return (
@@ -570,6 +576,7 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
           <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => openWindow("about")}>Profile</button>
           <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => { window.location.hash = "#works"; }}>Projects</button>
           <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => openWindow("fde")}>Delivery</button>
+          <button className={`${styles.desktopMenuText} ${styles.menuNav}`} type="button" onClick={() => openWindow("off-duty")}>Off-duty</button>
         </div>
         <div className={styles.menuStatus}>
           <button type="button" onClick={() => setLanguage((value) => value === "zh" ? "en" : "zh")} aria-label="Switch desktop language">{language === "zh" ? "中 / EN" : "EN / 中"}</button>
@@ -664,6 +671,11 @@ const Desktop = forwardRef<HTMLElement, DesktopProps>(function DesktopComponent(
               <span><b>2</b>{language === "zh" ? "条企业交付主线" : "delivery threads"}</span>
               <span><b>0</b>{language === "zh" ? "项未解释差异" : "unexplained diffs"}</span>
             </div>
+            <button className={styles.coverOffDuty} type="button" onClick={() => openWindow("off-duty")}>
+              <span className={styles.coverOffDutyLabel}>{language === "zh" ? "工作之外" : "Off the clock"}</span>
+              <span className={styles.coverOffDutyLine}>{language === "zh" ? "最爱《名侦探柯南》。" : "My favorite anime is Detective Conan."}</span>
+              <span className={styles.coverOffDutyCue}>{language === "zh" ? "打开 off-duty.md" : "Open off-duty.md"}</span>
+            </button>
           </div>
         </aside>
       </div>
@@ -927,6 +939,36 @@ function WindowContent({ id, language }: { id: WindowId; language: SiteLanguage 
     );
   }
 
+  if (id === "off-duty") {
+    return (
+      <div className={styles.offDutyWindow}>
+        <WindowHeading kicker="off-duty.md" title={isZh ? "工作之外" : "Off the clock"} />
+        <p className={styles.offDutyLead}>{isZh ? "最爱《名侦探柯南》。" : "My favorite anime is Detective Conan."}</p>
+        <p>
+          {isZh
+            ? "做交付也像办案：先把事实收齐，再让证据说话。"
+            : "Delivery works like a case: gather the facts first, then let the evidence speak."}
+        </p>
+        <dl className={styles.offDutyFacts}>
+          <div><dt>{isZh ? "位置" : "Based"}</dt><dd>{isZh ? "上海" : "Shanghai"}</dd></div>
+          <div><dt>{isZh ? "现在" : "Now"}</dt><dd>{isZh ? "驻场交付收尾，开放 FDE 机会（2026.11）" : "Wrapping an onsite delivery, open to FDE (Nov 2026)"}</dd></div>
+          <div>
+            <dt>{isZh ? "信条" : "Mottoes"}</dt>
+            <dd className={styles.offDutyCreed}>
+              <span>Token is oxygen!</span>
+              <span>∞ {isZh ? "无限进步" : "keep improving"}</span>
+            </dd>
+          </div>
+        </dl>
+        <blockquote className={styles.offDutyQuote}>
+          <DetectiveMark className={styles.offDutyQuoteMark} size={16} />
+          <p>{isZh ? "真相只有一个。" : "There is only one truth."}</p>
+          <cite>{isZh ? "《名侦探柯南》" : "Detective Conan"}</cite>
+        </blockquote>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.githubWindow}>
       <div className={styles.githubIdentity}>
@@ -1006,7 +1048,8 @@ function IconGlyph({ id }: { id: WindowId }) {
     "release-matrix": FiGrid,
     skills: FiLayers,
     resume: FiFileText,
-    github: FaGithub
+    github: FaGithub,
+    "off-duty": FiSearch
   };
   const Icon = iconMap[id];
   return <Icon className={styles.iconGraphic} aria-hidden="true" focusable="false" />;

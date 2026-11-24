@@ -107,3 +107,18 @@ test("飞书生态窗口与作品集章节展示平台组合", async ({ page }) 
   await expect(page.getByText("9 表 / 2,041 条记录 / 0 项未解释差异", { exact: true })).toBeVisible();
   await expect(page.getByText("Aily / 妙搭 / 云文档 / 知识库", { exact: true })).toBeVisible();
 });
+
+test("封面页边的工作之外窗口保存个人一侧", async ({ page }) => {
+  await page.addInitScript(() => localStorage.removeItem("wenjun-os-visited"));
+  await page.goto("/");
+  await page.getByRole("button", { name: /跳过终端输入动画/ }).click();
+  await page.keyboard.press("Enter");
+  await expect(page.getByLabel("Wenjun OS desktop")).toBeVisible({ timeout: 5_000 });
+
+  await page.getByRole("button", { name: /打开 off-duty\.md/ }).click();
+  const offDutyWindow = page.getByLabel("工作之外 window");
+  await expect(offDutyWindow.getByRole("heading", { name: "工作之外" })).toBeVisible();
+  await expect(offDutyWindow.getByText("最爱《名侦探柯南》。")).toBeVisible();
+  await expect(offDutyWindow.getByText("Token is oxygen!")).toBeVisible();
+  await expect(offDutyWindow.getByText("真相只有一个。")).toBeVisible();
+});

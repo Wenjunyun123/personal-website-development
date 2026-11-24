@@ -898,6 +898,144 @@
   font-size: 10.5px;
 }
 
+/* ---------- off-duty margin ---------- */
+
+.coverOffDuty {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px 0 0;
+  border: 0;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.coverOffDuty:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.coverOffDutyLabel {
+  display: block;
+  color: var(--color-muted);
+  font-size: 11px;
+}
+
+.coverOffDutyLine {
+  display: block;
+  margin-top: 5px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.18em;
+  transition: color 160ms ease-out, text-decoration-color 160ms ease-out;
+}
+
+.coverOffDutyCue {
+  display: block;
+  margin-top: 6px;
+  color: var(--color-muted);
+  font-size: 10.5px;
+  transition: color 160ms ease-out;
+}
+
+.coverOffDuty:hover .coverOffDutyLine,
+.coverOffDuty:focus-visible .coverOffDutyLine {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+.coverOffDuty:hover .coverOffDutyCue,
+.coverOffDuty:focus-visible .coverOffDutyCue {
+  color: var(--color-accent);
+}
+
+.offDutyWindow {
+  min-width: 0;
+}
+
+.offDutyWindow .offDutyLead {
+  margin: 0 0 14px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 34px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.offDutyFacts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  margin: 26px 0 0;
+  border-top: var(--rule-hair) solid var(--color-ink);
+}
+
+.offDutyFacts > div {
+  padding: 14px 0;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.offDutyFacts > div:last-child {
+  grid-column: 1 / -1;
+  border-bottom: 0;
+}
+
+.offDutyFacts dt {
+  margin-bottom: 5px;
+  color: var(--color-muted);
+  font-size: 10.5px;
+}
+
+.offDutyFacts dd {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.offDutyCreed span {
+  display: block;
+}
+
+.offDutyQuote {
+  margin: 28px 0 0;
+  padding: 20px 0 0;
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+
+.offDutyQuoteMark {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--color-accent);
+}
+
+.offDutyWindow .offDutyQuote p {
+  margin: 0 0 8px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.offDutyQuote cite {
+  color: var(--color-muted);
+  font-size: 10.5px;
+  font-style: normal;
+}
+
 .deliveryFlow {
   margin-top: 8px;
 }
@@ -1596,7 +1734,7 @@
   }
 
   .menuCase {
-    font-size: 10px;
+    display: none;
   }
 
   .desktopMenuText {
@@ -1665,6 +1803,14 @@
 
   .caseCoverName {
     font-size: 32px;
+  }
+
+  .coverOffDutyLine {
+    font-size: 20px;
+  }
+
+  .offDutyFacts {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .iconLayer {
