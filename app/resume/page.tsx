@@ -18,7 +18,7 @@ export default function ResumePage() {
   return (
     <main className={styles.page}>
       <nav className={styles.topbar} aria-label="简历页面导航">
-        <Link href="/">← 返回个人网站</Link>
+        <Link prefetch={false} href="/">← 返回个人网站</Link>
         <span>PUBLIC RESUME / 2026</span>
       </nav>
 
@@ -122,7 +122,7 @@ export default function ResumePage() {
 
       <footer className={styles.footer}>
         <p>围绕真实业务问题，构建可用、可验证、可交接的系统。最近更新：2026.11。</p>
-        <a href="mailto:wenjunyou2002@outlook.com">发送问题描述 →</a>
+        <a href="mailto:wenjunyou2002@outlook.com">发送问题描述</a>
       </footer>
     </main>
   );

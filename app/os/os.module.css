@@ -1,0 +1,40 @@
+.page {
+  position: relative;
+}
+
+.back {
+  position: fixed;
+  z-index: 220;
+  bottom: 18px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(10, 10, 10, 0.78);
+  color: #f4f2ec;
+  padding: 9px 13px;
+  font-family: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(10px);
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+
+.back:hover {
+  border-color: #fff;
+  background: rgba(10, 10, 10, 0.94);
+  color: #fff;
+}
+
+.back:focus-visible {
+  outline: 3px solid #7c90ff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .back {
+    bottom: 12px;
+    left: 12px;
+  }
+}

@@ -5,11 +5,7 @@ test("移动端主要页面无横向溢出且可见图片均成功加载", async
   await page.setViewportSize({ width: 390, height: 844 });
   for (const path of ["/", "/selected/", "/explorations/", "/work/feishu-customer-service-gateway/", "/work/enterprise-data-migration-dashboards/", "/work/customer-service-evaluation/", "/work/feishu-service-desk/", "/work/aily-knowledge-and-actions/"]) {
     await page.goto(path);
-    if (path === "/") {
-      await expect(page.getByLabel("Wenjun OS 启动终端")).toBeVisible();
-    } else {
-      await expect(page.locator("h1"), `missing visible h1 on ${path}`).toBeVisible();
-    }
+    await expect(page.locator("h1"), `missing visible h1 on ${path}`).toBeVisible();
     await page.evaluate(async () => {
       for (let y = 0; y < document.body.scrollHeight; y += 600) {
         window.scrollTo(0, y);

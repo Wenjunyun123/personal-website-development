@@ -8,11 +8,12 @@
     "build:static": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test:e2e": "playwright test",
+    "test:e2e": "next build && playwright test",
     "test:unit": "vitest run",
     "test": "npm run test:unit && npm run test:e2e"
   },
   "dependencies": {
+    "motion": "^14.14.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",

@@ -9,6 +9,7 @@
 .topbar { display: flex; justify-content: space-between; gap: 20px; padding: 26px 0; border-bottom: 1px solid #eee; font-size: 11px; color: #999; }
 .topbar a { text-decoration: none; }
 .topbar a:hover { color: #222; }
+.page :where(a, button):focus-visible { outline: 3px solid #1f4bff; outline-offset: 4px; }
 .hero { display: grid; grid-template-columns: 64px 1fr; gap: 28px; padding: 60px 0 15px; align-items: start; }
 .portrait { width: 64px; height: 85px; object-fit: cover; }
 .eyebrow { margin: 0 0 14px; font-size: 10px; letter-spacing: .08em; color: #888; }
