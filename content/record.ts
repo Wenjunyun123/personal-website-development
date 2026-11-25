@@ -8,6 +8,17 @@ export type RecordProof = {
   formatComma?: boolean;
 };
 
+export type RecordCredential = {
+  title: string;
+  role: string;
+  issued: string;
+  validUntil: string;
+  image: string;
+  width: number;
+  height: number;
+  alt: string;
+};
+
 export type RecordLadderStep = {
   label: string;
   range: string;
@@ -60,6 +71,7 @@ export type RecordCopy = {
     portraitCaption: string;
     portraitNote: string;
     scroll: string;
+    credentialLink: string;
   };
   ticker: readonly string[];
   proof: {
@@ -67,6 +79,17 @@ export type RecordCopy = {
     title: string;
     note: string;
     items: readonly RecordProof[];
+  };
+  credentials: {
+    kicker: string;
+    title: string;
+    intro: string;
+    note: string;
+    cta: string;
+    issuedLabel: string;
+    validLabel: string;
+    indexLabel: string;
+    items: readonly RecordCredential[];
   };
   gallery: {
     kicker: string;
@@ -220,7 +243,8 @@ export const recordCopy: Record<RecordLanguage, RecordCopy> = {
       portraitAlt: "游文君的个人照片",
       portraitCaption: "上海 · 2026",
       portraitNote: "驻场交付 / FDE",
-      scroll: "向下滚动 / SCROLL"
+      scroll: "向下滚动 / SCROLL",
+      credentialLink: "飞书生态认证"
     },
     ticker: [
       "70+ → 9.96s 整体响应",
@@ -260,6 +284,39 @@ export const recordCopy: Record<RecordLanguage, RecordCopy> = {
           label: "题 UI 验收",
           note: "平均 9.96s / P95 14.46s",
           to: 225
+        }
+      ]
+    },
+    credentials: {
+      kicker: "飞书生态认证",
+      title: "证书，也是证据。",
+      intro:
+        "客户成功（CSM）与 AI 交付工程师（FDE）两项飞书生态专业能力认证，2026 年签发，有效期至 2027 年 12 月 31 日。",
+      note: "证书编号与验真二维码保留在原图；点击证书查看完整文件。",
+      cta: "查看原图",
+      issuedLabel: "签发",
+      validLabel: "有效期至",
+      indexLabel: "CERTIFIED / 2026",
+      items: [
+        {
+          title: "飞书生态 CSM",
+          role: "客户成功",
+          issued: "2026.10.26",
+          validUntil: "2027.12.31",
+          image: "/credentials/feishu-csm-2026.png",
+          width: 556,
+          height: 798,
+          alt: "飞书生态 CSM 客户成功认证证书，2026 年 10 月 26 日签发"
+        },
+        {
+          title: "飞书生态 FDE",
+          role: "AI 交付工程师",
+          issued: "2026.09.03",
+          validUntil: "2027.12.31",
+          image: "/credentials/feishu-fde-2026.jpg",
+          width: 704,
+          height: 1024,
+          alt: "飞书生态 FDE AI 交付工程师认证证书，2026 年 9 月 3 日签发"
         }
       ]
     },
@@ -551,7 +608,8 @@ export const recordCopy: Record<RecordLanguage, RecordCopy> = {
       portraitAlt: "Portrait of Wenjun You",
       portraitCaption: "Shanghai · 2026",
       portraitNote: "Onsite delivery / FDE",
-      scroll: "Scroll / 向下滚动"
+      scroll: "Scroll / 向下滚动",
+      credentialLink: "Feishu certified"
     },
     ticker: [
       "70+ → 9.96s overall",
@@ -591,6 +649,39 @@ export const recordCopy: Record<RecordLanguage, RecordCopy> = {
           label: "UI questions",
           note: "9.96s avg / 14.46s P95",
           to: 225
+        }
+      ]
+    },
+    credentials: {
+      kicker: "Feishu ecosystem certified",
+      title: "Certificates are evidence, too.",
+      intro:
+        "Two Feishu ecosystem certifications — Customer Success (CSM) and FDE AI Delivery Engineer — issued in 2026 and valid through 31 December 2027.",
+      note: "Certificate numbers and verification QR codes remain in the original files; open a certificate to view it full size.",
+      cta: "Open full size",
+      issuedLabel: "Issued",
+      validLabel: "Valid until",
+      indexLabel: "CERTIFIED / 2026",
+      items: [
+        {
+          title: "Feishu CSM",
+          role: "Customer Success",
+          issued: "2026.10.26",
+          validUntil: "2027.12.31",
+          image: "/credentials/feishu-csm-2026.png",
+          width: 556,
+          height: 798,
+          alt: "Feishu ecosystem CSM Customer Success certificate, issued 26 October 2026"
+        },
+        {
+          title: "Feishu FDE",
+          role: "AI Delivery Engineer",
+          issued: "2026.09.03",
+          validUntil: "2027.12.31",
+          image: "/credentials/feishu-fde-2026.jpg",
+          width: 704,
+          height: 1024,
+          alt: "Feishu ecosystem FDE AI Delivery Engineer certificate, issued 3 September 2026"
         }
       ]
     },

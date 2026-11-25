@@ -14,6 +14,7 @@ import {
 import { Hero } from "./hero";
 import { WorkReel } from "./work-reel";
 import { ProofBand } from "./proof-band";
+import { CredentialsBand } from "./credentials";
 import { WorkGallery } from "./work-gallery";
 import { FlagshipStory } from "./flagship-story";
 import { SystemField } from "./system-field";
@@ -30,6 +31,7 @@ export function RecordHome() {
       <Hero copy={copy} isZh={isZh} />
       <WorkReel records={indexRecords} isZh={isZh} />
       <ProofBand copy={copy} />
+      <CredentialsBand copy={copy} />
       <WorkGallery copy={copy} isZh={isZh} records={featuredRecords} />
       <FlagshipStory copy={copy} />
       <MethodLoop copy={copy} />

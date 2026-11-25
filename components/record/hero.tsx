@@ -23,6 +23,10 @@ export function Hero({ copy, isZh }: { copy: RecordCopy; isZh: boolean }) {
           <div className={`${styles.heroMetaGroup} ${styles.heroMetaRight}`}>
             <span>{copy.meta.location}</span>
             <span>{copy.meta.issue}</span>
+            <Link prefetch={false} className={styles.heroMetaLink} href="/#credentials">
+              {copy.hero.credentialLink}
+              <span aria-hidden="true">↓</span>
+            </Link>
           </div>
         </div>
 

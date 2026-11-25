@@ -17,6 +17,36 @@ test("交付记录首页展示封面、导航、数字带与精选项目", async
   await expect(page.getByRole("link", { name: /全部项目/ })).toBeVisible();
 });
 
+test("首屏可跳转到飞书生态认证，证书可查看原图", async ({ page }) => {
+  await page.goto("/");
+
+  const heroLink = page.getByRole("link", { name: "飞书生态认证" });
+  await expect(heroLink).toBeVisible();
+  await heroLink.click();
+  await expect(page).toHaveURL(/#credentials$/);
+
+  const section = page.locator("#credentials");
+  await expect(
+    section.getByRole("heading", { level: 2, name: "证书，也是证据。" })
+  ).toBeVisible();
+
+  const csm = section.getByRole("link", { name: /飞书生态 CSM/ });
+  await expect(csm).toHaveAttribute("href", "/credentials/feishu-csm-2026.png");
+  const fde = section.getByRole("link", { name: /飞书生态 FDE/ });
+  await expect(fde).toHaveAttribute("href", "/credentials/feishu-fde-2026.jpg");
+
+  const images = section.locator("img");
+  await expect(images).toHaveCount(2);
+  await expect(images.nth(0)).toHaveAttribute("width", "556");
+  await expect(images.nth(0)).toHaveAttribute("height", "798");
+  await expect(images.nth(1)).toHaveAttribute("width", "704");
+  await expect(images.nth(1)).toHaveAttribute("height", "1024");
+
+  await expect(
+    section.getByText("证书编号与验真二维码保留在原图；点击证书查看完整文件。")
+  ).toBeVisible();
+});
+
 test("交付记录首页可在中英文之间切换", async ({ page }) => {
   await page.addInitScript(() => localStorage.removeItem("site-language"));
   await page.goto("/");

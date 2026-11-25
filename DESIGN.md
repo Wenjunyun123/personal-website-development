@@ -193,14 +193,15 @@ Motion is part of the identity and follows one rule: **the page performs evidenc
 1. **Hero** — `交付记录`, one positioning sentence, two actions, color portrait, contour field, and a ghost `RECORD`.
 2. **Reel** — a moving strip of real case images.
 3. **Proof band** — four numbers with count-up: `70+ → 9.96s`, `2,041`, `0`, `225`.
-4. **Pinned gallery** — three featured cases; image-led cards with index, category, period, and at most two metrics.
-5. **Flagship story (ink)** — `70 秒，去了哪里？`, the four-step performance ladder, three trace findings, final `9.96s / P95 14.46s`, and the scope note.
-6. **Method loop** — Brief / Build / Eval / Handoff as a circular delivery diagram with artifacts.
-7. **Ecosystem (ink)** — tool constellation plus two counter-rotating marquees.
-8. **Evidence** — giant GitHub/PR/bug stats and a ledger foot.
-9. **Statement** — three working judgments in large serif.
-10. **About** — color portrait, short off-duty note, facts, spinning `∞`.
-11. **Contact (ink)** — giant title, email, links, marquee, back to top.
+4. **Credentials** — two Feishu ecosystem certificates as document plates, with issue and expiry dates; the hero meta line links here.
+5. **Pinned gallery** — three featured cases; image-led cards with index, category, period, and at most two metrics.
+6. **Flagship story (ink)** — `70 秒，去了哪里？`, the four-step performance ladder, three trace findings, final `9.96s / P95 14.46s`, and the scope note.
+7. **Method loop** — Brief / Build / Eval / Handoff as a circular delivery diagram with artifacts.
+8. **Ecosystem (ink)** — tool constellation plus two counter-rotating marquees.
+9. **Evidence** — giant GitHub/PR/bug stats and a ledger foot.
+10. **Statement** — three working judgments in large serif.
+11. **About** — color portrait, short off-duty note, facts, spinning `∞`.
+12. **Contact (ink)** — giant title, email, links, marquee, back to top.
 
 ## Components
 
@@ -209,6 +210,9 @@ Square, 1px ink border or ink fill, mono label, 48px height. Hover shifts the pr
 
 ### Gallery Card
 Image at 4:3 inside a square 1px frame, meta row above the title, serif title, at most two metrics. Hover: image scales slightly, a blue `打开案例 ↗` cue appears. On touch, the cue is always visible.
+
+### Credentials Band
+A paper-2 ledger band with a top ink hairline. Two portrait certificates sit side by side in square paper mats with 1px rules; index, serif name, role, and mono dates sit beside each plate. Each whole plate is one link to the full-size image, underlined by mono `查看原图 / Open full size`; hover turns the mat rule and cue blue. Stacks at 860px and goes single-column at 560px.
 
 ### Resume Tile
 A single bordered product tile on `/explorations`: blue mono kicker, large serif name and role, one-line description, and a blue arrow. It is the only resume entry point on the site body; the full resume lives at `/resume` and is print-optimized.
